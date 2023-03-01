@@ -1,0 +1,26 @@
+.list {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.list::-webkit-scrollbar {
+    width: 12px;
+}
+.list::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+.list::-webkit-scrollbar-thumb {
+    background: #8585AD;
+    border: 3px solid #2F2F37;
+}
+
+.item {
+    margin: 0 8px 0 -30px;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    cursor: pointer;
+    margin: 0 7px 0 0;
+}
