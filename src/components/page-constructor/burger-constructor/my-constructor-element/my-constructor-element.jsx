@@ -7,7 +7,7 @@ const MyConstructorElement = () => {
     const additions = data.filter(addition => addition.type !== "bun");
 
     return (
-        <div className={'mt-25'} style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
+        <div className={styles.body}>
             <ConstructorElement
                 type="top"
                 isLocked={true}
@@ -15,10 +15,10 @@ const MyConstructorElement = () => {
                 price={200}
                 thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
             />
-            <div className={styles.list} style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
+            <div className={styles.list}>
             {additions.map((el) => {
                 return (
-                    <div className={styles.item}>
+                    <div key={el._id} className={styles.item}>
                         <div className={styles.icon}>
                             <DragIcon type="primary" />
                         </div>
