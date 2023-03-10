@@ -1,32 +1,11 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
 import PropTypes from "prop-types";
+import {DATA_PROP_TYPES} from "../../../utils/consts";
 
 const IngredientDetails = ({data, ingredientId}) => {
 
-    const dataPropTypes = PropTypes.arrayOf(PropTypes.shape(
-        {
-            _id: PropTypes.string.isRequired,
-            __v: PropTypes.number,
-            type: PropTypes.string,
-            proteins: PropTypes.number,
-            price: PropTypes.number,
-            name: PropTypes.string,
-            image_mobile: PropTypes.string,
-            image_large: PropTypes.string,
-            image: PropTypes.string,
-            fat: PropTypes.number,
-            carbohydrates: PropTypes.number,
-            calories: PropTypes.number,
-        }
-    ));
-
-    IngredientDetails.propTypes = {
-        data: dataPropTypes.isRequired,
-        ingredientId: PropTypes.string
-    };
-
-    const currentIngredient = data.filter(item => item._id === ingredientId)[0];
+    const currentIngredient = data.find(item => item._id === ingredientId);
 
     return (
         <div className={styles.body}>
@@ -70,6 +49,11 @@ const IngredientDetails = ({data, ingredientId}) => {
             </div>
         </div>
     );
+};
+
+IngredientDetails.propTypes = {
+    data: DATA_PROP_TYPES,
+    ingredientId: PropTypes.string
 };
 
 export default IngredientDetails;

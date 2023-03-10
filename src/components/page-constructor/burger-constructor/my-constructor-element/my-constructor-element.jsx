@@ -1,41 +1,19 @@
 import React from 'react';
 import {DragIcon, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './my-constructor-element.module.css';
-import PropTypes from "prop-types";
+import {DATA_PROP_TYPES} from "../../../../utils/consts";
 
 const MyConstructorElement = ({data}) => {
 
-    const dataPropTypes = PropTypes.arrayOf(PropTypes.shape(
-        {
-            _id: PropTypes.string.isRequired,
-            __v: PropTypes.number,
-            type: PropTypes.string,
-            proteins: PropTypes.number,
-            price: PropTypes.number,
-            name: PropTypes.string,
-            image_mobile: PropTypes.string,
-            image_large: PropTypes.string,
-            image: PropTypes.string,
-            fat: PropTypes.number,
-            carbohydrates: PropTypes.number,
-            calories: PropTypes.number,
-        }
-    ));
-
-    MyConstructorElement.propTypes = {
-        data: dataPropTypes.isRequired
-    };
-
     const additions = data.filter(addition => addition.type !== "bun");
     const buns = data.filter(addition => addition.type === "bun")
-
 
     return (
         <div className={styles.body}>
             <ConstructorElement
                 type="top"
                 isLocked={true}
-                text={buns[0].name}
+                text={buns[0].name + ' (верх)'}
                 price={buns[0].price}
                 thumbnail={buns[0].image}
             />
@@ -58,12 +36,16 @@ const MyConstructorElement = ({data}) => {
             <ConstructorElement
                 type="bottom"
                 isLocked={true}
-                text={buns[0].name}
+                text={buns[0].name + ' (низ)'}
                 price={buns[0].price}
                 thumbnail={buns[0].image}
             />
         </div>
     );
+};
+
+MyConstructorElement.propTypes = {
+    data: DATA_PROP_TYPES
 };
 
 export default MyConstructorElement;

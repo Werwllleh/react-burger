@@ -2,15 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './menu-button.module.css';
 
+
 const MenuButton = ({icon, text}) => {
 
     const btnStyle = 'text text_type_main-default text_color_primary';
-
-    MenuButton.propTypes = {
-        icon: PropTypes.element,
-        text: PropTypes.string.isRequired
-    };
-
 
     return (
         <a href='/#' className={styles.link}>
@@ -20,6 +15,11 @@ const MenuButton = ({icon, text}) => {
             </div>
         </a>
     );
+};
+
+MenuButton.propTypes = {
+    icon: PropTypes.element,
+    text: PropTypes.string.isRequired
 };
 
 export default MenuButton;

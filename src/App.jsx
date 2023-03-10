@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import AppHeader from "./components/app-header/app-header";
 import PageConstructor from "./components/page-constructor/page-constructor";
-import {API} from "./utils/consts";
 import Loader from "./components/loader/loader";
 import Error from "./components/error/error";
+import {getProductData} from "./utils/burger-api";
 
 function App() {
 
@@ -16,16 +16,9 @@ function App() {
 
 
     useEffect(() => {
-        const getProductData = async () => {
-            await fetch(API)
-                .then(res => res.json())
-                .then(data => setProductData([...data.data]))
-                .catch(e => {
-                    setError({status: true, text: e});
-                });
-        };
-
-        getProductData();
+        getProductData()
+            .then(data => setProductData([...data.data]))
+            .catch(e => setError({status: true, text: e}))
     }, [])
 
 

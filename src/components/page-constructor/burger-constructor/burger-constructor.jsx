@@ -3,32 +3,11 @@ import styles from './burger-constructor.module.css';
 import MyConstructorElement from "./my-constructor-element/my-constructor-element";
 import CurrentPrice from "../../current-price/current-price";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import Modal from "../../modal/modal";
 import OrderDetails from "../../modals-inner/order-details/order-details";
+import {DATA_PROP_TYPES} from "../../../utils/consts";
 
 const BurgerConstructor = ({data}) => {
-
-    const dataPropTypes = PropTypes.arrayOf(PropTypes.shape(
-        {
-            _id: PropTypes.string.isRequired,
-            __v: PropTypes.number,
-            type: PropTypes.string,
-            proteins: PropTypes.number,
-            price: PropTypes.number,
-            name: PropTypes.string,
-            image_mobile: PropTypes.string,
-            image_large: PropTypes.string,
-            image: PropTypes.string,
-            fat: PropTypes.number,
-            carbohydrates: PropTypes.number,
-            calories: PropTypes.number,
-        }
-    ));
-
-    BurgerConstructor.propTypes = {
-        data: dataPropTypes.isRequired
-    };
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -52,6 +31,10 @@ const BurgerConstructor = ({data}) => {
             ) : null}
         </>
     );
+};
+
+BurgerConstructor.propTypes = {
+    data: DATA_PROP_TYPES
 };
 
 export default BurgerConstructor;
