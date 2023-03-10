@@ -1,0 +1,18 @@
+.catList{
+    margin: 40px 0 0 0;
+    max-height: 630px;
+    overflow-y: scroll;
+}
+
+.catList::-webkit-scrollbar {
+    width: 12px;
+}
+
+.catList::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.catList::-webkit-scrollbar-thumb {
+    background: #8585AD;
+    /*border: 3px solid #2F2F37;*/
+}
