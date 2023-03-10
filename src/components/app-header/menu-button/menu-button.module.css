@@ -1,13 +1,14 @@
-button {
+.link {
+    display: block;
     margin: 4px;
     padding: 16px 20px;
     border: none;
     border-radius: 40px;
-    background: #1C1C21;
     outline: none;
     cursor: pointer;
     max-width: 210px;
     height: 56px;
+    text-decoration: none;
 }
 
 
@@ -20,8 +21,4 @@ button {
 
 .icon {
     margin: 0 8px 0 0;
-}
-
-.text {
-
 }

@@ -6,13 +6,12 @@ import MenuButton from "./menu-button/menu-button";
 
 const AppHeader = () => {
 
-
     return (
         <header>
             <div className={styles.body}>
                 <nav>
                     <MenuButton icon={<BurgerIcon />} text={'Конструктор'}/>
-                    <MenuButton icon={<ListIcon />} text={'Лента заказов'}/>
+                    <MenuButton icon={<ListIcon/>} text={'Лента заказов'}/>
                 </nav>
                 <Logo/>
                 <div className={styles.personal}>

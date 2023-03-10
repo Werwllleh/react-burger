@@ -1,19 +1,43 @@
 import React from 'react';
 import {DragIcon, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
-import data from '../../../../utils/data';
 import styles from './my-constructor-element.module.css';
+import PropTypes from "prop-types";
 
-const MyConstructorElement = () => {
+const MyConstructorElement = ({data}) => {
+
+    const dataPropTypes = PropTypes.arrayOf(PropTypes.shape(
+        {
+            _id: PropTypes.string.isRequired,
+            __v: PropTypes.number,
+            type: PropTypes.string,
+            proteins: PropTypes.number,
+            price: PropTypes.number,
+            name: PropTypes.string,
+            image_mobile: PropTypes.string,
+            image_large: PropTypes.string,
+            image: PropTypes.string,
+            fat: PropTypes.number,
+            carbohydrates: PropTypes.number,
+            calories: PropTypes.number,
+        }
+    ));
+
+    MyConstructorElement.propTypes = {
+        data: dataPropTypes.isRequired
+    };
+
     const additions = data.filter(addition => addition.type !== "bun");
+    const buns = data.filter(addition => addition.type === "bun")
+
 
     return (
         <div className={styles.body}>
             <ConstructorElement
                 type="top"
                 isLocked={true}
-                text="Краторная булка N-200i (верх)"
-                price={200}
-                thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
+                text={buns[0].name}
+                price={buns[0].price}
+                thumbnail={buns[0].image}
             />
             <div className={styles.list}>
             {additions.map((el) => {
@@ -34,9 +58,9 @@ const MyConstructorElement = () => {
             <ConstructorElement
                 type="bottom"
                 isLocked={true}
-                text="Краторная булка N-200i (низ)"
-                price={200}
-                thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
+                text={buns[0].name}
+                price={buns[0].price}
+                thumbnail={buns[0].image}
             />
         </div>
     );

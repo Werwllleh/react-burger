@@ -7,6 +7,8 @@
 }
 
 .item {
+    cursor: pointer;
+    position: relative;
     display: flex;
     flex: 0 1 280px;
     flex-direction: column;
@@ -26,4 +28,10 @@
 .name {
     height: 48px;
     text-align: center;
+}
+
+.counter {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
