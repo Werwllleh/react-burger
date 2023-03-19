@@ -1,0 +1,14 @@
+.body {
+    position: absolute;
+    max-width: 600px;
+    width: 100%;
+    top: 50%;
+    left: 34%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.title {
+    margin: 0 0 10px 0;
+}
