@@ -1,30 +1,31 @@
 import {createSlice} from "@reduxjs/toolkit";
-
+import {fetchIngredients} from "./actionCreators";
 
 const initialState = {
     ingredients: [],
     isLoading: false,
-    error: ''
+    error: null
 }
 
-export const ingredientsSlice = createSlice({
+const ingredientsSlice = createSlice({
     name: 'ingredients',
     initialState,
-    reducers: {
-        ingredientsFetching(state) {
-            state.isLoading = true;
-        },
-        ingredientsFetchingSuccess(state, action) {
-            state.isLoading = false;
-            state.error = '';
-            state.ingredients.push(action.payload)
-        },
-        ingredientsFetchingError(state, action) {
-            state.error = action.payload;
-            state.isLoading = false;
-        },
-    }
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchIngredients.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchIngredients.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = '';
+                state.ingredients = action.payload;
+            })
+            .addCase(fetchIngredients.rejected, (state, action) => {
+                state.error = action.payload;
+                state.isLoading = false;
+            });
+    },
 })
 
 export default ingredientsSlice.reducer;
-export const {ingredientsFetching, ingredientsFetchingError, ingredientsFetchingSuccess} = ingredientsSlice.actions;

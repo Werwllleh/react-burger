@@ -1,15 +1,15 @@
 import {configureStore} from "@reduxjs/toolkit";
+import constructorReducer from './reducers/constructor-ingredients';
 import ingredientsReducer from './reducers/ingredients-data';
 
-// const rootReducer = combineReducers({
-//     ingredientsReducer
-// })
-
+import thunkMiddleware from 'redux-thunk';
 
 export const setupStore = () => {
     return configureStore({
         reducer: {
-            ingredientsReducer
-        }
+            ingredientsReducer,
+            constructorReducer
+        },
+        middleware: [thunkMiddleware]
     })
 }

@@ -1,23 +1,15 @@
-import {getProductData} from "../../utils/burger-api";
-import {ingredientsFetching, ingredientsFetchingSuccess, ingredientsFetchingError} from "./ingredients-data";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {URL} from "../../utils/consts";
 
-
-export const fetchIngredients = () => {
-    return function (dispatch) {
-        dispatch({
-            type: ingredientsFetching()
-        });
-        getProductData().then(res => {
-            if (res && res.success) {
-                dispatch({
-                    type: ingredientsFetchingSuccess(),
-                    ingredients: res.data
-                });
-            } else {
-                dispatch({
-                    type: ingredientsFetchingError()
-                });
-            }
-        });
-    };
-}
+export const fetchIngredients = createAsyncThunk(
+    'ingredients/fetchData',
+    async (_, thunkAPI) => {
+        try {
+            const response = await fetch(URL + 'ingredients');
+            const data = await response.json();
+            return data.data;
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err)
+        }
+    }
+);

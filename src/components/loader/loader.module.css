@@ -4,6 +4,7 @@
     left: 50%;
     width: 150px;
     height: 150px;
+    z-index: 9999;
 }
 .loader_ring:after {
     content: " ";

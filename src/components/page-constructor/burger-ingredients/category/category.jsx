@@ -3,6 +3,7 @@ import styles from './category.module.css';
 import Card from "../card/card";
 import PropTypes from "prop-types";
 import {DATA_PROP_TYPES} from "../../../../utils/consts";
+import {useSelector} from "react-redux";
 
 const Category = ({name, data}) => {
 

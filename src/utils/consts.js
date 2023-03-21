@@ -6,6 +6,9 @@ export const SAUCE = 'sauce'
 export const FILLINGS = 'main'
 export const ESC_KEYCODE = 27;
 
+export const ItemTypes = {
+        CONSTRUCTOR_LIST: 'constructorList',
+}
 
 export const DATA_PROP_TYPES = PropTypes.arrayOf(PropTypes.shape(
     {
