@@ -2,16 +2,20 @@ import React from 'react';
 import styles from './ingredient-details.module.css';
 import PropTypes from "prop-types";
 import {DATA_PROP_TYPES} from "../../../utils/consts";
+import {useSelector} from "react-redux";
 
-const IngredientDetails = ({data, ingredientId}) => {
+const IngredientDetails = ({id}) => {
 
-    const currentIngredient = data.find(item => item._id === ingredientId);
+    const {ingredients} = useSelector(state => state.ingredientsReducer);
+    const currentIngredient = ingredients.find(item => item.info._id === id);
+
+    console.log(ingredients)
 
     return (
         <div className={styles.body}>
-            <img className={styles.img} src={currentIngredient.image_large} alt={currentIngredient.name}/>
+            <img className={styles.img} src={currentIngredient.info.image_large} alt={currentIngredient.info.name}/>
             <div className={`${styles.name} text text_type_main-medium`}>
-                {currentIngredient.name}
+                {currentIngredient.info.name}
             </div>
             <div className={`${styles.about} text text_type_main-default text_color_inactive`}>
                 <div className={styles.col}>
@@ -19,7 +23,7 @@ const IngredientDetails = ({data, ingredientId}) => {
                         Калории, ккал
                     </div>
                     <div className={`text_type_digits-default`}>
-                        {currentIngredient.calories}
+                        {currentIngredient.info.calories}
                     </div>
                 </div>
                 <div className={styles.col}>
@@ -27,7 +31,7 @@ const IngredientDetails = ({data, ingredientId}) => {
                         Белки, г
                     </div>
                     <div className={`text_type_digits-default`}>
-                        {currentIngredient.proteins}
+                        {currentIngredient.info.proteins}
                     </div>
                 </div>
                 <div className={styles.col}>
@@ -35,7 +39,7 @@ const IngredientDetails = ({data, ingredientId}) => {
                         Жиры, г
                     </div>
                     <div className={`text_type_digits-default`}>
-                        {currentIngredient.fat}
+                        {currentIngredient.info.fat}
                     </div>
                 </div>
                 <div className={styles.col}>
@@ -43,7 +47,7 @@ const IngredientDetails = ({data, ingredientId}) => {
                         Углеводы, г
                     </div>
                     <div className={`text_type_digits-default`}>
-                        {currentIngredient.carbohydrates}
+                        {currentIngredient.info.carbohydrates}
                     </div>
                 </div>
             </div>

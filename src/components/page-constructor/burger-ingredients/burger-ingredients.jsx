@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from './burger-ingredients.module.css';
 import Tabs from "./tabs/tabs";
 import Category from "./category/category";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchIngredients} from "../../../services/reducers/actionCreators";
+import {BUN, FILLINGS, SAUCE} from "../../../utils/consts";
 
 
 const BurgerIngredients = () => {
@@ -12,15 +13,15 @@ const BurgerIngredients = () => {
 
     const {ingredients} = useSelector(state => state.ingredientsReducer);
 
-
-    const buns = ingredients.filter(cat => cat.type === 'bun');
-    const sauces = ingredients.filter(cat => cat.type === 'sauce');
-    const mains = ingredients.filter(cat => cat.type === 'main');
+    const buns = ingredients.filter(cat => cat.type === BUN);
+    const sauces = ingredients.filter(cat => cat.type === SAUCE);
+    const mains = ingredients.filter(cat => cat.type === FILLINGS);
 
 
     useEffect(() => {
         dispatch(fetchIngredients())
-    }, [dispatch])
+    }, [dispatch]);
+
 
     return (
         <>

@@ -3,35 +3,21 @@ import styles from './card.module.css'
 import Modal from "../../../modal/modal";
 import IngredientDetails from "../../../modals-inner/ingredient-details/ingredient-details";
 import DraggableCard from "../draggable-card/draggable-card";
+import {DATA_PROP_TYPES} from "../../../../utils/consts";
 
 const Card = ({data}) => {
 
-    const [isOpen, setIsOpen] = useState(false);
-    const [ingredientId, setIngredientId] = useState([]);
-
-    const toggleModal = (info) => {
-        setIsOpen(!isOpen);
-        setIngredientId(info)
-    };
-
     return (
-        <>
-            <div className={styles.body}>
-                {data.map(item =>
-                   <DraggableCard id={item._id} key={item._id} info={item}/>
-                )}
-            </div>
-            {isOpen ? (
-                <Modal title="Детали ингредиента" onClose={() => setIsOpen(false)}>
-                    <IngredientDetails data={data} ingredientId={ingredientId}/>
-                </Modal>
-            ) : null}
-        </>
+        <div className={styles.body}>
+            {data.map(item =>
+                <DraggableCard key={item._id} info={item}/>
+            )}
+        </div>
     );
 };
 
-/*Card.propTypes = {
+Card.propTypes = {
     data: DATA_PROP_TYPES,
-};*/
+};
 
 export default Card;

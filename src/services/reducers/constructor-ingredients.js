@@ -32,9 +32,8 @@ const burgerConstructorSlice = createSlice({
                 action.payload.filterState
             );
         },
-        remove(state, action) {
-            const index = state.findIndex(({ info }) => info.key === action.payload);
-            state.splice(index, 1);
+        removeFromConstructor(state, action) {
+            state.ingredients = state.ingredients.filter(item => item.key !== action.payload.id);
         },
     }
 })
