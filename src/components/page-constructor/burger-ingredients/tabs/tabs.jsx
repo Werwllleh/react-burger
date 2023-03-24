@@ -2,6 +2,7 @@ import React from 'react';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './tabs.module.css';
 import {BUN, FILLINGS, SAUCE} from "../../../../utils/consts";
+import PropTypes from "prop-types";
 
 
 const Tabs = ({activeTab}) => {
@@ -19,6 +20,10 @@ const Tabs = ({activeTab}) => {
             </Tab>
         </div>
     );
+};
+
+Tabs.propTypes = {
+    activeTab: PropTypes.string.isRequired
 };
 
 export default Tabs;

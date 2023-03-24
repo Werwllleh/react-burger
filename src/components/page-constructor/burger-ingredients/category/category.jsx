@@ -18,7 +18,7 @@ const Category = ({name, data}) => {
 
 Category.propTypes = {
     name: PropTypes.string.isRequired,
-    data: DATA_PROP_TYPES
+    data: PropTypes.arrayOf(DATA_PROP_TYPES).isRequired
 };
 
 export default Category;

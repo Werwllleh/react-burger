@@ -5,13 +5,13 @@ import CurrentPrice from "../../current-price/current-price";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../modal/modal";
 import OrderDetails from "../../modals-inner/order-details/order-details";
-import {BUN, DATA_PROP_TYPES} from "../../../utils/consts";
+import {BUN} from "../../../utils/consts";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchOrderNum} from "../../../services/reducers/actionCreators";
 import {removeOrderData} from "../../../services/reducers/order";
 
 
-const BurgerConstructor = ({data}) => {
+const BurgerConstructor = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [price, setPrice] = useState(0)
@@ -59,7 +59,7 @@ const BurgerConstructor = ({data}) => {
 
     return (
         <>
-            <MyConstructorElement data={data}/>
+            <MyConstructorElement/>
             <div className={styles.ordering}>
                 <CurrentPrice size={'medium'} sum={price}/>
                 <Button onClick={orderArr ? toggleModal : undefined} extraClass={styles.btn} htmlType="button" type="primary" size="large">
@@ -74,9 +74,5 @@ const BurgerConstructor = ({data}) => {
         </>
     );
 };
-
-/*BurgerConstructor.propTypes = {
-    data: DATA_PROP_TYPES
-};*/
 
 export default BurgerConstructor;

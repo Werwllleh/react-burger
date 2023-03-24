@@ -2,6 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {v4 as uuidv4} from 'uuid';
 import {BUN} from "../../utils/consts";
 
+
 const initialState = {
     bun: null,
     ingredients: []
@@ -27,9 +28,7 @@ const burgerConstructorSlice = createSlice({
         },
         updateConstructorIngredients(state, action) {
             const { dragIndex, hoverIndex } = action.payload;
-            const draggedItem = state[dragIndex];
-            state.splice(dragIndex, 1);
-            state.splice(hoverIndex, 0, draggedItem);
+            state.ingredients.splice(dragIndex, 0, state.ingredients.splice(hoverIndex, 1)[0]);
         },
         removeFromConstructor(state, action) {
             state.ingredients = state.ingredients.filter(item => item.key !== action.payload.id);

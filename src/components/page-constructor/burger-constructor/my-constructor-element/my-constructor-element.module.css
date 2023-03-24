@@ -49,9 +49,3 @@
     align-items: center;
     min-width: 565px;
 }
-
-.icon {
-    margin: 0 0 0 -28px;
-    position: absolute;
-    cursor: pointer;
-}

@@ -1,26 +1,19 @@
 import React from 'react';
-import {DragIcon, ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './my-constructor-element.module.css';
-import {DATA_PROP_TYPES, ItemTypes} from "../../../../utils/consts";
+import {ItemTypes} from "../../../../utils/consts";
 import {useDispatch, useSelector} from "react-redux";
-import { useDrop} from "react-dnd";
-import {
-    addToConstructor,
-    removeFromConstructor,
-    updateConstructorIngredients
-} from "../../../../services/reducers/constructor-ingredients";
+import {useDrop} from "react-dnd";
+import {addToConstructor} from "../../../../services/reducers/constructor-ingredients";
 import bun_plug from '../../../../images/bun-plug.png'
 import main_plug from '../../../../images/main-plug.png'
+import DraggableConstructorCard from "../draggable-constructor-card/draggable-constructor-card";
 
 
 const MyConstructorElement = () => {
 
     const dispatch = useDispatch();
     const {bun, ingredients} = useSelector(state => state.constructorReducer);
-
-    const removeIngredient = (id) => {
-        dispatch(removeFromConstructor({id}))
-    }
 
     const [{canDrop, isOver}, dropTarget] = useDrop({
         accept: ItemTypes.CONSTRUCTOR_LIST,
@@ -57,18 +50,10 @@ const MyConstructorElement = () => {
             )}
             <div className={styles.list}>
                 {ingredients.length > 0 ? (
-                    ingredients.map((el) => {
+                    ingredients.map((item, index) => {
                         return (
-                            <div key={el.key} className={styles.item} >
-                                <div className={styles.icon}>
-                                    <DragIcon type="primary"/>
-                                </div>
-                                <ConstructorElement
-                                    text={el.info.name}
-                                    price={el.info.price}
-                                    thumbnail={el.info.image}
-                                    handleClose={() => removeIngredient(el.key)}
-                                />
+                            <div key={item.key}>
+                                <DraggableConstructorCard item={item} index={index}/>
                             </div>
                         )
                     })
@@ -103,10 +88,5 @@ const MyConstructorElement = () => {
         </div>
     );
 };
-
-
-/*MyConstructorElement.propTypes = {
-    data: DATA_PROP_TYPES
-};*/
 
 export default MyConstructorElement;

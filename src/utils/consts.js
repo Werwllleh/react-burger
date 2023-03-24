@@ -8,9 +8,11 @@ export const ESC_KEYCODE = 27;
 
 export const ItemTypes = {
         CONSTRUCTOR_LIST: 'constructorList',
+        CONSTRUCTOR_CONTAINER: 'constructorContainer'
+
 }
 
-export const DATA_PROP_TYPES = PropTypes.arrayOf(PropTypes.shape(
+export const DATA_PROP_TYPES = PropTypes.shape(
     {
         _id: PropTypes.string.isRequired,
         __v: PropTypes.number.isRequired,
@@ -25,4 +27,4 @@ export const DATA_PROP_TYPES = PropTypes.arrayOf(PropTypes.shape(
         carbohydrates: PropTypes.number.isRequired,
         calories: PropTypes.number.isRequired,
     }
-)).isRequired;
+);

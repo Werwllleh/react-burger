@@ -3,20 +3,17 @@ import styles from "./draggable-card.module.css";
 import CurrentPrice from "../../../current-price/current-price";
 import {Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag} from "react-dnd";
-import {ItemTypes} from "../../../../utils/consts";
+import {DATA_PROP_TYPES, ItemTypes} from "../../../../utils/consts";
 import {useDispatch, useSelector} from "react-redux";
 import Modal from "../../../modal/modal";
 import IngredientDetails from "../../../modals-inner/ingredient-details/ingredient-details";
 import {addIngredientData, removeIngredientData} from "../../../../services/reducers/ingredient-specifications";
+import PropTypes from "prop-types";
 
-
-const DraggableCard = ({info, index}) => {
-
-    console.log(index)
+const DraggableCard = ({info}) => {
 
     const dispatch = useDispatch();
     const {bun, ingredients} = useSelector(state => state.constructorReducer);
-
 
     const countedItems = useMemo(() => {
         const usedAllIngredients = ingredients.map((item) => item.info._id).concat(bun?.info._id || []);
@@ -34,7 +31,7 @@ const DraggableCard = ({info, index}) => {
     const [{opacity}, dragRef] = useDrag(
         () => ({
             type: ItemTypes.CONSTRUCTOR_LIST,
-            item: {info, index},
+            item: {info},
             collect: (monitor) => ({
                 opacity: monitor.isDragging() ? 0.5 : 1
             })
@@ -72,6 +69,12 @@ const DraggableCard = ({info, index}) => {
             ) : null}
         </>
     );
+};
+
+DraggableCard.propTypes = {
+    // info: PropTypes.objectOf(DATA_PROP_TYPES).isRequired
+    info: PropTypes.object.isRequired
+
 };
 
 export default DraggableCard;

@@ -1,7 +1,5 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
-import PropTypes from "prop-types";
-import {DATA_PROP_TYPES} from "../../../utils/consts";
 import { useSelector} from "react-redux";
 
 
@@ -52,10 +50,5 @@ const IngredientDetails = () => {
         </div>
     );
 };
-
-/*IngredientDetails.propTypes = {
-    data: DATA_PROP_TYPES,
-    ingredientId: PropTypes.string
-};*/
 
 export default IngredientDetails;
