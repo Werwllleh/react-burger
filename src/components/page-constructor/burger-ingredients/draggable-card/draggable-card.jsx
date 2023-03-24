@@ -72,9 +72,7 @@ const DraggableCard = ({info}) => {
 };
 
 DraggableCard.propTypes = {
-    // info: PropTypes.objectOf(DATA_PROP_TYPES).isRequired
     info: PropTypes.object.isRequired
-
 };
 
 export default DraggableCard;
