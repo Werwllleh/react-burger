@@ -5,16 +5,23 @@ import {createPortal} from "react-dom";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
 import {ESC_KEYCODE} from "../../utils/consts";
+import {useDispatch} from "react-redux";
+import {removeIngredientData} from "../../services/reducers/ingredient-specifications";
+import {removeOrderData} from "../../services/reducers/order";
 
 const modal = document.getElementById("react-modals");
 
 const Modal = ({ onClose, title, children}) => {
 
+    const dispatch = useDispatch()
+
     useEffect(() => {
         const onKeydown = (e) => {
             if (e.keyCode === ESC_KEYCODE)
             {
-                 onClose()
+                onClose()
+                dispatch(removeIngredientData())
+                dispatch(removeOrderData())
             }
         }
         document.addEventListener('keydown', onKeydown)

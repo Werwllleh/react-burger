@@ -5,9 +5,10 @@ import CurrentPrice from "../../current-price/current-price";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../modal/modal";
 import OrderDetails from "../../modals-inner/order-details/order-details";
-import {DATA_PROP_TYPES} from "../../../utils/consts";
+import {BUN, DATA_PROP_TYPES} from "../../../utils/consts";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchOrderNum} from "../../../services/reducers/actionCreators";
+import {removeOrderData} from "../../../services/reducers/order";
 
 
 const BurgerConstructor = ({data}) => {
@@ -40,12 +41,21 @@ const BurgerConstructor = ({data}) => {
         let sendArr = []
 
         orderArr.map((item) => {
-            sendArr.push(item.info._id)
+            if (item.info.type === BUN) {
+               return sendArr.push(item.info._id, item.info._id)
+            } else {
+               return sendArr.push(item.info._id)
+            }
         })
 
         dispatch(fetchOrderNum(sendArr))
         setIsOpen(!isOpen)
     };
+
+    const closeModal = () => {
+        setIsOpen(false)
+        dispatch(removeOrderData())
+    }
 
     return (
         <>
@@ -57,7 +67,7 @@ const BurgerConstructor = ({data}) => {
                 </Button>
             </div>
             {isOpen ? (
-                <Modal onClose={() => setIsOpen(false)}>
+                <Modal onClose={closeModal}>
                     <OrderDetails/>
                 </Modal>
             ) : null}

@@ -3,8 +3,12 @@ import {DragIcon, ConstructorElement} from "@ya.praktikum/react-developer-burger
 import styles from './my-constructor-element.module.css';
 import {DATA_PROP_TYPES, ItemTypes} from "../../../../utils/consts";
 import {useDispatch, useSelector} from "react-redux";
-import {useDrop} from "react-dnd";
-import {addToConstructor, removeFromConstructor} from "../../../../services/reducers/constructor-ingredients";
+import { useDrop} from "react-dnd";
+import {
+    addToConstructor,
+    removeFromConstructor,
+    updateConstructorIngredients
+} from "../../../../services/reducers/constructor-ingredients";
 import bun_plug from '../../../../images/bun-plug.png'
 import main_plug from '../../../../images/main-plug.png'
 
@@ -55,7 +59,7 @@ const MyConstructorElement = () => {
                 {ingredients.length > 0 ? (
                     ingredients.map((el) => {
                         return (
-                            <div key={el.key} className={styles.item}>
+                            <div key={el.key} className={styles.item} >
                                 <div className={styles.icon}>
                                     <DragIcon type="primary"/>
                                 </div>
@@ -99,6 +103,7 @@ const MyConstructorElement = () => {
         </div>
     );
 };
+
 
 /*MyConstructorElement.propTypes = {
     data: DATA_PROP_TYPES

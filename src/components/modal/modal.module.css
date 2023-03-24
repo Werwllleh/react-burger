@@ -11,6 +11,7 @@
     left: 30%;
     max-width: 720px;
     max-height: 720px;
+    min-height: 250px;
     width: 100%;
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;

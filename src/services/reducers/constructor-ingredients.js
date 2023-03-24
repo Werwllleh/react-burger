@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {BUN} from "../../utils/consts";
 
 const initialState = {
@@ -25,12 +25,11 @@ const burgerConstructorSlice = createSlice({
                 }
             }),
         },
-        update(state, action) {
-            state.splice(
-                action.payload.destination.index,
-                0,
-                action.payload.filterState
-            );
+        updateConstructorIngredients(state, action) {
+            const { dragIndex, hoverIndex } = action.payload;
+            const draggedItem = state[dragIndex];
+            state.splice(dragIndex, 1);
+            state.splice(hoverIndex, 0, draggedItem);
         },
         removeFromConstructor(state, action) {
             state.ingredients = state.ingredients.filter(item => item.key !== action.payload.id);
@@ -39,4 +38,4 @@ const burgerConstructorSlice = createSlice({
 })
 
 export default burgerConstructorSlice.reducer;
-export const {addToConstructor, removeFromConstructor} = burgerConstructorSlice.actions
+export const {addToConstructor, updateConstructorIngredients, removeFromConstructor} = burgerConstructorSlice.actions

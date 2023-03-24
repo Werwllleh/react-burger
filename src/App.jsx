@@ -11,9 +11,6 @@ function App() {
         <>
             <AppHeader/>
             <PageConstructor />
-            {/*{isLoading ? <Loader/> : <PageConstructor />}*/}
-            {/*{error ? <Error/> : null}
-            {isLoading ? <Loader/> : <PageConstructor />}*/}
         </>
     );
 }

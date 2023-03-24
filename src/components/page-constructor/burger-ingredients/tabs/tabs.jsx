@@ -4,17 +4,17 @@ import styles from './tabs.module.css';
 import {BUN, FILLINGS, SAUCE} from "../../../../utils/consts";
 
 
-const Tabs = () => {
+const Tabs = ({activeTab}) => {
 
     return (
         <div className={styles.body}>
-            <Tab value={BUN} active={true}>
+            <Tab value={BUN} active={activeTab === BUN}>
                 Булки
             </Tab>
-            <Tab value={SAUCE} active={true}>
+            <Tab value={SAUCE} active={activeTab === SAUCE}>
                 Соусы
             </Tab>
-            <Tab value={FILLINGS} active={true}>
+            <Tab value={FILLINGS} active={activeTab === FILLINGS}>
                 Начинки
             </Tab>
         </div>

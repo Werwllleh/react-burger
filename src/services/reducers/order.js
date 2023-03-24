@@ -10,9 +10,12 @@ const orderSlice = createSlice({
     reducers: {
         sendOrderData(state, action) {
             state.orderData = action.payload
+        },
+        removeOrderData(state) {
+            state.orderData = []
         }
     }
 })
 
-export const { sendOrderData } = orderSlice.actions;
+export const { sendOrderData, removeOrderData } = orderSlice.actions;
 export default orderSlice.reducer;

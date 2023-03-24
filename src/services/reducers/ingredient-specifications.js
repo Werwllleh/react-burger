@@ -1,9 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    id: '',
     name: '',
-    specifications: [],
+    image: '',
+    specifications: {},
 }
 
 const ingredientSpecificationsSlice = createSlice({
@@ -11,10 +11,19 @@ const ingredientSpecificationsSlice = createSlice({
     initialState,
     reducers: {
         addIngredientData(state, action) {
-            state.orderData = action.payload
+            state.name = action.payload.name;
+            state.image = action.payload.image_large;
+            state.specifications = {
+                calories: action.payload.calories,
+                proteins: action.payload.proteins,
+                fat: action.payload.fat,
+                carbohydrates: action.payload.carbohydrates,
+            };
         },
-        removeIngredientData(state, action) {
-            state.orderData = action.payload
+        removeIngredientData(state) {
+            state.name = '';
+            state.image = '';
+            state.specifications = {};
         },
     }
 })
