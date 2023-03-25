@@ -9,9 +9,9 @@ const IngredientDetails = () => {
 
     return (
         <div className={styles.body}>
-            <img className={styles.img} src={data.image} alt={data.name}/>
+            <img className={styles.img} src={data?.image} alt={data?.name}/>
             <div className={`${styles.name} text text_type_main-medium`}>
-                {data.name}
+                {data?.name}
             </div>
             <div className={`${styles.about} text text_type_main-default text_color_inactive`}>
                 <div className={styles.col}>
@@ -19,7 +19,7 @@ const IngredientDetails = () => {
                         Калории, ккал
                     </div>
                     <div className={`text_type_digits-default`}>
-                        {data.specifications.calories}
+                        {data?.specifications?.calories}
                     </div>
                 </div>
                 <div className={styles.col}>
@@ -27,7 +27,7 @@ const IngredientDetails = () => {
                         Белки, г
                     </div>
                     <div className={`text_type_digits-default`}>
-                        {data.specifications.proteins}
+                        {data?.specifications?.proteins}
                     </div>
                 </div>
                 <div className={styles.col}>
@@ -35,7 +35,7 @@ const IngredientDetails = () => {
                         Жиры, г
                     </div>
                     <div className={`text_type_digits-default`}>
-                        {data.specifications.fat}
+                        {data?.specifications?.fat}
                     </div>
                 </div>
                 <div className={styles.col}>
@@ -43,7 +43,7 @@ const IngredientDetails = () => {
                         Углеводы, г
                     </div>
                     <div className={`text_type_digits-default`}>
-                        {data.specifications.carbohydrates}
+                        {data?.specifications?.carbohydrates}
                     </div>
                 </div>
             </div>

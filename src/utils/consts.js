@@ -27,4 +27,4 @@ export const DATA_PROP_TYPES = PropTypes.shape(
         carbohydrates: PropTypes.number.isRequired,
         calories: PropTypes.number.isRequired,
     }
-);
+).isRequired;

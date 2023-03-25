@@ -1,11 +1,14 @@
-import React, { useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import styles from './burger-ingredients.module.css';
 import Tabs from "./tabs/tabs";
 import Category from "./category/category";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchIngredients} from "../../../services/reducers/actionCreators";
+import {fetchIngredients} from "../../../services/stores/actionCreators";
 import {BUN, FILLINGS, SAUCE} from "../../../utils/consts";
 import Loader from "../../loader/loader";
+import {removeIngredientData} from "../../../services/stores/ingredient-specifications";
+import Modal from "../../modal/modal";
+import IngredientDetails from "../../modals-inner/ingredient-details/ingredient-details";
 
 
 const BurgerIngredients = () => {
@@ -14,9 +17,17 @@ const BurgerIngredients = () => {
 
     const {isLoading, ingredients} = useSelector(state => state.ingredientsReducer)
 
-    const buns = ingredients.filter(cat => cat.type === BUN);
-    const sauces = ingredients.filter(cat => cat.type === SAUCE);
-    const mains = ingredients.filter(cat => cat.type === FILLINGS);
+    const buns = useMemo(() => {
+        return ingredients.filter(cat => cat.type === BUN);
+    }, [ingredients]);
+
+    const sauces = useMemo(() => {
+        return ingredients.filter(cat => cat.type === SAUCE);
+    }, [ingredients]);
+
+    const mains = useMemo(() => {
+        return ingredients.filter(cat => cat.type === FILLINGS);
+    }, [ingredients]);
 
     const bunRef = useRef();
     const bunRect = bunRef?.current?.getBoundingClientRect();
@@ -46,6 +57,14 @@ const BurgerIngredients = () => {
         }
     }
 
+    const {name} = useSelector(state => state.ingredientSpecificationsReducer);
+
+    console.log(name)
+
+    const closeModal = () => {
+        dispatch(removeIngredientData())
+    }
+
     return (
         isLoading === false ? (
             <>
@@ -55,6 +74,11 @@ const BurgerIngredients = () => {
                     <div ref={saucesRef}><Category name={'Соусы'} data={sauces}/></div>
                     <div ref={mainsRef}><Category name={'Начинки'} data={mains}/></div>
                 </div>
+                {name ? (
+                    <Modal title="Детали ингредиента" onClose={closeModal}>
+                        <IngredientDetails/>
+                    </Modal>
+                ) : null}
             </>
         ) : (
             <div className={`${styles.loader}`}>

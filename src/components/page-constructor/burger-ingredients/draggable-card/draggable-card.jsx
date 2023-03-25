@@ -1,14 +1,12 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo} from 'react';
 import styles from "./draggable-card.module.css";
 import CurrentPrice from "../../../current-price/current-price";
 import {Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag} from "react-dnd";
 import {DATA_PROP_TYPES, ItemTypes} from "../../../../utils/consts";
 import {useDispatch, useSelector} from "react-redux";
-import Modal from "../../../modal/modal";
-import IngredientDetails from "../../../modals-inner/ingredient-details/ingredient-details";
-import {addIngredientData, removeIngredientData} from "../../../../services/reducers/ingredient-specifications";
-import PropTypes from "prop-types";
+import {addIngredientData} from "../../../../services/stores/ingredient-specifications";
+
 
 const DraggableCard = ({info}) => {
 
@@ -37,21 +35,14 @@ const DraggableCard = ({info}) => {
             })
         }), [])
 
-    const [isOpen, setIsOpen] = useState(false);
-
     const toggleModal = () => {
-        setIsOpen(!isOpen);
         dispatch(addIngredientData(info))
     };
 
-    const closeModal = () => {
-        setIsOpen(false)
-        dispatch(removeIngredientData())
-    }
 
     return (
         <>
-            <div ref={dragRef} style={{opacity}} onClick={() => toggleModal(info._id)} key={info._id}
+            <div ref={dragRef} style={{opacity}} onClick={() => toggleModal()}
                  className={styles.item}>
                 <img className={styles.image} src={info.image} alt={info.name}/>
                 <div className={styles.price}>
@@ -62,17 +53,12 @@ const DraggableCard = ({info}) => {
                 </div>
                 {count(info._id) > 0 ? <Counter count={count(info._id)} size="default" extraClass="counter"/> : null}
             </div>
-            {isOpen ? (
-                <Modal title="Детали ингредиента" onClose={closeModal}>
-                    <IngredientDetails/>
-                </Modal>
-            ) : null}
         </>
     );
 };
 
 DraggableCard.propTypes = {
-    info: PropTypes.object.isRequired
+    info: DATA_PROP_TYPES
 };
 
 export default DraggableCard;

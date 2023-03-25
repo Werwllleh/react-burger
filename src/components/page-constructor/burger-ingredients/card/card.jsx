@@ -4,6 +4,7 @@ import DraggableCard from "../draggable-card/draggable-card";
 import {DATA_PROP_TYPES} from "../../../../utils/consts";
 import PropTypes from "prop-types";
 
+
 const Card = ({data}) => {
 
     return (

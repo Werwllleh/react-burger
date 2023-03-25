@@ -1,7 +1,7 @@
 .icon {
     margin: 0 0 0 -28px;
     position: absolute;
-    cursor: pointer;
+    cursor: move;
 }
 
 .item {

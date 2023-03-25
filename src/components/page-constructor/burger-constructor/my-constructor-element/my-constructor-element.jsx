@@ -4,7 +4,7 @@ import styles from './my-constructor-element.module.css';
 import {ItemTypes} from "../../../../utils/consts";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {addToConstructor} from "../../../../services/reducers/constructor-ingredients";
+import {addToConstructor} from "../../../../services/stores/constructor-ingredients";
 import bun_plug from '../../../../images/bun-plug.png'
 import main_plug from '../../../../images/main-plug.png'
 import DraggableConstructorCard from "../draggable-constructor-card/draggable-constructor-card";

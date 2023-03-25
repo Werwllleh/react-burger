@@ -2,9 +2,9 @@ import React, {useRef} from 'react';
 import styles from "./draggable-constructor-card.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch} from "react-redux";
-import {removeFromConstructor, updateConstructorIngredients} from "../../../../services/reducers/constructor-ingredients";
+import {removeFromConstructor, updateConstructorIngredients} from "../../../../services/stores/constructor-ingredients";
 import {useDrag, useDrop} from "react-dnd";
-import { ItemTypes} from "../../../../utils/consts";
+import {ItemTypes} from "../../../../utils/consts";
 import PropTypes from "prop-types";
 
 const DraggableConstructorCard = ({index, item}) => {

@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useMemo, useState} from 'react';
 import styles from './burger-constructor.module.css';
 import MyConstructorElement from "./my-constructor-element/my-constructor-element";
 import CurrentPrice from "../../current-price/current-price";
@@ -7,14 +7,13 @@ import Modal from "../../modal/modal";
 import OrderDetails from "../../modals-inner/order-details/order-details";
 import {BUN} from "../../../utils/consts";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchOrderNum} from "../../../services/reducers/actionCreators";
-import {removeOrderData} from "../../../services/reducers/order";
+import {fetchOrderNum} from "../../../services/stores/actionCreators";
+import {removeOrderData} from "../../../services/stores/order";
 
 
 const BurgerConstructor = () => {
 
     const [isOpen, setIsOpen] = useState(false);
-    const [price, setPrice] = useState(0)
 
     const dispatch = useDispatch()
 
@@ -30,25 +29,24 @@ const BurgerConstructor = () => {
         return bun?.info.price * 2 || 0;
     }, [bun]);
 
-    useEffect(() => {
-        setPrice(ingredientsPrice + bunsPrice);
-    }, [ingredientsPrice, bunsPrice]);
-
+    const price = useMemo(() => {
+        return ingredientsPrice + bunsPrice
+    }, [bunsPrice, ingredientsPrice])
 
     const orderArr = ingredients.length > 0 && bun ? ingredients.concat(bun) : false
 
     const toggleModal = () => {
-        let sendArr = []
 
-        orderArr.map((item) => {
+        let sendArr = orderArr.reduce((acc, item) => {
             if (item.info.type === BUN) {
-               return sendArr.push(item.info._id, item.info._id)
+                acc.push(item.info._id, item.info._id);
             } else {
-               return sendArr.push(item.info._id)
+                acc.push(item.info._id);
             }
-        })
+            return acc;
+        }, []);
 
-        dispatch(fetchOrderNum(sendArr))
+        dispatch(fetchOrderNum(sendArr));
         setIsOpen(!isOpen)
     };
 

@@ -1,8 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    name: '',
-    image: '',
+    name: null,
+    image: null,
     specifications: {},
 }
 
@@ -21,8 +21,8 @@ const ingredientSpecificationsSlice = createSlice({
             };
         },
         removeIngredientData(state) {
-            state.name = '';
-            state.image = '';
+            state.name = null;
+            state.image = null;
             state.specifications = {};
         },
     }

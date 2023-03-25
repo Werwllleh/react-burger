@@ -1,9 +1,9 @@
 import {configureStore} from "@reduxjs/toolkit";
 import thunkMiddleware from 'redux-thunk';
-import constructorReducer from './reducers/constructor-ingredients';
-import ingredientsReducer from './reducers/ingredients-data';
-import orderReducer from './reducers/order';
-import ingredientSpecificationsReducer from './reducers/ingredient-specifications';
+import constructorReducer from './stores/constructor-ingredients';
+import ingredientsReducer from './stores/ingredients-data';
+import orderReducer from './stores/order';
+import ingredientSpecificationsReducer from './stores/ingredient-specifications';
 
 
 export const setupStore = () => {
