@@ -1,40 +1,76 @@
-import React, {useState} from 'react';
+import React, { useMemo, useState} from 'react';
 import styles from './burger-constructor.module.css';
 import MyConstructorElement from "./my-constructor-element/my-constructor-element";
 import CurrentPrice from "../../current-price/current-price";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../modal/modal";
 import OrderDetails from "../../modals-inner/order-details/order-details";
-import {DATA_PROP_TYPES} from "../../../utils/consts";
+import {BUN} from "../../../utils/consts";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchOrderNum} from "../../../services/stores/actionCreators";
+import {removeOrderData} from "../../../services/stores/order";
 
-const BurgerConstructor = ({data}) => {
+
+const BurgerConstructor = () => {
 
     const [isOpen, setIsOpen] = useState(false);
 
+    const dispatch = useDispatch()
+
+    const {bun, ingredients} = useSelector(state => state.constructorReducer);
+
+    const ingredientsPrice = useMemo(() => {
+        return ingredients.reduce((accumulator, currentValue) => {
+            return accumulator + (currentValue.info.price || 0);
+        }, 0);
+    }, [ingredients]);
+
+    const bunsPrice = useMemo(() => {
+        return bun?.info.price * 2 || 0;
+    }, [bun]);
+
+    const price = useMemo(() => {
+        return ingredientsPrice + bunsPrice
+    }, [bunsPrice, ingredientsPrice])
+
+    const orderArr = ingredients.length > 0 && bun ? ingredients.concat(bun) : false
+
     const toggleModal = () => {
+
+        let sendArr = orderArr.reduce((acc, item) => {
+            if (item.info.type === BUN) {
+                acc.push(item.info._id, item.info._id);
+            } else {
+                acc.push(item.info._id);
+            }
+            return acc;
+        }, []);
+
+        dispatch(fetchOrderNum(sendArr));
         setIsOpen(!isOpen)
     };
 
+    const closeModal = () => {
+        setIsOpen(false)
+        dispatch(removeOrderData())
+    }
+
     return (
         <>
-            <MyConstructorElement data={data}/>
+            <MyConstructorElement/>
             <div className={styles.ordering}>
-                <CurrentPrice size={'medium'} sum={610}/>
-                <Button onClick={toggleModal} extraClass={styles.btn} htmlType="button" type="primary" size="large">
+                <CurrentPrice size={'medium'} sum={price}/>
+                <Button onClick={orderArr ? toggleModal : undefined} extraClass={styles.btn} htmlType="button" type="primary" size="large">
                     Оформить заказ
                 </Button>
             </div>
             {isOpen ? (
-                <Modal onClose={() => setIsOpen(false)}>
+                <Modal onClose={closeModal}>
                     <OrderDetails/>
                 </Modal>
             ) : null}
         </>
     );
-};
-
-BurgerConstructor.propTypes = {
-    data: DATA_PROP_TYPES
 };
 
 export default BurgerConstructor;

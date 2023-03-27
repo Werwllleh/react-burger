@@ -4,6 +4,20 @@
     overflow-y: scroll;
 }
 
+.loader {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 100px 0 0 0;
+}
+
+.loader_text {
+    position: absolute;
+    bottom: -200px;
+    animation: blink1 2s linear infinite;
+}
+
 .catList::-webkit-scrollbar {
     width: 12px;
 }
@@ -15,4 +29,10 @@
 .catList::-webkit-scrollbar-thumb {
     background: #8585AD;
     /*border: 3px solid #2F2F37;*/
+}
+
+@keyframes blink1 {
+    0% { color: #FFF; }
+    50% { color: rgba(159, 159, 159, 0); }
+    100% { color: #FFF; }
 }
