@@ -1,19 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './menu-button.module.css';
+import {NavLink, useLocation} from "react-router-dom";
+import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 
 
-const MenuButton = ({icon, text}) => {
+const MenuButton = ({icon, text, link}) => {
 
-    const btnStyle = 'text text_type_main-default text_color_primary';
+    console.log(icon)
+    let b = null
+    if ("burger-icon") b = <BurgerIcon type='secondary'/>
+    const lll = useLocation()
+
+    if (lll.pathname === link) {
+        console.log(true)
+    } else {
+        console.log(false)
+    }
 
     return (
-        <a href='/#' className={styles.link}>
-            <div className={styles.body}>
-                {icon ? <div className={styles.icon}>{icon}</div> : null}
-                <div className={btnStyle}>{text}</div>
-            </div>
-        </a>
+        <NavLink to={link} className={({isActive}) =>
+            isActive ? `${styles.link} ${styles.link_active}` : styles.link
+        }>
+            {icon ? <div className={styles.icon}>{b}</div> : null}
+            <div className={'text text_type_main-default'}>{text}</div>
+        </NavLink>
     );
 };
 

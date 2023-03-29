@@ -1,5 +1,5 @@
 .link {
-    display: block;
+    display: flex;
     margin: 4px;
     padding: 16px 20px;
     border: none;
@@ -9,9 +9,12 @@
     max-width: 210px;
     height: 56px;
     text-decoration: none;
+    color: #8585AD;
 }
 
-
+.link_active {
+    color: #ffffff;
+}
 
 .body {
     display: flex;
@@ -22,3 +25,4 @@
 .icon {
     margin: 0 8px 0 0;
 }
+

@@ -59,8 +59,6 @@ const BurgerIngredients = () => {
 
     const {name} = useSelector(state => state.ingredientSpecificationsReducer);
 
-    console.log(name)
-
     const closeModal = () => {
         dispatch(removeIngredientData())
     }
