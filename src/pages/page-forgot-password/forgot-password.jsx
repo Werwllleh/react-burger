@@ -11,6 +11,7 @@ const ForgotPassword = () => {
         setValueEmail(e.target.value)
     }
 
+
     return (
         <div className={styles.body}>
             <div className={`text text_type_main-medium ${styles.title}`}>Восстановление пароля</div>

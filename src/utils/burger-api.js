@@ -1,6 +1,6 @@
 import {URL} from "./consts";
 
-const checkResponse = (res) => {
+export const checkResponse = (res) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
@@ -25,7 +25,7 @@ export const getOrderNum = async (orderArr) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    ingredients: orderArr
+                    email: orderArr
                 })
             })
                 .then(checkResponse)

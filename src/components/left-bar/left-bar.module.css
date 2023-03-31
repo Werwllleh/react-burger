@@ -11,8 +11,12 @@
     color: #8585AD;
     text-decoration: none;
     transition: 0.3s;
-    line-height: 30px;
+    padding: 14px 0;
 }
+
+/*.link:not(:last-child) {
+    margin: 0 0 40px 0;
+}*/
 
 .link:hover {
     color: #fff;
