@@ -25,7 +25,7 @@ export const getOrderNum = async (orderArr) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    email: orderArr
+                    ingredients: orderArr
                 })
             })
                 .then(checkResponse)

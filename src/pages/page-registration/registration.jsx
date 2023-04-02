@@ -2,8 +2,11 @@ import React, {useState} from 'react';
 import styles from "../logreg.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {fetchUserData} from "../../services/stores/actionCreators";
 
 const Registration = () => {
+    const dispatch = useDispatch();
 
     const [valueName, setValueName] = useState('')
     const [valueEmail, setValueEmail] = useState('')
@@ -18,6 +21,22 @@ const Registration = () => {
     }
     const onChangePassword = e => {
         setValuePassword(e.target.value)
+    }
+
+    const regClick = () => {
+
+        if (valueName && valueEmail && valuePassword) {
+            let userArr = {
+                name: valueName,
+                email: valueEmail,
+                password: valuePassword
+            }
+            dispatch(fetchUserData(userArr))
+
+        } else {
+            alert('Введены не все данные!')
+        }
+
     }
 
     return (
@@ -50,7 +69,7 @@ const Registration = () => {
                 </div>
             </div>
             <div className={styles.button}>
-                <Button htmlType="button" type="primary" size="medium">
+                <Button onClick={regClick} htmlType="button" type="primary" size="medium">
                     Зарегистрироваться
                 </Button>
             </div>
