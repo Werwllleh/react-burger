@@ -17,11 +17,10 @@ export const getRegisterData = async (userData) => {
                 })
             })
                 .then(checkResponse)
-                /*.then(() => {
-                    localStorage.setItem("accessToken", accessToken);
-                    localStorage.setItem("refreshToken", "test-refresh-token")
+                /*.then(data => {
+                    localStorage.setItem('accessToken', data.accessToken);
+                    localStorage.setItem('refreshToken', data.refreshToken);
                 })*/
-
         )
     } catch (err) {
         return console.log(err)

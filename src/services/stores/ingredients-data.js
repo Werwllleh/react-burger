@@ -22,7 +22,7 @@ const ingredientsSlice = createSlice({
                 state.ingredients = action.payload;
             })
             .addCase(fetchIngredients.rejected, (state, action) => {
-                state.error = action.payload;
+                state.error = action.payload.message;
                 state.isLoading = false;
             });
     },
