@@ -24,7 +24,6 @@ const Registration = () => {
     }
 
     const regClick = () => {
-
         if (valueName && valueEmail && valuePassword) {
             let userArr = {
                 name: valueName,
@@ -36,7 +35,6 @@ const Registration = () => {
         } else {
             alert('Введены не все данные!')
         }
-
     }
 
     return (

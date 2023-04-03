@@ -1,11 +1,15 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
-import { useSelector} from "react-redux";
+import {useSelector} from "react-redux";
+import {useLocation} from "react-router-dom";
 
 
 const IngredientDetails = () => {
 
-    const data = useSelector(state => state.ingredientSpecificationsReducer)
+    const location = useLocation();
+    const currentId = location.pathname.split('/ingredients/')[1];
+    const ingredients = useSelector(state => state.ingredientsReducer.ingredients);
+    const data = ingredients.filter(item => item._id === currentId)[0];
 
     return (
         <div className={styles.body}>
@@ -19,7 +23,7 @@ const IngredientDetails = () => {
                         Калории, ккал
                     </div>
                     <div className={`text_type_digits-default`}>
-                        {data?.specifications?.calories}
+                        {data?.calories}
                     </div>
                 </div>
                 <div className={styles.col}>
@@ -27,7 +31,7 @@ const IngredientDetails = () => {
                         Белки, г
                     </div>
                     <div className={`text_type_digits-default`}>
-                        {data?.specifications?.proteins}
+                        {data?.proteins}
                     </div>
                 </div>
                 <div className={styles.col}>
@@ -35,7 +39,7 @@ const IngredientDetails = () => {
                         Жиры, г
                     </div>
                     <div className={`text_type_digits-default`}>
-                        {data?.specifications?.fat}
+                        {data?.fat}
                     </div>
                 </div>
                 <div className={styles.col}>
@@ -43,7 +47,7 @@ const IngredientDetails = () => {
                         Углеводы, г
                     </div>
                     <div className={`text_type_digits-default`}>
-                        {data?.specifications?.carbohydrates}
+                        {data?.carbohydrates}
                     </div>
                 </div>
             </div>

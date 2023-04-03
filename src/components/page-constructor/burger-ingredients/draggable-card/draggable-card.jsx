@@ -4,13 +4,15 @@ import CurrentPrice from "../../../current-price/current-price";
 import {Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag} from "react-dnd";
 import {DATA_PROP_TYPES, ItemTypes} from "../../../../utils/consts";
-import {useDispatch, useSelector} from "react-redux";
-import {addIngredientData} from "../../../../services/stores/ingredient-specifications";
+import {useSelector} from "react-redux";
+import {Link, useLocation} from "react-router-dom";
 
 
 const DraggableCard = ({info}) => {
 
-    const dispatch = useDispatch();
+    const location = useLocation();
+    const ingredientId = info['_id'];
+
     const {bun, ingredients} = useSelector(state => state.constructorReducer);
 
     const countedItems = useMemo(() => {
@@ -35,24 +37,22 @@ const DraggableCard = ({info}) => {
             })
         }), [])
 
-    const toggleModal = () => {
-        dispatch(addIngredientData(info))
-    };
-
-
     return (
         <>
-            <div ref={dragRef} style={{opacity}} onClick={() => toggleModal()}
-                 className={styles.item}>
-                <img className={styles.image} src={info.image} alt={info.name}/>
-                <div className={styles.price}>
-                    <CurrentPrice size={'default'} sum={info.price}/>
+            <Link key={ingredientId} to={`/ingredients/${ingredientId}`} state={{background: location}}
+                  className={styles.link}>
+                <div ref={dragRef} style={{opacity}} className={styles.item}>
+                    <img className={styles.image} src={info.image} alt={info.name}/>
+                    <div className={styles.price}>
+                        <CurrentPrice size={'default'} sum={info.price}/>
+                    </div>
+                    <div className={`${styles.name} text text_type_main-default`}>
+                        {info.name}
+                    </div>
+                    {count(info._id) > 0 ?
+                        <Counter count={count(info._id)} size="default" extraClass="counter"/> : null}
                 </div>
-                <div className={`${styles.name} text text_type_main-default`}>
-                    {info.name}
-                </div>
-                {count(info._id) > 0 ? <Counter count={count(info._id)} size="default" extraClass="counter"/> : null}
-            </div>
+            </Link>
         </>
     );
 };

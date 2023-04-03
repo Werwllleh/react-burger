@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserData } from "./actionCreators";
+import {createSlice} from "@reduxjs/toolkit";
+import {fetchUserData} from "./actionCreators";
 
 const initialState = {
     userData: {

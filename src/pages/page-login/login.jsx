@@ -2,9 +2,12 @@ import React, {useState} from 'react';
 import styles from '../logreg.module.css'
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
+import {fetchUserData} from "../../services/stores/actionCreators";
+import {useDispatch} from "react-redux";
 
 const Login = () => {
 
+    const dispatch = useDispatch();
     const [valueEmail, setValueEmail] = useState('')
     const [valuePassword, setValuePassword] = useState('')
 
@@ -13,6 +16,19 @@ const Login = () => {
     }
     const onChangePassword = e => {
         setValuePassword(e.target.value)
+    }
+
+    const onLogin = () => {
+        if (valueEmail && valuePassword) {
+            let userArr = {
+                email: valueEmail,
+                password: valuePassword
+            }
+            dispatch(fetchUserData(userArr))
+
+        } else {
+            alert('Введены не все данные!')
+        }
     }
 
     return (
@@ -36,7 +52,7 @@ const Login = () => {
                 </div>
             </div>
             <div className={styles.button}>
-                <Button htmlType="button" type="primary" size="medium">
+                <Button onClick={onLogin} htmlType="button" type="primary" size="medium">
                     Войти
                 </Button>
             </div>
