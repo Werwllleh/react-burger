@@ -1,6 +1,7 @@
 import {URL} from "./consts";
 import {checkResponse} from "./burger-api";
 
+
 export const getRegisterData = async (userData) => {
     try {
         return (
@@ -27,6 +28,47 @@ export const getRegisterData = async (userData) => {
         return console.log(err)
     }
 };
+
+export const resetPassword = async (email) => {
+    try {
+        return (
+            await fetch(URL + 'password-reset', {
+                method: "post",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                })
+            })
+                .then(checkResponse)
+        )
+    } catch (err) {
+        return console.log(err)
+    }
+}
+
+export const sendNewPassword = async (password, token) => {
+    try {
+        return (
+            await fetch(URL + 'password-reset/reset', {
+                method: "post",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    password: password,
+                    token: token
+                })
+            })
+                .then(checkResponse)
+        )
+    } catch (err) {
+        return console.log(err)
+    }
+}
 
 export const getLogin = async (userData) => {
     try {
@@ -65,6 +107,7 @@ export const refreshToken = () => {
         }),
     }).then(checkResponse);
 };
+
 
 export const fetchWithRefresh = async (url, options) => {
     try {

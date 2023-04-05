@@ -8,12 +8,23 @@ const initialState = {
     },
     loading: false,
     error: null,
+    isAuthChecked: false
 };
 
 const userSlice = createSlice({
     name: "user_registration",
     initialState,
-    reducers: {},
+    reducers: {
+        changeAuthChecked(state, action) {
+            state.isAuthChecked = action.payload;
+        },
+        resetUserPassword(state, action) {
+            state.userData.email = action.payload;
+        },
+        sendNewPassword(state, action) {
+            state.userData.email = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchUserData.pending, (state) => {
@@ -34,4 +45,5 @@ const userSlice = createSlice({
     },
 });
 
+export const {changeAuthChecked, resetUserPassword, sendNewPassword} = userSlice.actions;
 export default userSlice.reducer;

@@ -34,38 +34,40 @@ const Login = () => {
     return (
         <div className={styles.body}>
             <div className={`text text_type_main-medium ${styles.title}`}>Вход</div>
-            <div className={styles.inputs}>
-                <div className={styles.input}>
-                    <EmailInput
-                        onChange={onChangeEmail}
-                        value={valueEmail}
-                        name={'email'}
-                        isIcon={false}
-                    />
+            <form>
+                <div className={styles.inputs}>
+                    <div className={styles.input}>
+                        <EmailInput
+                            onChange={onChangeEmail}
+                            value={valueEmail}
+                            name={'email'}
+                            isIcon={false}
+                        />
+                    </div>
+                    <div className={styles.input}>
+                        <PasswordInput
+                            onChange={onChangePassword}
+                            value={valuePassword}
+                            name={'password'}
+                        />
+                    </div>
                 </div>
-                <div className={styles.input}>
-                    <PasswordInput
-                        onChange={onChangePassword}
-                        value={valuePassword}
-                        name={'password'}
-                    />
+                <div className={styles.button}>
+                    <Button onClick={onLogin} htmlType="submit" type="primary" size="medium">
+                        Войти
+                    </Button>
                 </div>
-            </div>
-            <div className={styles.button}>
-                <Button onClick={onLogin} htmlType="button" type="primary" size="medium">
-                    Войти
-                </Button>
-            </div>
-            <div className={styles.notes}>
-                <div className={`${styles.note} text text_type_main-default`}>
-                    <p>Вы — новый пользователь?</p>
-                    <Link to={'/register'}>Зарегистрироваться</Link>
+                <div className={styles.notes}>
+                    <div className={`${styles.note} text text_type_main-default`}>
+                        <p>Вы — новый пользователь?</p>
+                        <Link to={'/register'}>Зарегистрироваться</Link>
+                    </div>
+                    <div className={`${styles.note} text text_type_main-default`}>
+                        <p>Забыли пароль?</p>
+                        <Link to={'/forgot-password'}>Восстановить пароль</Link>
+                    </div>
                 </div>
-                <div className={`${styles.note} text text_type_main-default`}>
-                    <p>Забыли пароль?</p>
-                    <Link to={'/forgot-password'}>Восстановить пароль</Link>
-                </div>
-            </div>
+            </form>
         </div>
     );
 };

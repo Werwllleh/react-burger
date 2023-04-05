@@ -67,7 +67,7 @@ const Registration = () => {
                 </div>
             </div>
             <div className={styles.button}>
-                <Button onClick={regClick} htmlType="button" type="primary" size="medium">
+                <Button onClick={regClick} htmlType="submit" type="primary" size="medium">
                     Зарегистрироваться
                 </Button>
             </div>
