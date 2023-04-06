@@ -2,9 +2,9 @@ import {useSelector} from "react-redux";
 import {Navigate, useLocation} from "react-router-dom";
 
 
-const Protected = ({onlyUnAuth = false, component, ...rest}) => {
+const Protected = ({onlyUnAuth = false, component}) => {
     const isAuthChecked = useSelector(store => store.userReducer.isAuthChecked);
-    const user = useSelector(store => store.userReducer.userData.email);
+    const user = useSelector(store => store.userReducer?.userData?.email);
     const location = useLocation();
 
     if (!isAuthChecked) {
@@ -17,7 +17,7 @@ const Protected = ({onlyUnAuth = false, component, ...rest}) => {
         // Пользователь авторизован, но роут предназначен для неавторизованного пользователя
         // Делаем редирект на главную страницу или на тот адрес, что записан в location.state.from
         const {from} = location.state || {from: {pathname: "/"}};
-        return <Navigate to={from}/>
+        return <Navigate to={from} replace/>
     }
 
     if (!onlyUnAuth && !user) {
@@ -26,8 +26,10 @@ const Protected = ({onlyUnAuth = false, component, ...rest}) => {
 
     // !onlyUnAuth && user Пользователь авторизован и роут для авторизованного пользователя
 
-    return component({...rest});
+    return component;
 }
 
 export const OnlyAuth = Protected;
-export const OnlyUnAuth = (props) => <Protected onlyUnAuth={true} {...props} />
+export const OnlyUnAuth = ({component}) => (
+    <Protected onlyUnAuth={true} component={component}/>
+);

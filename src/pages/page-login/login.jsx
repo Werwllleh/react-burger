@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import styles from '../logreg.module.css'
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
-import {fetchUserData} from "../../services/stores/actionCreators";
+import {Link, useNavigate} from "react-router-dom";
+import {fetchUserLogin} from "../../services/stores/actionCreators";
 import {useDispatch} from "react-redux";
+
 
 const Login = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [valueEmail, setValueEmail] = useState('')
     const [valuePassword, setValuePassword] = useState('')
 
@@ -18,14 +20,17 @@ const Login = () => {
         setValuePassword(e.target.value)
     }
 
-    const onLogin = () => {
+    const onLogin = (e) => {
+        e.preventDefault();
         if (valueEmail && valuePassword) {
             let userArr = {
                 email: valueEmail,
                 password: valuePassword
             }
-            dispatch(fetchUserData(userArr))
-
+            dispatch(fetchUserLogin(userArr));
+            setValueEmail('');
+            setValuePassword('');
+            navigate('/');
         } else {
             alert('Введены не все данные!')
         }

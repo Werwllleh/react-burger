@@ -14,7 +14,7 @@ import Modal from "./components/modal/modal";
 import IngredientDetails from "./components/modals-inner/ingredient-details/ingredient-details";
 import {fetchIngredients} from "./services/stores/actionCreators";
 import {OnlyAuth, OnlyUnAuth} from "./pages/protected-route";
-import * as PropTypes from "prop-types";
+import {changeAuthChecked} from "./utils/auth-api";
 
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
     }
 
     /*useEffect(() => {
-        dispatch(checkUserAuth());
+        dispatch(changeAuthChecked());
     }, []);*/
 
     return (
@@ -42,13 +42,12 @@ function App() {
             <Routes location={background || location}>
                 <Route index element={<PageConstructor/>}/>
                 <Route path='/ingredients/:ingredientId' element={<IngredientDetails/>}/>
-                <Route path="/login" element={<OnlyUnAuth component={Login}/>}/>
-                <Route path="/register" element={<OnlyUnAuth component={Registration}/>}/>
-                <Route path="/forgot-password" element={<ForgotPassword/>}/>
-                <Route path="/reset-password" element={<ResetPassword/>}/>
-                <Route path="/profile" element={<OnlyAuth component={Profile}/>}>
+                <Route path="/login" element={<OnlyUnAuth component={<Login/>}/>}/>
+                <Route path="/register" element={<OnlyUnAuth component={<Registration/>}/>}/>
+                <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
+                <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
+                <Route path="/profile" element={<OnlyAuth component={<Profile/>}/>}>
                     <Route path="/profile/orders" element={<Profile/>}/>
-                    <Route path="/profile/orders/:id" element={<Profile/>}/>
                 </Route>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>

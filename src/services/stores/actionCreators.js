@@ -1,6 +1,12 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {getOrderNum, getProductData} from "../../utils/burger-api";
-import {getRegisterData, resetPassword, sendNewPassword} from "../../utils/auth-api";
+import {
+    getRegisterData,
+    getUserLogin,
+    resetUserPassword,
+    sendNewPassword,
+    userLogoutSystem
+} from "../../utils/auth-api";
 
 export const fetchIngredients = createAsyncThunk(
     'ingredients/fetchData',
@@ -27,7 +33,7 @@ export const fetchOrderNum = createAsyncThunk(
 
 
 export const fetchUserData = createAsyncThunk(
-    'user',
+    'user/register',
     async (userData, thunkAPI) => {
         try {
             return await getRegisterData(userData)
@@ -37,11 +43,22 @@ export const fetchUserData = createAsyncThunk(
     }
 );
 
+export const fetchUserLogin = createAsyncThunk(
+    'user/login',
+    async (userData, thunkAPI) => {
+        try {
+            return await getUserLogin(userData)
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err)
+        }
+    }
+);
+
 export const fetchResetPassword = createAsyncThunk(
-    'user-rest-password',
+    'user/reset/password',
     async (email, thunkAPI) => {
         try {
-            return await resetPassword(email)
+            return await resetUserPassword(email)
         } catch (err) {
             return thunkAPI.rejectWithValue(err)
         }
@@ -49,10 +66,21 @@ export const fetchResetPassword = createAsyncThunk(
 );
 
 export const fetchNewPassword = createAsyncThunk(
-    'user-rest-password',
+    'user/save/new/password',
     async ({valuePassword, valueCode}, thunkAPI) => {
         try {
             return await sendNewPassword(valuePassword, valueCode)
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err)
+        }
+    }
+);
+
+export const fetchLogOut = createAsyncThunk(
+    'user/logout',
+    async (_, thunkAPI) => {
+        try {
+            return await userLogoutSystem()
         } catch (err) {
             return thunkAPI.rejectWithValue(err)
         }

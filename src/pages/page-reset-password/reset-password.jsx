@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import styles from "../logreg.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
-import {sendNewPassword} from "../../utils/auth-api";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {fetchNewPassword} from "../../services/stores/actionCreators";
 
 const ResetPassword = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [valuePassword, setValuePassword] = useState('')
     const [valueCode, setValueCode] = useState('')
 
@@ -26,6 +26,7 @@ const ResetPassword = () => {
             dispatch(fetchNewPassword({valuePassword, valueCode}));
             setValuePassword('');
             setValueCode('');
+            navigate('/login');
         }
     }
 

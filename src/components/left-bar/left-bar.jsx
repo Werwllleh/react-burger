@@ -1,9 +1,13 @@
 import React from 'react';
-import {Link, NavLink, useLocation} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import styles from './left-bar.module.css';
+import {fetchLogOut} from "../../services/stores/actionCreators";
+import {useDispatch} from "react-redux";
 
 const LeftBar = () => {
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const currentLink = useLocation();
 
     let note;
@@ -19,6 +23,12 @@ const LeftBar = () => {
             break
     }
 
+    const logOut = (e) => {
+        e.preventDefault();
+        dispatch(fetchLogOut());
+        navigate('/login');
+    }
+
     return (
         <div className={styles.body}>
             <div className={`${styles.menu} text text_type_main-medium`}>
@@ -32,7 +42,7 @@ const LeftBar = () => {
                 } end>
                     История заказов
                 </NavLink>
-                <Link to={'/'} className={styles.link}>Выход</Link>
+                <button onClick={logOut} className={`${styles.btn} text text_type_main-medium`}>Выход</button>
             </div>
             <div className={`${styles.note} text text_type_main-default text_color_inactive`}>
                 {note}

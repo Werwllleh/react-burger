@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import styles from "../logreg.module.css";
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
@@ -8,11 +8,9 @@ import {fetchResetPassword} from "../../services/stores/actionCreators";
 
 const ForgotPassword = () => {
 
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [valueEmail, setValueEmail] = useState('')
-    const [successSend, setSuccessSend] = useState(false)
 
     const onChangeEmail = e => {
         setValueEmail(e.target.value)
@@ -21,16 +19,11 @@ const ForgotPassword = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (valueEmail.length > 3) {
-            dispatch(fetchResetPassword(valueEmail))
+            dispatch(fetchResetPassword(valueEmail));
             setValueEmail('');
+            navigate('/reset-password');
         }
     }
-
-    useEffect(() => {
-        if (successSend === true) {
-            navigate('/reset-password')
-        }
-    }, [successSend, navigate])
 
     return (
         <div className={styles.body}>
