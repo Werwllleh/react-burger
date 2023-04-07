@@ -108,10 +108,9 @@ export const getUserInfo = createAsyncThunk(
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json;charset=utf-8",
-                    authorization: localStorage.getItem("refreshToken"),
+                    authorization: localStorage.getItem("accessToken"),
                 },
             });
-            console.log(response)
             return response;
         } catch (err) {
             return thunkAPI.rejectWithValue(err)

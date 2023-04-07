@@ -181,7 +181,7 @@ export const fetchWithRefresh = async (url, options) => {
 
 export const checkUserAuth = () => {
     return (dispatch) => {
-        if (localStorage.getItem("accessToken")) {
+        if (localStorage.getItem("accessToken") && localStorage.getItem("accessToken") !== "undefined") {
             dispatch(getUserInfo())
                 .catch(error => {
                     localStorage.removeItem("accessToken");

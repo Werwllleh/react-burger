@@ -135,7 +135,6 @@ const userSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchLogOut.fulfilled, (state, action) => {
-                state.isAuthChecked = false;
                 state.userData = {
                     name: '',
                     email: '',
