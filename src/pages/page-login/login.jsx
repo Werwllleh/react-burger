@@ -10,8 +10,8 @@ const Login = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [valueEmail, setValueEmail] = useState('')
-    const [valuePassword, setValuePassword] = useState('')
+    const [valueEmail, setValueEmail] = useState('');
+    const [valuePassword, setValuePassword] = useState('');
 
     const onChangeEmail = e => {
         setValueEmail(e.target.value)

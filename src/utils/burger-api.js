@@ -1,4 +1,4 @@
-import {URL} from "./consts";
+import {apiRoutes, URL} from "./consts";
 
 export const checkResponse = (res) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -7,7 +7,7 @@ export const checkResponse = (res) => {
 export const getProductData = async () => {
     try {
         return (
-            await fetch(URL + 'ingredients')
+            await fetch(URL + apiRoutes.GET_INGREDIENTS)
                 .then(checkResponse)
         )
     } catch (err) {
@@ -18,7 +18,7 @@ export const getProductData = async () => {
 export const getOrderNum = async (orderArr) => {
     try {
         return (
-            await fetch(URL + 'orders', {
+            await fetch(URL + apiRoutes.GET_ORDER_NUM, {
                 method: "post",
                 headers: {
                     'Accept': 'application/json',

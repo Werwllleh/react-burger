@@ -1,55 +1,13 @@
-import {URL} from "./consts";
+import {apiRoutes, URL} from "./consts";
 import {checkResponse} from "./burger-api";
-
-
-/*export const changeAuthChecked = () => {
-    return (dispatch) => {
-        if (localStorage.getItem("accessToken")) {
-            dispatch(getUser())
-                .catch(() => {
-                    localStorage.removeItem("accessToken");
-                    localStorage.removeItem("refreshToken");
-                    dispatch(setUser(null));
-                })
-                .finally(() => dispatch(isAuthChecked(true)));
-        } else {
-            dispatch(isAuthChecked(true));
-        }
-    };
-};*/
-
-/*export const getUser = async () => {
-    try {
-        return (
-            await fetch(URL + 'auth/user', {
-                method: "post",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: userData.email,
-                    password: userData.password,
-                    name: userData.name
-                })
-            })
-                .then(checkResponse)
-                .then(data => {
-                    localStorage.setItem('accessToken', data.accessToken);
-                    localStorage.setItem('refreshToken', data.refreshToken);
-                    return data
-                })
-        )
-    } catch (err) {
-        return console.log(err)
-    }
-}*/
+import {getUserInfo} from "../services/stores/actionCreators";
+import {setAuthChecked} from "../services/stores/user-data";
 
 export const getRegisterData = async (userData) => {
     try {
         return (
-            await fetch(URL + 'auth/register', {
-                method: "post",
+            await fetch(URL + apiRoutes.REGISTER, {
+                method: "POST",
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -75,8 +33,8 @@ export const getRegisterData = async (userData) => {
 export const getUserLogin = async (userData) => {
     try {
         return (
-            await fetch(URL + 'auth/login', {
-                method: "post",
+            await fetch(URL + apiRoutes.LOGIN, {
+                method: "POST",
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -101,8 +59,8 @@ export const getUserLogin = async (userData) => {
 export const resetUserPassword = async (email) => {
     try {
         return (
-            await fetch(URL + 'password-reset', {
-                method: "post",
+            await fetch(URL + apiRoutes.PASSWORD_RESET, {
+                method: "POST",
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -121,8 +79,8 @@ export const resetUserPassword = async (email) => {
 export const sendNewPassword = async (password, token) => {
     try {
         return (
-            await fetch(URL + 'password-reset/reset', {
-                method: "post",
+            await fetch(URL + apiRoutes.PASSWORD_CHANGE, {
+                method: "POST",
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -142,8 +100,8 @@ export const sendNewPassword = async (password, token) => {
 export const userLogoutSystem = async () => {
     try {
         return (
-            await fetch(URL + 'auth/logout', {
-                method: "post",
+            await fetch(URL + apiRoutes.LOGOUT, {
+                method: "POST",
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -165,8 +123,30 @@ export const userLogoutSystem = async () => {
     }
 }
 
+export const userUpdateSystem = async (valueName, valueEmail, valuePassword) => {
+    try {
+        return (
+            await fetch(URL + apiRoutes.USER_DATA, {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: localStorage.getItem("accessToken"),
+                },
+                body: JSON.stringify({
+                    email: valueEmail.email,
+                    password: valuePassword.password,
+                    name: valueName.name
+                }),
+            })
+                .then(checkResponse)
+        )
+    } catch (err) {
+        return console.log(err)
+    }
+}
+
 export const refreshToken = () => {
-    return fetch(URL + 'auth/token', {
+    return fetch(URL + apiRoutes.TOKEN_REFRESH, {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8",
@@ -197,4 +177,19 @@ export const fetchWithRefresh = async (url, options) => {
             return Promise.reject(err);
         }
     }
+};
+
+export const checkUserAuth = () => {
+    return (dispatch) => {
+        if (localStorage.getItem("accessToken")) {
+            dispatch(getUserInfo())
+                .catch(error => {
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("refreshToken");
+                })
+                .finally(() => dispatch(setAuthChecked(true)));
+        } else {
+            dispatch(setAuthChecked(true));
+        }
+    };
 };

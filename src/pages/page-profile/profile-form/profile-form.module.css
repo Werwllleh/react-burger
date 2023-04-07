@@ -1,5 +1,5 @@
 .inputs {
-
+    margin: 0 0 24px 0;
 }
 
 .input {
@@ -8,4 +8,8 @@
 
 .input:not(:last-child) {
     margin: 0 0 24px 0;
+}
+
+.button {
+    margin: 0 0 80px 0;
 }

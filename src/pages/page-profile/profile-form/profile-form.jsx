@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
 import styles from "./profile-form.module.css";
-import {EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchUpdateUserData} from "../../../services/stores/actionCreators";
 
 const ProfileForm = () => {
 
-    const [valueName, setValueName] = useState('')
-    const [valueEmail, setValueEmail] = useState('')
-    const [valuePassword, setValuePassword] = useState('')
+
+    const dispatch = useDispatch();
+    const {name, email} = useSelector(state => state.userReducer.userData);
+
+    const [valueName, setValueName] = useState(name)
+    const [valueEmail, setValueEmail] = useState(email)
+    const [valuePassword, setValuePassword] = useState('********')
 
     const onChangeName = e => {
         setValueName(e.target.value)
@@ -17,6 +23,13 @@ const ProfileForm = () => {
     }
     const onChangePassword = e => {
         setValuePassword(e.target.value)
+    }
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        if (valueName !== name || valueEmail !== email || valuePassword !== '********') {
+            dispatch(fetchUpdateUserData({valueName, valueEmail, valuePassword}))
+        }
     }
 
     return (
@@ -49,6 +62,11 @@ const ProfileForm = () => {
                         icon="EditIcon"
                     />
                 </div>
+            </div>
+            <div className={styles.button}>
+                <Button onClick={handleChange} htmlType="submit" type="primary" size="medium">
+                    Сохранить
+                </Button>
             </div>
         </form>
     );

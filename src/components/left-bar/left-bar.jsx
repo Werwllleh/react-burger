@@ -26,7 +26,7 @@ const LeftBar = () => {
     const logOut = (e) => {
         e.preventDefault();
         dispatch(fetchLogOut());
-        navigate('/login');
+        // navigate('/login');
     }
 
     return (

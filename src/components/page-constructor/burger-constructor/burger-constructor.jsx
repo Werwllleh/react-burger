@@ -1,4 +1,4 @@
-import React, { useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import styles from './burger-constructor.module.css';
 import MyConstructorElement from "./my-constructor-element/my-constructor-element";
 import CurrentPrice from "../../current-price/current-price";
@@ -9,6 +9,7 @@ import {BUN} from "../../../utils/consts";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchOrderNum} from "../../../services/stores/actionCreators";
 import {removeOrderData} from "../../../services/stores/order";
+import {useNavigate} from "react-router-dom";
 
 
 const BurgerConstructor = () => {
@@ -16,8 +17,10 @@ const BurgerConstructor = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const dispatch = useDispatch()
+    const navigate = useNavigate();
 
     const {bun, ingredients} = useSelector(state => state.constructorReducer);
+    const {name, email} = useSelector(state => state.userReducer.userData)
 
     const ingredientsPrice = useMemo(() => {
         return ingredients.reduce((accumulator, currentValue) => {
@@ -33,21 +36,25 @@ const BurgerConstructor = () => {
         return ingredientsPrice + bunsPrice
     }, [bunsPrice, ingredientsPrice])
 
-    const orderArr = ingredients.length > 0 && bun ? ingredients.concat(bun) : false
+    const orderArr = ingredients.length > 0 && bun ? ingredients.concat(bun) : false;
 
     const toggleModal = () => {
 
-        let sendArr = orderArr.reduce((acc, item) => {
-            if (item.info.type === BUN) {
-                acc.push(item.info._id, item.info._id);
-            } else {
-                acc.push(item.info._id);
-            }
-            return acc;
-        }, []);
+        if (name !== null && email !== null) {
+            let sendArr = orderArr.reduce((acc, item) => {
+                if (item.info.type === BUN) {
+                    acc.push(item.info._id, item.info._id);
+                } else {
+                    acc.push(item.info._id);
+                }
+                return acc;
+            }, []);
 
-        dispatch(fetchOrderNum(sendArr));
-        setIsOpen(!isOpen)
+            dispatch(fetchOrderNum(sendArr));
+            setIsOpen(!isOpen)
+        } else {
+            navigate('/login');
+        }
     };
 
     const closeModal = () => {
@@ -60,7 +67,8 @@ const BurgerConstructor = () => {
             <MyConstructorElement/>
             <div className={styles.ordering}>
                 <CurrentPrice size={'medium'} sum={price}/>
-                <Button onClick={orderArr ? toggleModal : undefined} extraClass={styles.btn} htmlType="button" type="primary" size="large">
+                <Button onClick={orderArr ? toggleModal : undefined} extraClass={styles.btn} htmlType="button"
+                        type="primary" size="large">
                     Оформить заказ
                 </Button>
             </div>

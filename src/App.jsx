@@ -14,7 +14,7 @@ import Modal from "./components/modal/modal";
 import IngredientDetails from "./components/modals-inner/ingredient-details/ingredient-details";
 import {fetchIngredients} from "./services/stores/actionCreators";
 import {OnlyAuth, OnlyUnAuth} from "./pages/protected-route";
-import {changeAuthChecked} from "./utils/auth-api";
+import {checkUserAuth} from "./utils/auth-api";
 
 
 function App() {
@@ -25,16 +25,13 @@ function App() {
     const background = location.state && location.state.background;
 
     useEffect(() => {
-        dispatch(fetchIngredients())
+        dispatch(fetchIngredients());
+        dispatch(checkUserAuth());
     }, [dispatch]);
 
     const closeModal = () => {
         navigate(-1);
     }
-
-    /*useEffect(() => {
-        dispatch(changeAuthChecked());
-    }, []);*/
 
     return (
         <>
