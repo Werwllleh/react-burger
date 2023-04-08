@@ -7,7 +7,7 @@ import Modal from "../../modal/modal";
 import OrderDetails from "../../modals-inner/order-details/order-details";
 import {BUN} from "../../../utils/consts";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchOrderNum} from "../../../services/stores/actionCreators";
+import {fetchOrderNum} from "../../../services/stores/action-creators";
 import {removeOrderData} from "../../../services/stores/order";
 import {useNavigate} from "react-router-dom";
 
@@ -20,7 +20,7 @@ const BurgerConstructor = () => {
     const navigate = useNavigate();
 
     const {bun, ingredients} = useSelector(state => state.constructorReducer);
-    const {name, email} = useSelector(state => state.userReducer.userData)
+    const user = useSelector(state => state.userReducer.userData.email)
 
     const ingredientsPrice = useMemo(() => {
         return ingredients.reduce((accumulator, currentValue) => {
@@ -40,7 +40,7 @@ const BurgerConstructor = () => {
 
     const toggleModal = () => {
 
-        if (name !== null && email !== null) {
+        if (user !== null && user !== '' && user !== undefined) {
             let sendArr = orderArr.reduce((acc, item) => {
                 if (item.info.type === BUN) {
                     acc.push(item.info._id, item.info._id);

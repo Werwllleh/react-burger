@@ -40,3 +40,15 @@ export const apiRoutes = {
     PASSWORD_CHANGE: 'password-reset/reset',
     TOKEN_REFRESH: 'auth/token',
 }
+
+export const route = {
+    NF_404: '*',
+    LOGIN: '/login',
+    REGISTER: '/register',
+    FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password',
+    PROFILE: '/profile',
+    MY_ORDERS: '/profile/orders',
+    LOGOUT: '/logout',
+    CURRENT_INGREDIENTS: '/ingredients/:ingredientId',
+}

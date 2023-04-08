@@ -12,9 +12,10 @@ import Profile from "./pages/page-profile/profile";
 import {useDispatch} from "react-redux";
 import Modal from "./components/modal/modal";
 import IngredientDetails from "./components/modals-inner/ingredient-details/ingredient-details";
-import {fetchIngredients} from "./services/stores/actionCreators";
+import {fetchIngredients} from "./services/stores/action-creators";
 import {OnlyAuth, OnlyUnAuth} from "./pages/protected-route";
 import {checkUserAuth} from "./utils/auth-api";
+import {route} from "./utils/consts";
 
 
 function App() {
@@ -33,26 +34,27 @@ function App() {
         navigate(-1);
     }
 
+
     return (
         <>
             <AppHeader/>
             <Routes location={background || location}>
                 <Route index element={<PageConstructor/>}/>
-                <Route path='/ingredients/:ingredientId' element={<IngredientDetails/>}/>
-                <Route path="/login" element={<OnlyUnAuth component={<Login/>}/>}/>
-                <Route path="/register" element={<OnlyUnAuth component={<Registration/>}/>}/>
-                <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
-                <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
-                <Route path="/profile" element={<OnlyAuth component={<Profile/>}/>}>
-                    <Route path="/profile/orders" element={<Profile/>}/>
+                <Route path={route.CURRENT_INGREDIENTS} element={<IngredientDetails/>}/>
+                <Route path={route.LOGIN} element={<OnlyUnAuth component={<Login/>}/>}/>
+                <Route path={route.REGISTER} element={<OnlyUnAuth component={<Registration/>}/>}/>
+                <Route path={route.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
+                <Route path={route.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
+                <Route path={route.PROFILE} element={<OnlyAuth component={<Profile/>}/>}>
+                    <Route path={route.MY_ORDERS} element={<Profile/>}/>
                 </Route>
-                <Route path="*" element={<NotFound/>}/>
+                <Route path={route.NF_404} element={<NotFound/>}/>
             </Routes>
 
             {background && (
                 <Routes>
                     <Route
-                        path='/ingredients/:ingredientId'
+                        path={route.CURRENT_INGREDIENTS}
                         element={
                             <Modal title="Детали ингредиента" onClose={closeModal}>
                                 <IngredientDetails/>

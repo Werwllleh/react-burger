@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {fetchOrderNum} from "./actionCreators";
+import {fetchOrderNum} from "./action-creators";
 
 const initialState = {
     orderData: null,

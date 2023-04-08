@@ -1,26 +1,33 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "../logreg.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {fetchNewPassword} from "../../services/stores/actionCreators";
+import {fetchNewPassword} from "../../services/stores/action-creators";
 
 const ResetPassword = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [valuePassword, setValuePassword] = useState('')
-    const [valueCode, setValueCode] = useState('')
+
+    const [valuePassword, setValuePassword] = useState('');
+    const [valueCode, setValueCode] = useState('');
+
+    useEffect(() => {
+        if (!localStorage.getItem('PasswordResetQuery') && localStorage.getItem('PasswordResetQuery') !== true) {
+            navigate('/login')
+        }
+    }, [navigate])
 
     const onChangePassword = e => {
-        setValuePassword(e.target.value)
+        setValuePassword(e.target.value);
     }
 
     const onChangeCode = e => {
-        setValueCode(e.target.value)
+        setValueCode(e.target.value);
     }
 
-    const handleSubmit = (e) => {
+    const formHandler = (e) => {
         e.preventDefault();
         if (valuePassword.length > 3 && valueCode.length > 30) {
             dispatch(fetchNewPassword({valuePassword, valueCode}));
@@ -33,7 +40,7 @@ const ResetPassword = () => {
     return (
         <div className={styles.body}>
             <div className={`text text_type_main-medium ${styles.title}`}>Восстановление пароля</div>
-            <form>
+            <form onSubmit={formHandler}>
                 <div className={styles.inputs}>
                     <div className={styles.input}>
                         <PasswordInput
@@ -53,7 +60,7 @@ const ResetPassword = () => {
                     </div>
                 </div>
                 <div className={styles.button}>
-                    <Button onClick={handleSubmit} htmlType="submit" type="primary" size="medium">
+                    <Button htmlType="submit" type="primary" size="medium">
                         Сохранить
                     </Button>
                 </div>

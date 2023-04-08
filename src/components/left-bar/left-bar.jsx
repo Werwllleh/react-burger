@@ -1,12 +1,12 @@
 import React from 'react';
-import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import styles from './left-bar.module.css';
-import {fetchLogOut} from "../../services/stores/actionCreators";
+import {fetchLogOut} from "../../services/stores/action-creators";
 import {useDispatch} from "react-redux";
+import {clearConstructorIngredients} from "../../services/stores/constructor-ingredients";
 
 const LeftBar = () => {
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentLink = useLocation();
 
@@ -26,7 +26,7 @@ const LeftBar = () => {
     const logOut = (e) => {
         e.preventDefault();
         dispatch(fetchLogOut());
-        // navigate('/login');
+        dispatch(clearConstructorIngredients());
     }
 
     return (

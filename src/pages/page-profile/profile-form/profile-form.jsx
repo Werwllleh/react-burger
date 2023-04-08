@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from "./profile-form.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchUpdateUserData} from "../../../services/stores/actionCreators";
+import {fetchUpdateUserData} from "../../../services/stores/action-creators";
 
 const ProfileForm = () => {
 
@@ -12,7 +12,7 @@ const ProfileForm = () => {
 
     const [valueName, setValueName] = useState(name)
     const [valueEmail, setValueEmail] = useState(email)
-    const [valuePassword, setValuePassword] = useState('********')
+    const [valuePassword, setValuePassword] = useState('')
 
     const onChangeName = e => {
         setValueName(e.target.value)
@@ -25,15 +25,15 @@ const ProfileForm = () => {
         setValuePassword(e.target.value)
     }
 
-    const handleChange = (e) => {
+    const formHandler = (e) => {
         e.preventDefault();
-        if (valueName !== name || valueEmail !== email || valuePassword !== '********') {
+        if (valueName !== name || valueEmail !== email || valuePassword !== '') {
             dispatch(fetchUpdateUserData({valueName, valueEmail, valuePassword}))
         }
     }
 
     return (
-        <form>
+        <form onSubmit={formHandler}>
             <div className={styles.inputs}>
                 <div className={styles.input}>
                     <Input
@@ -64,7 +64,7 @@ const ProfileForm = () => {
                 </div>
             </div>
             <div className={styles.button}>
-                <Button onClick={handleChange} htmlType="submit" type="primary" size="medium">
+                <Button htmlType="submit" type="primary" size="medium">
                     Сохранить
                 </Button>
             </div>

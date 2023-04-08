@@ -6,7 +6,7 @@ import {
     fetchUserData,
     fetchUserLogin,
     getUserInfo
-} from "./actionCreators";
+} from "./action-creators";
 
 
 const initialState = {
@@ -14,6 +14,7 @@ const initialState = {
         name: null,
         email: null,
     },
+    fromForgotPage: false,
     loading: false,
     error: null,
     isAuthChecked: false
@@ -25,7 +26,7 @@ const userSlice = createSlice({
     reducers: {
         setAuthChecked: (state, action) => {
             state.isAuthChecked = action.payload;
-        }
+        },
     },
     extraReducers: (builder) => {
 
@@ -90,6 +91,7 @@ const userSlice = createSlice({
             })
             .addCase(fetchResetPassword.fulfilled, (state, action) => {
                 state.isAuthChecked = true;
+                state.fromForgotPage = true;
                 state.loading = false;
             })
             .addCase(fetchResetPassword.rejected, (state, action) => {
@@ -103,6 +105,7 @@ const userSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchNewPassword.fulfilled, (state, action) => {
+                state.fromForgotPage = false;
                 state.isAuthChecked = true;
                 state.loading = false;
             })
@@ -126,6 +129,7 @@ const userSlice = createSlice({
             })
             .addCase(fetchUserLogin.rejected, (state, action) => {
                 state.loading = false;
+                state.successLogin = false;
                 state.error = action.payload.message;
             });
 
@@ -148,5 +152,5 @@ const userSlice = createSlice({
     },
 });
 
-export const {setAuthChecked} = userSlice.actions;
+export const { setAuthChecked} = userSlice.actions;
 export default userSlice.reducer;

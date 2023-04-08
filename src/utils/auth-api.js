@@ -1,7 +1,8 @@
 import {apiRoutes, URL} from "./consts";
 import {checkResponse} from "./burger-api";
-import {getUserInfo} from "../services/stores/actionCreators";
+import {getUserInfo} from "../services/stores/action-creators";
 import {setAuthChecked} from "../services/stores/user-data";
+
 
 export const getRegisterData = async (userData) => {
     try {
@@ -70,6 +71,7 @@ export const resetUserPassword = async (email) => {
                 })
             })
                 .then(checkResponse)
+                .then(data => localStorage.setItem('PasswordResetQuery', 'true'))
         )
     } catch (err) {
         return console.log(err)
@@ -91,6 +93,7 @@ export const sendNewPassword = async (password, token) => {
                 })
             })
                 .then(checkResponse)
+                .then(data => localStorage.removeItem('PasswordResetQuery'))
         )
     } catch (err) {
         return console.log(err)
@@ -133,9 +136,9 @@ export const userUpdateSystem = async (valueName, valueEmail, valuePassword) => 
                     authorization: localStorage.getItem("accessToken"),
                 },
                 body: JSON.stringify({
-                    email: valueEmail.email,
-                    password: valuePassword.password,
-                    name: valueName.name
+                    email: valueEmail,
+                    password: valuePassword,
+                    name: valueName
                 }),
             })
                 .then(checkResponse)

@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import styles from "../logreg.module.css";
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {fetchResetPassword} from "../../services/stores/actionCreators";
+import {fetchResetPassword} from "../../services/stores/action-creators";
 
 
 const ForgotPassword = () => {
 
     const dispatch = useDispatch();
+    const location = useLocation();
     const navigate = useNavigate();
     const [valueEmail, setValueEmail] = useState('')
 
@@ -16,10 +17,11 @@ const ForgotPassword = () => {
         setValueEmail(e.target.value)
     }
 
-    const handleSubmit = (e) => {
+    const formHandler = (e) => {
         e.preventDefault();
         if (valueEmail.length > 3) {
             dispatch(fetchResetPassword(valueEmail));
+            location.state = 'from forgot-password page';
             setValueEmail('');
             navigate('/reset-password');
         }
@@ -28,7 +30,7 @@ const ForgotPassword = () => {
     return (
         <div className={styles.body}>
             <div className={`text text_type_main-medium ${styles.title}`}>Восстановление пароля</div>
-            <form>
+            <form onSubmit={formHandler}>
                 <div className={styles.inputs}>
                     <div className={styles.input}>
                         <EmailInput
@@ -40,7 +42,7 @@ const ForgotPassword = () => {
                     </div>
                 </div>
                 <div className={styles.button}>
-                    <Button onClick={handleSubmit} htmlType="submit" type="primary" size="medium">
+                    <Button htmlType="submit" type="primary" size="medium">
                         Восстановить
                     </Button>
                 </div>

@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import styles from '../logreg.module.css'
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
-import {fetchUserLogin} from "../../services/stores/actionCreators";
-import {useDispatch} from "react-redux";
+import {fetchUserLogin} from "../../services/stores/action-creators";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const Login = () => {
@@ -13,6 +13,8 @@ const Login = () => {
     const [valueEmail, setValueEmail] = useState('');
     const [valuePassword, setValuePassword] = useState('');
 
+    const user = useSelector(state => state.userReducer.email)
+
     const onChangeEmail = e => {
         setValueEmail(e.target.value)
     }
@@ -20,7 +22,7 @@ const Login = () => {
         setValuePassword(e.target.value)
     }
 
-    const onLogin = (e) => {
+    const formHandler = (e) => {
         e.preventDefault();
         if (valueEmail && valuePassword) {
             let userArr = {
@@ -30,7 +32,9 @@ const Login = () => {
             dispatch(fetchUserLogin(userArr));
             setValueEmail('');
             setValuePassword('');
-            navigate('/');
+            if (user !== '' || user !== null) {
+                navigate('/');
+            }
         } else {
             alert('Введены не все данные!')
         }
@@ -39,7 +43,7 @@ const Login = () => {
     return (
         <div className={styles.body}>
             <div className={`text text_type_main-medium ${styles.title}`}>Вход</div>
-            <form>
+            <form onSubmit={formHandler}>
                 <div className={styles.inputs}>
                     <div className={styles.input}>
                         <EmailInput
@@ -58,7 +62,7 @@ const Login = () => {
                     </div>
                 </div>
                 <div className={styles.button}>
-                    <Button onClick={onLogin} htmlType="submit" type="primary" size="medium">
+                    <Button htmlType="submit" type="primary" size="medium">
                         Войти
                     </Button>
                 </div>
