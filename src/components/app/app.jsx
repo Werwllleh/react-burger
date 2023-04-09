@@ -1,21 +1,21 @@
 import React, {useEffect} from 'react';
-import './App.css';
-import AppHeader from "./components/app-header/app-header";
-import PageConstructor from "./components/page-constructor/page-constructor";
+import AppHeader from "../app-header/app-header";
+import PageConstructor from "../page-constructor/page-constructor";
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
-import NotFound from "./pages/not-found/not-found";
-import Login from "./pages/page-login/login";
-import Registration from "./pages/page-registration/registration";
-import ForgotPassword from "./pages/page-forgot-password/forgot-password";
-import ResetPassword from "./pages/page-reset-password/reset-password";
-import Profile from "./pages/page-profile/profile";
+import NotFound from "../../pages/not-found/not-found";
+import Login from "../../pages/page-login/login";
+import Registration from "../../pages/page-registration/registration";
+import ForgotPassword from "../../pages/page-forgot-password/forgot-password";
+import ResetPassword from "../../pages/page-reset-password/reset-password";
+import Profile from "../../pages/page-profile/profile";
 import {useDispatch} from "react-redux";
-import Modal from "./components/modal/modal";
-import IngredientDetails from "./components/modals-inner/ingredient-details/ingredient-details";
-import {fetchIngredients} from "./services/stores/action-creators";
-import {OnlyAuth, OnlyUnAuth} from "./pages/protected-route";
-import {checkUserAuth} from "./utils/auth-api";
-import {route} from "./utils/consts";
+import Modal from "../modal/modal";
+import IngredientDetails from "../modals-inner/ingredient-details/ingredient-details";
+import {fetchIngredients} from "../../services/stores/action-creators";
+import {OnlyAuth, OnlyUnAuth} from "../../pages/protected-route";
+import {checkUserAuth} from "../../utils/auth-api";
+import {route} from "../../utils/consts";
+import {removeOrderData} from "../../services/stores/order";
 
 
 function App() {
@@ -31,6 +31,7 @@ function App() {
     }, [dispatch]);
 
     const closeModal = () => {
+        dispatch(removeOrderData())
         navigate(-1);
     }
 

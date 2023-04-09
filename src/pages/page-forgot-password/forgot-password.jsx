@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from "../logreg.module.css";
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {fetchResetPassword} from "../../services/stores/action-creators";
+import {useForm} from "../../utils/hooks/useForm";
 
 
 const ForgotPassword = () => {
@@ -11,18 +12,21 @@ const ForgotPassword = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
-    const [valueEmail, setValueEmail] = useState('')
 
-    const onChangeEmail = e => {
-        setValueEmail(e.target.value)
-    }
+    const initialFormValues = {
+        email: ""
+    };
+
+    const {values, handleChange, setValues} = useForm(initialFormValues);
 
     const formHandler = (e) => {
         e.preventDefault();
-        if (valueEmail.length > 3) {
-            dispatch(fetchResetPassword(valueEmail));
+        if (values.email.length > 3) {
+            dispatch(fetchResetPassword(values.email));
             location.state = 'from forgot-password page';
-            setValueEmail('');
+            setValues({
+                email: ""
+            });
             navigate('/reset-password');
         }
     }
@@ -34,8 +38,8 @@ const ForgotPassword = () => {
                 <div className={styles.inputs}>
                     <div className={styles.input}>
                         <EmailInput
-                            onChange={onChangeEmail}
-                            value={valueEmail}
+                            onChange={handleChange}
+                            value={values.email}
                             name={'email'}
                             isIcon={false}
                         />

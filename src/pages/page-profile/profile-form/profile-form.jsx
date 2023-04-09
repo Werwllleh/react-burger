@@ -1,35 +1,46 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "./profile-form.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchUpdateUserData} from "../../../services/stores/action-creators";
+import {useForm} from "../../../utils/hooks/useForm";
 
 const ProfileForm = () => {
 
-
     const dispatch = useDispatch();
+    const [formChange, setFormChange] = useState(false)
     const {name, email} = useSelector(state => state.userReducer.userData);
 
-    const [valueName, setValueName] = useState(name)
-    const [valueEmail, setValueEmail] = useState(email)
-    const [valuePassword, setValuePassword] = useState('')
+    const initialFormValues = {
+        name: name,
+        email: email,
+        password: ""
+    };
 
-    const onChangeName = e => {
-        setValueName(e.target.value)
-    }
+    const {values, handleChange, setValues} = useForm(initialFormValues);
 
-    const onChangeEmail = e => {
-        setValueEmail(e.target.value)
-    }
-    const onChangePassword = e => {
-        setValuePassword(e.target.value)
-    }
+    useEffect(() => {
+        if (values.name !== name || values.email !== email || (values.password !== '' && values.password.length  >= 8)) {
+            setFormChange(true);
+        } else {
+            setFormChange(false);
+        }
+    }, [values, name, email])
 
     const formHandler = (e) => {
         e.preventDefault();
-        if (valueName !== name || valueEmail !== email || valuePassword !== '') {
-            dispatch(fetchUpdateUserData({valueName, valueEmail, valuePassword}))
+        if (formChange === true) {
+            dispatch(fetchUpdateUserData(values));
+            setFormChange(false);
         }
+    }
+
+    const clearForm = () => {
+        setValues({
+            name: name,
+            email: email,
+            password: ""
+        });
     }
 
     return (
@@ -39,16 +50,16 @@ const ProfileForm = () => {
                     <Input
                         type={'text'}
                         placeholder={'Имя'}
-                        onChange={onChangeName}
-                        value={valueName}
+                        onChange={handleChange}
+                        value={values.name}
                         name={'name'}
                         icon="EditIcon"
                     />
                 </div>
                 <div className={styles.input}>
                     <EmailInput
-                        onChange={onChangeEmail}
-                        value={valueEmail}
+                        onChange={handleChange}
+                        value={values.email}
                         name={'email'}
                         placeholder="Логин"
                         isIcon={true}
@@ -56,18 +67,21 @@ const ProfileForm = () => {
                 </div>
                 <div className={styles.input}>
                     <PasswordInput
-                        onChange={onChangePassword}
-                        value={valuePassword}
+                        onChange={handleChange}
+                        value={values.password}
                         name={'password'}
                         icon="EditIcon"
                     />
                 </div>
             </div>
-            <div className={styles.button}>
-                <Button htmlType="submit" type="primary" size="medium">
-                    Сохранить
-                </Button>
-            </div>
+            {formChange ? (
+                <div className={styles.buttons}>
+                    <button className={`${styles.resetBtn} text text_type_main-default`} onClick={clearForm} >Отмена</button>
+                    <Button htmlType="submit" type="primary" size="medium">
+                        Сохранить
+                    </Button>
+                </div>
+            ) : null}
         </form>
     );
 };

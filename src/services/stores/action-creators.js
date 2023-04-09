@@ -12,108 +12,70 @@ import {apiRoutes} from "../../utils/consts";
 
 export const fetchIngredients = createAsyncThunk(
     'ingredients/fetchData',
-    async (_, thunkAPI) => {
-        try {
-            const data = await getProductData();
-            return data.data;
-        } catch (err) {
-            return thunkAPI.rejectWithValue(err)
-        }
+    async (_) => {
+        const data = await getProductData();
+        return data.data;
     }
 );
 
 export const fetchOrderNum = createAsyncThunk(
     'order/fetchOrderNum',
-    async (orderArr, thunkAPI) => {
-        try {
-            return await getOrderNum(orderArr);
-        } catch (err) {
-            return thunkAPI.rejectWithValue(err)
-        }
+    async (orderArr) => {
+        return await getOrderNum(orderArr);
     }
 );
 
-
 export const fetchUserData = createAsyncThunk(
     'user/register',
-    async (userData, thunkAPI) => {
-        try {
-            return await getRegisterData(userData)
-        } catch (err) {
-            return thunkAPI.rejectWithValue(err)
-        }
+    async (values) => {
+        return await getRegisterData(values);
     }
 );
 
 export const fetchUserLogin = createAsyncThunk(
     'user/login',
-    async (userData, thunkAPI) => {
-        try {
-            return await getUserLogin(userData)
-        } catch (err) {
-            return thunkAPI.rejectWithValue(err)
-        }
+    async (userData) => {
+        return await getUserLogin(userData);
     }
 );
 
 export const fetchResetPassword = createAsyncThunk(
     'user/reset/password',
-    async (email, thunkAPI) => {
-        try {
-            return await resetUserPassword(email)
-        } catch (err) {
-            return thunkAPI.rejectWithValue(err)
-        }
+    async (email) => {
+        return await resetUserPassword(email);
     }
 );
 
 export const fetchNewPassword = createAsyncThunk(
     'user/save/new/password',
-    async ({valuePassword, valueCode}, thunkAPI) => {
-        try {
-            return await sendNewPassword(valuePassword, valueCode)
-        } catch (err) {
-            return thunkAPI.rejectWithValue(err)
-        }
+    async (values) => {
+        return await sendNewPassword(values);
     }
 );
 
 export const fetchLogOut = createAsyncThunk(
     'user/logout',
-    async (_, thunkAPI) => {
-        try {
-            return await userLogoutSystem()
-        } catch (err) {
-            return thunkAPI.rejectWithValue(err)
-        }
+    async (_) => {
+        return await userLogoutSystem();
     }
 );
 
 export const fetchUpdateUserData = createAsyncThunk(
     'user/update/date',
-    async ({valueName, valueEmail, valuePassword}, thunkAPI) => {
-        try {
-            return await userUpdateSystem(valueName, valueEmail, valuePassword)
-        } catch (err) {
-            return thunkAPI.rejectWithValue(err)
-        }
+    async (values) => {
+        return await userUpdateSystem(values)
     }
 );
 
 export const getUserInfo = createAsyncThunk(
     'user/get_info',
-    async (_, thunkAPI) => {
-        try {
-            const response = await fetchWithRefresh(apiRoutes.USER_DATA, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json;charset=utf-8",
-                    authorization: localStorage.getItem("accessToken"),
-                },
-            });
-            return response;
-        } catch (err) {
-            return thunkAPI.rejectWithValue(err)
-        }
+    async (_) => {
+        return await fetchWithRefresh(apiRoutes.USER_INFO, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+                authorization: localStorage.getItem("accessToken"),
+            },
+        });
     }
 );

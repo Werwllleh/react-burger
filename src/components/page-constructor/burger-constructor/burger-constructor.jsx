@@ -9,14 +9,15 @@ import {BUN} from "../../../utils/consts";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchOrderNum} from "../../../services/stores/action-creators";
 import {removeOrderData} from "../../../services/stores/order";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 
 const BurgerConstructor = () => {
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const location = useLocation();
     const navigate = useNavigate();
 
     const {bun, ingredients} = useSelector(state => state.constructorReducer);
@@ -53,7 +54,7 @@ const BurgerConstructor = () => {
             dispatch(fetchOrderNum(sendArr));
             setIsOpen(!isOpen)
         } else {
-            navigate('/login');
+            navigate('/login', {state: {from: location}});
         }
     };
 

@@ -1,17 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styles from "../logreg.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {fetchNewPassword} from "../../services/stores/action-creators";
+import {useForm} from "../../utils/hooks/useForm";
 
 const ResetPassword = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [valuePassword, setValuePassword] = useState('');
-    const [valueCode, setValueCode] = useState('');
+    const initialFormValues = {
+        password: "",
+        token: ""
+    };
+
+    const {values, handleChange, setValues} = useForm(initialFormValues);
 
     useEffect(() => {
         if (!localStorage.getItem('PasswordResetQuery') && localStorage.getItem('PasswordResetQuery') !== true) {
@@ -19,20 +24,14 @@ const ResetPassword = () => {
         }
     }, [navigate])
 
-    const onChangePassword = e => {
-        setValuePassword(e.target.value);
-    }
-
-    const onChangeCode = e => {
-        setValueCode(e.target.value);
-    }
-
     const formHandler = (e) => {
         e.preventDefault();
-        if (valuePassword.length > 3 && valueCode.length > 30) {
-            dispatch(fetchNewPassword({valuePassword, valueCode}));
-            setValuePassword('');
-            setValueCode('');
+        if (values.password.length > 3 && values.token.length > 30) {
+            dispatch(fetchNewPassword(values));
+            setValues({
+                password: "",
+                token: ""
+            })
             navigate('/login');
         }
     }
@@ -44,8 +43,8 @@ const ResetPassword = () => {
                 <div className={styles.inputs}>
                     <div className={styles.input}>
                         <PasswordInput
-                            onChange={onChangePassword}
-                            value={valuePassword}
+                            onChange={handleChange}
+                            value={values.password}
                             name={'password'}
                         />
                     </div>
@@ -53,8 +52,8 @@ const ResetPassword = () => {
                         <Input
                             type={'text'}
                             placeholder={'Введите код из письма'}
-                            onChange={onChangeCode}
-                            value={valueCode}
+                            onChange={handleChange}
+                            value={values.token}
                             name={'code'}
                         />
                     </div>

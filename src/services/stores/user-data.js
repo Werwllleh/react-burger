@@ -14,7 +14,6 @@ const initialState = {
         name: null,
         email: null,
     },
-    fromForgotPage: false,
     loading: false,
     error: null,
     isAuthChecked: false
@@ -36,7 +35,6 @@ const userSlice = createSlice({
                 state.error = null;
             })
             .addCase(getUserInfo.fulfilled, (state, action) => {
-                state.isAuthChecked = true;
                 state.userData = {
                     name: action.payload.user.name,
                     email: action.payload.user.email,
@@ -45,7 +43,7 @@ const userSlice = createSlice({
             })
             .addCase(getUserInfo.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload.message;
+                state.error = action.error.message;
             });
 
         builder
@@ -63,7 +61,7 @@ const userSlice = createSlice({
             })
             .addCase(fetchUpdateUserData.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload.message;
+                state.error = action.error.message;
             });
 
         builder
@@ -81,7 +79,7 @@ const userSlice = createSlice({
             })
             .addCase(fetchUserData.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload.message;
+                state.error = action.error.message;
             });
 
         builder
@@ -91,12 +89,11 @@ const userSlice = createSlice({
             })
             .addCase(fetchResetPassword.fulfilled, (state, action) => {
                 state.isAuthChecked = true;
-                state.fromForgotPage = true;
                 state.loading = false;
             })
             .addCase(fetchResetPassword.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload.message;
+                state.error = action.error.message;
             });
 
         builder
@@ -105,13 +102,12 @@ const userSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchNewPassword.fulfilled, (state, action) => {
-                state.fromForgotPage = false;
                 state.isAuthChecked = true;
                 state.loading = false;
             })
             .addCase(fetchNewPassword.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload.message;
+                state.error = action.error.message;
             });
 
         builder
@@ -130,7 +126,7 @@ const userSlice = createSlice({
             .addCase(fetchUserLogin.rejected, (state, action) => {
                 state.loading = false;
                 state.successLogin = false;
-                state.error = action.payload.message;
+                state.error = action.error.message;
             });
 
         builder
@@ -147,7 +143,7 @@ const userSlice = createSlice({
             })
             .addCase(fetchLogOut.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload.message;
+                state.error = action.error.message;
             });
     },
 });

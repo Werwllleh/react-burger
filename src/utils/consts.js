@@ -32,7 +32,7 @@ export const DATA_PROP_TYPES = PropTypes.shape(
 export const apiRoutes = {
     GET_INGREDIENTS: 'ingredients',
     GET_ORDER_NUM: 'orders',
-    USER_DATA: 'auth/user',
+    USER_INFO: 'auth/user',
     REGISTER: 'auth/register',
     LOGIN: 'auth/login',
     LOGOUT: 'auth/logout',

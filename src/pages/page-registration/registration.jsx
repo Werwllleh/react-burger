@@ -1,36 +1,30 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from "../logreg.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {fetchUserData} from "../../services/stores/action-creators";
+import {useForm} from "../../utils/hooks/useForm";
 
 const Registration = () => {
     const dispatch = useDispatch();
 
-    const [valueName, setValueName] = useState('')
-    const [valueEmail, setValueEmail] = useState('')
-    const [valuePassword, setValuePassword] = useState('')
+    const initialFormValues = {
+        name: "",
+        email: "",
+        password: ""
+    };
 
-    const onChangeName = e => {
-        setValueName(e.target.value)
-    }
-
-    const onChangeEmail = e => {
-        setValueEmail(e.target.value)
-    }
-    const onChangePassword = e => {
-        setValuePassword(e.target.value)
-    }
+    const {values, handleChange, setValues} = useForm(initialFormValues);
 
     const formHandler = () => {
-        if (valueName && valueEmail && valuePassword) {
-            let userArr = {
-                name: valueName,
-                email: valueEmail,
-                password: valuePassword
-            }
-            dispatch(fetchUserData(userArr))
+        if (values.name.length >= 2 && values.email.length >= 2 && values.password.length >= 8) {
+            dispatch(fetchUserData(values))
+            setValues({
+                name: "",
+                email: "",
+                password: ""
+            });
         } else {
             alert('Введены не все данные!')
         }
@@ -45,23 +39,23 @@ const Registration = () => {
                         <Input
                             type={'text'}
                             placeholder={'Имя'}
-                            onChange={onChangeName}
-                            value={valueName}
+                            onChange={handleChange}
+                            value={values.name}
                             name={'name'}
                         />
                     </div>
                     <div className={styles.input}>
                         <EmailInput
-                            onChange={onChangeEmail}
-                            value={valueEmail}
+                            onChange={handleChange}
+                            value={values.email}
                             name={'email'}
                             isIcon={false}
                         />
                     </div>
                     <div className={styles.input}>
                         <PasswordInput
-                            onChange={onChangePassword}
-                            value={valuePassword}
+                            onChange={handleChange}
+                            value={values.password}
                             name={'password'}
                         />
                     </div>
