@@ -20,51 +20,55 @@ export const fetchIngredients = createAsyncThunk(
 
 export const fetchOrderNum = createAsyncThunk(
     'order/fetchOrderNum',
-    async (orderArr) => {
-        return await getOrderNum(orderArr);
-    }
+    getOrderNum
 );
 
 export const fetchUserData = createAsyncThunk(
     'user/register',
-    async (values) => {
-        return await getRegisterData(values);
-    }
+    getRegisterData
+    /*async (values) => {
+        return await (values);
+    }*/
 );
 
 export const fetchUserLogin = createAsyncThunk(
     'user/login',
-    async (userData) => {
+    getUserLogin
+    /*async (userData) => {
         return await getUserLogin(userData);
-    }
+    }*/
 );
 
 export const fetchResetPassword = createAsyncThunk(
     'user/reset/password',
-    async (email) => {
+    resetUserPassword
+    /*async (email) => {
         return await resetUserPassword(email);
-    }
+    }*/
 );
 
 export const fetchNewPassword = createAsyncThunk(
     'user/save/new/password',
-    async (values) => {
+    sendNewPassword
+    /*async (values) => {
         return await sendNewPassword(values);
-    }
+    }*/
 );
 
 export const fetchLogOut = createAsyncThunk(
     'user/logout',
-    async (_) => {
+    userLogoutSystem
+    /*async (_) => {
         return await userLogoutSystem();
-    }
+    }*/
 );
 
 export const fetchUpdateUserData = createAsyncThunk(
     'user/update/date',
-    async (values) => {
+    userUpdateSystem
+    /*async (values) => {
         return await userUpdateSystem(values)
-    }
+    }*/
 );
 
 export const getUserInfo = createAsyncThunk(
