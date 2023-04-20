@@ -25,6 +25,7 @@ const Login = () => {
     const formHandler = (e) => {
         e.preventDefault();
         if (values.email && values.password) {
+            //@ts-ignore
             dispatch(fetchUserLogin(values));
             setValues({
                 email: "",

@@ -28,6 +28,7 @@ function App() {
     useEffect(() => {
         //@ts-ignore
         dispatch(fetchIngredients());
+        //@ts-ignore
         dispatch(checkUserAuth());
     }, [dispatch]);
 
