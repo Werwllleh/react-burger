@@ -1,19 +1,13 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import styles from './burger-ingredients.module.css';
 import Tabs from "./tabs/tabs";
 import Category from "./category/category";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchIngredients} from "../../../services/stores/actionCreators";
+import {useSelector} from "react-redux";
 import {BUN, FILLINGS, SAUCE} from "../../../utils/consts";
 import Loader from "../../loader/loader";
-import {removeIngredientData} from "../../../services/stores/ingredient-specifications";
-import Modal from "../../modal/modal";
-import IngredientDetails from "../../modals-inner/ingredient-details/ingredient-details";
 
 
 const BurgerIngredients = () => {
-
-    const dispatch = useDispatch();
 
     const {isLoading, ingredients} = useSelector(state => state.ingredientsReducer)
 
@@ -39,11 +33,6 @@ const BurgerIngredients = () => {
     const mainsRect = mainsRef?.current?.getBoundingClientRect();
 
 
-    useEffect(() => {
-        dispatch(fetchIngredients())
-    }, [dispatch]);
-
-
     const [activeTab, setActiveTab] = useState(BUN)
 
     const handleScroll = (e) => {
@@ -57,13 +46,6 @@ const BurgerIngredients = () => {
         }
     }
 
-    const {name} = useSelector(state => state.ingredientSpecificationsReducer);
-
-    console.log(name)
-
-    const closeModal = () => {
-        dispatch(removeIngredientData())
-    }
 
     return (
         isLoading === false ? (
@@ -74,11 +56,6 @@ const BurgerIngredients = () => {
                     <div ref={saucesRef}><Category name={'Соусы'} data={sauces}/></div>
                     <div ref={mainsRef}><Category name={'Начинки'} data={mains}/></div>
                 </div>
-                {name ? (
-                    <Modal title="Детали ингредиента" onClose={closeModal}>
-                        <IngredientDetails/>
-                    </Modal>
-                ) : null}
             </>
         ) : (
             <div className={`${styles.loader}`}>

@@ -1,36 +1,32 @@
-import {URL} from "./consts";
+import {apiRoutes, URL} from "./consts";
 
-const checkResponse = (res) => {
+/**============API UNIQUE REQUESTS============**/
+
+export const checkResponse = (res) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
+export const requestToApi = (endpoint, options) => {
+    return fetch(URL + endpoint, options).then(checkResponse);
+}
+
+/**============FOR BURGER REQUESTS============**/
+
 export const getProductData = async () => {
-    try {
-        return (
-            await fetch(URL + 'ingredients')
-                .then(checkResponse)
-        )
-    } catch (err) {
-        return console.log(err)
-    }
-};
+    return await requestToApi(apiRoutes.GET_INGREDIENTS)
+}
 
 export const getOrderNum = async (orderArr) => {
-    try {
-        return (
-            await fetch(URL + 'orders', {
-                method: "post",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ingredients: orderArr
-                })
+    return (
+        await requestToApi(apiRoutes.GET_ORDER_NUM, {
+            method: "post",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ingredients: orderArr
             })
-                .then(checkResponse)
-        )
-    } catch (err) {
-        return console.log(err)
-    }
-};
+        })
+    )
+}

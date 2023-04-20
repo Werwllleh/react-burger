@@ -15,9 +15,36 @@ header {
 
 nav {
     display: flex;
-    margin: 0 10px 0 0;
+    margin: 0 115px 0 0;
 }
 
 .personal {
-    margin: 0 0 0 10px;
+    margin-left: auto;
 }
+
+.link {
+    display: flex;
+    align-items: center;
+    margin: 4px;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 40px;
+    outline: none;
+    cursor: pointer;
+    max-width: 210px;
+    height: 56px;
+    text-decoration: none;
+}
+
+.icon {
+    margin: 0 8px 0 0;
+}
+
+.text {
+    color: #8585AD;
+}
+
+.active {
+    color: #ffffff;
+}
+

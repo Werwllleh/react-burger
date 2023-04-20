@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {fetchIngredients} from "./actionCreators";
+import {fetchIngredients} from "./action-creators";
 
 const initialState = {
     ingredients: [],
@@ -22,7 +22,7 @@ const ingredientsSlice = createSlice({
                 state.ingredients = action.payload;
             })
             .addCase(fetchIngredients.rejected, (state, action) => {
-                state.error = action.payload;
+                state.error = action.payload.message;
                 state.isLoading = false;
             });
     },

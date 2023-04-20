@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {fetchOrderNum} from "./actionCreators";
+import {fetchOrderNum} from "./action-creators";
 
 const initialState = {
     orderData: null,
@@ -28,7 +28,7 @@ const orderSlice = createSlice({
         });
         builder.addCase(fetchOrderNum.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload;
+            state.error = action.payload.message;
         });
     },
 })
