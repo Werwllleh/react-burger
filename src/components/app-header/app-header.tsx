@@ -3,7 +3,6 @@ import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-devel
 import styles from './app-header.module.css';
 import {NavLink} from "react-router-dom";
 
-
 const AppHeader = () => {
 
     return (

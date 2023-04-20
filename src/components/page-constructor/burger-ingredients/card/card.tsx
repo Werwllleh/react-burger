@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {FC} from 'react';
 import styles from './card.module.css'
 import DraggableCard from "../draggable-card/draggable-card";
 import {DATA_PROP_TYPES} from "../../../../utils/consts";
 import PropTypes from "prop-types";
 
 
-const Card = ({data}) => {
+const Card: FC = ({data}) => {
 
     return (
         <div className={styles.body}>
             {data.map((item) =>
-                <DraggableCard key={item._id} info={item} />
+                <DraggableCard key={item._id} info={item}/>
             )}
         </div>
     );

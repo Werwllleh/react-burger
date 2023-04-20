@@ -26,11 +26,13 @@ function App() {
     const background = location.state && location.state.background;
 
     useEffect(() => {
+        //@ts-ignore
         dispatch(fetchIngredients());
         dispatch(checkUserAuth());
     }, [dispatch]);
 
     const closeModal = () => {
+        //@ts-ignore
         dispatch(removeOrderData())
         navigate(-1);
     }

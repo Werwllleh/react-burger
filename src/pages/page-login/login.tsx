@@ -31,7 +31,7 @@ const Login = () => {
                 password: ""
             });
             if (user !== '' || user !== null) {
-                navigate(location.state.from.pathname);
+                navigate(location.state.from?.pathname);
             }
         } else {
             alert('Введены не все данные!')
