@@ -8,11 +8,13 @@ import {addToConstructor} from "../../../../services/stores/constructor-ingredie
 import bun_plug from '../../../../images/bun-plug.png'
 import main_plug from '../../../../images/main-plug.png'
 import DraggableConstructorCard from "../draggable-constructor-card/draggable-constructor-card";
+import {IIngredientArrAndKey} from "../../../../utils/types/types";
 
 
 const MyConstructorElement = () => {
 
     const dispatch = useDispatch();
+    //@ts-ignore
     const {bun, ingredients} = useSelector(state => state.constructorReducer);
 
     const [{canDrop, isOver}, dropTarget] = useDrop({
@@ -50,7 +52,7 @@ const MyConstructorElement = () => {
             )}
             <div className={styles.list}>
                 {ingredients.length > 0 ? (
-                    ingredients.map((item, index) => {
+                    ingredients.map((item:IIngredientArrAndKey, index: number) => {
                         return (
                             <div key={item.key}>
                                 <DraggableConstructorCard item={item} index={index}/>

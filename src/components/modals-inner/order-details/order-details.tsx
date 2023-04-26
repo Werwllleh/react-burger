@@ -6,6 +6,7 @@ import Loader from "../../loader/loader";
 
 const OrderDetails = () => {
 
+    //@ts-ignore
     const data = useSelector(state => state.orderReducer.orderData)
 
     return (

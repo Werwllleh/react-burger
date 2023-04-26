@@ -1,11 +1,13 @@
 import React, {FC} from 'react';
 import styles from './card.module.css'
 import DraggableCard from "../draggable-card/draggable-card";
-import {DATA_PROP_TYPES} from "../../../../utils/consts";
-import PropTypes from "prop-types";
+import {IIngredientArr} from "../../../../utils/types/types";
 
+interface CardProps {
+    data: IIngredientArr[];
+}
 
-const Card: FC = ({data}) => {
+const Card: FC<CardProps> = ({data}) => {
 
     return (
         <div className={styles.body}>
@@ -14,10 +16,6 @@ const Card: FC = ({data}) => {
             )}
         </div>
     );
-};
-
-Card.propTypes = {
-    data: PropTypes.arrayOf(DATA_PROP_TYPES).isRequired
 };
 
 export default Card;

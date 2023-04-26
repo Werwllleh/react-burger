@@ -54,7 +54,7 @@ const ResetPassword = () => {
                             placeholder={'Введите код из письма'}
                             onChange={handleChange}
                             value={values.token}
-                            name={'code'}
+                            name={'token'}
                         />
                     </div>
                 </div>

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './current-price.module.css'
-import PropTypes from "prop-types";
 
-const CurrentPrice = ({sum, size}) => {
+interface CurrentPriceProps {
+    sum: number;
+    size: string
+}
+
+const CurrentPrice: FC<CurrentPriceProps> = ({sum, size}) => {
 
     return (
         <div className={styles.body}>
@@ -13,11 +17,6 @@ const CurrentPrice = ({sum, size}) => {
             <CurrencyIcon type="primary"/>
         </div>
     );
-};
-
-CurrentPrice.propTypes = {
-    sum: PropTypes.number,
-    size: PropTypes.string
 };
 
 export default CurrentPrice;

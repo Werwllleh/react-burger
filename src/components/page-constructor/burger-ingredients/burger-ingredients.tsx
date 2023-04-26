@@ -1,41 +1,43 @@
-import React, {useMemo, useRef, useState} from 'react';
+import React, {FC, useMemo, useRef, useState} from 'react';
 import styles from './burger-ingredients.module.css';
 import Tabs from "./tabs/tabs";
 import Category from "./category/category";
 import {useSelector} from "react-redux";
 import {BUN, FILLINGS, SAUCE} from "../../../utils/consts";
 import Loader from "../../loader/loader";
+import {IIngredientArr} from "../../../utils/types/types";
 
 
-const BurgerIngredients = () => {
+const BurgerIngredients: FC = () => {
 
+    //@ts-ignore
     const {isLoading, ingredients} = useSelector(state => state.ingredientsReducer)
 
     const buns = useMemo(() => {
-        return ingredients.filter(cat => cat.type === BUN);
+        return ingredients.filter((cat:IIngredientArr) => cat.type === BUN);
     }, [ingredients]);
 
     const sauces = useMemo(() => {
-        return ingredients.filter(cat => cat.type === SAUCE);
+        return ingredients.filter((cat:IIngredientArr) => cat.type === SAUCE);
     }, [ingredients]);
 
     const mains = useMemo(() => {
-        return ingredients.filter(cat => cat.type === FILLINGS);
+        return ingredients.filter((cat:IIngredientArr) => cat.type === FILLINGS);
     }, [ingredients]);
 
-    const bunRef = useRef();
+    const bunRef = useRef<HTMLDivElement | null>(null);
     const bunRect = bunRef?.current?.getBoundingClientRect();
 
-    const saucesRef = useRef();
+    const saucesRef = useRef<HTMLDivElement | null>(null);
     const saucesRect = saucesRef?.current?.getBoundingClientRect();
 
-    const mainsRef = useRef();
+    const mainsRef = useRef<HTMLDivElement | null>(null);
     const mainsRect = mainsRef?.current?.getBoundingClientRect();
 
 
     const [activeTab, setActiveTab] = useState(BUN)
 
-    const handleScroll = (e) => {
+    const handleScroll = (e: React.UIEvent<HTMLElement>): void => {
         const scrollTop = e.currentTarget.scrollTop;
         if (bunRect?.height > scrollTop) {
             setActiveTab(BUN)
@@ -45,7 +47,6 @@ const BurgerIngredients = () => {
             setActiveTab(FILLINGS)
         }
     }
-
 
     return (
         isLoading === false ? (
@@ -65,6 +66,5 @@ const BurgerIngredients = () => {
         )
     );
 };
-
 
 export default BurgerIngredients;

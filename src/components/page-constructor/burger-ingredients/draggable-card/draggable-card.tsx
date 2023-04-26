@@ -1,32 +1,35 @@
-import React, {useMemo} from 'react';
+import React, {FC, useMemo} from 'react';
 import styles from "./draggable-card.module.css";
 import CurrentPrice from "../../../current-price/current-price";
 import {Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag} from "react-dnd";
-import {DATA_PROP_TYPES, ItemTypes} from "../../../../utils/consts";
+import {ItemTypes} from "../../../../utils/consts";
 import {useSelector} from "react-redux";
 import {Link, useLocation} from "react-router-dom";
+import {IIngredientArr, IIngredientArrAndKey} from "../../../../utils/types/types";
 
+interface DraggableCardProps {
+    info: IIngredientArr;
+}
 
-const DraggableCard = ({info}) => {
+const DraggableCard:FC<DraggableCardProps> = ({info}) => {
 
     const location = useLocation();
     const ingredientId = info['_id'];
-
+    //@ts-ignore
     const {bun, ingredients} = useSelector(state => state.constructorReducer);
 
     const countedItems = useMemo(() => {
-        const usedAllIngredients = ingredients.map((item) => item.info._id).concat(bun?.info._id || []);
-        return usedAllIngredients.reduce((usedIngs, item) => {
+        const usedAllIngredients = ingredients.map((item: IIngredientArrAndKey) => item.info._id).concat(bun?.info._id || []);
+        return usedAllIngredients.reduce((usedIngs: {[key: string]: number}, item:string) => {
             const currCount = usedIngs[item] || 0;
             return Object.assign({}, usedIngs, {[item]: currCount + 1});
         }, {});
     }, [bun, ingredients]);
 
-    const count = (key) => {
+    const count = (key:string) => {
         return countedItems[key];
     };
-
 
     const [{opacity}, dragRef] = useDrag(
         () => ({
@@ -55,10 +58,6 @@ const DraggableCard = ({info}) => {
             </Link>
         </>
     );
-};
-
-DraggableCard.propTypes = {
-    info: DATA_PROP_TYPES
 };
 
 export default DraggableCard;

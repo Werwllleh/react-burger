@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchOrderNum} from "../../../services/stores/action-creators";
 import {removeOrderData} from "../../../services/stores/order";
 import {useLocation, useNavigate} from "react-router-dom";
+import {IIngredientArrAndKey} from "../../../utils/types/types";
 
 
 const BurgerConstructor = () => {
@@ -20,11 +21,13 @@ const BurgerConstructor = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  //@ts-ignore
   const {bun, ingredients} = useSelector(state => state.constructorReducer);
+  //@ts-ignore
   const user = useSelector(state => state.userReducer.userData.email)
 
   const ingredientsPrice = useMemo(() => {
-    return ingredients.reduce((accumulator, currentValue) => {
+    return ingredients.reduce((accumulator: number, currentValue: IIngredientArrAndKey) => {
       return accumulator + (currentValue.info.price || 0);
     }, 0);
   }, [ingredients]);
@@ -40,9 +43,8 @@ const BurgerConstructor = () => {
   const orderArr = ingredients.length > 0 && bun ? ingredients.concat(bun) : false;
 
   const toggleModal = () => {
-
     if (user !== null && user !== '' && user !== undefined) {
-      let sendArr = orderArr.reduce((acc, item) => {
+      let sendArr = orderArr.reduce((acc: string[], item: IIngredientArrAndKey) => {
         if (item.info.type === BUN) {
           acc.push(item.info._id, item.info._id);
         } else {
@@ -50,7 +52,7 @@ const BurgerConstructor = () => {
         }
         return acc;
       }, []);
-
+      //@ts-ignore
       dispatch(fetchOrderNum(sendArr));
       setIsOpen(!isOpen)
     } else {

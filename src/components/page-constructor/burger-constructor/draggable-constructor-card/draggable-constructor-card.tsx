@@ -1,17 +1,22 @@
-import React, {useRef} from 'react';
+import React, {FC, DragEvent, useRef} from 'react';
 import styles from "./draggable-constructor-card.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch} from "react-redux";
 import {removeFromConstructor, updateConstructorIngredients} from "../../../../services/stores/constructor-ingredients";
 import {useDrag, useDrop} from "react-dnd";
 import {ItemTypes} from "../../../../utils/consts";
-import PropTypes from "prop-types";
+import {IIngredientArrAndKey} from "../../../../utils/types/types";
 
-const DraggableConstructorCard = ({index, item}) => {
+interface DraggableConstructorCardProps {
+    index: number;
+    item: IIngredientArrAndKey;
+}
 
-    const ref = useRef(null)
+const DraggableConstructorCard: FC<DraggableConstructorCardProps> = ({index, item}) => {
+
+    const ref = useRef<HTMLDivElement | null>(null)
     const dispatch = useDispatch();
-    const removeIngredient = (id) => {
+    const removeIngredient = (id: string) => {
         dispatch(removeFromConstructor({id}))
     }
 
@@ -26,6 +31,7 @@ const DraggableConstructorCard = ({index, item}) => {
     const [, dropRef] = useDrop({
         accept: ItemTypes.CONSTRUCTOR_CONTAINER,
         hover(item, monitor) {
+            console.log(item)
             if (!ref.current) {
                 return
             }
@@ -70,11 +76,6 @@ const DraggableConstructorCard = ({index, item}) => {
             />
         </div>
     );
-};
-
-DraggableConstructorCard.propTypes = {
-    index: PropTypes.number.isRequired,
-    item: PropTypes.object.isRequired
 };
 
 export default DraggableConstructorCard;

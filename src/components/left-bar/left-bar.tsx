@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {FC, MouseEvent} from 'react';
 import {NavLink, useLocation} from "react-router-dom";
 import styles from './left-bar.module.css';
 import {fetchLogOut} from "../../services/stores/action-creators";
 import {useDispatch} from "react-redux";
 import {clearConstructorIngredients} from "../../services/stores/constructor-ingredients";
 
-const LeftBar = () => {
+const LeftBar:FC = () => {
 
     const dispatch = useDispatch();
     const currentLink = useLocation();
@@ -23,9 +23,11 @@ const LeftBar = () => {
             break
     }
 
-    const logOut = (e) => {
+    const logOut = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        //@ts-ignore
         dispatch(fetchLogOut());
+        //@ts-ignore
         dispatch(clearConstructorIngredients());
     }
 

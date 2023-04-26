@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FormEvent} from 'react';
 import styles from "../logreg.module.css";
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useLocation, useNavigate} from "react-router-dom";
@@ -19,9 +19,10 @@ const ForgotPassword = () => {
 
     const {values, handleChange, setValues} = useForm(initialFormValues);
 
-    const formHandler = (e) => {
+    const formHandler = (e:FormEvent) => {
         e.preventDefault();
         if (values.email.length > 3) {
+            //@ts-ignore
             dispatch(fetchResetPassword(values.email));
             location.state = 'from forgot-password page';
             setValues({
@@ -29,7 +30,7 @@ const ForgotPassword = () => {
             });
             navigate('/reset-password');
         }
-    }
+    };
 
     return (
         <div className={styles.body}>

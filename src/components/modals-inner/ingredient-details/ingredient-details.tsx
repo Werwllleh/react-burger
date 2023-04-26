@@ -8,7 +8,9 @@ const IngredientDetails = () => {
 
     const location = useLocation();
     const currentId = location.pathname.split('/ingredients/')[1];
+    //@ts-ignore
     const ingredients = useSelector(state => state.ingredientsReducer.ingredients);
+    //@ts-ignore
     const data = ingredients.filter(item => item._id === currentId)[0];
 
     return (
