@@ -5,7 +5,7 @@ import {createPortal} from "react-dom";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 import {ESC_KEYCODE} from "../../utils/consts";
 
-const modal = document.getElementById("react-modals");
+const modal: Element | DocumentFragment = document.getElementById("react-modals");
 
 interface ModalProps extends PropsWithChildren {
     onClose: () => void;

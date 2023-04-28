@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {FormEvent} from 'react';
 import styles from "../logreg.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {fetchUserData} from "../../services/stores/action-creators";
 import {useForm} from "../../utils/hooks/useForm";
+
 
 const Registration = () => {
     const dispatch = useDispatch();
@@ -17,8 +18,10 @@ const Registration = () => {
 
     const {values, handleChange, setValues} = useForm(initialFormValues);
 
-    const formHandler = () => {
+    const formHandler = (e: FormEvent) => {
+        e.preventDefault();
         if (values.name.length >= 2 && values.email.length >= 2 && values.password.length >= 8) {
+            //@ts-ignore
             dispatch(fetchUserData(values))
             setValues({
                 name: "",

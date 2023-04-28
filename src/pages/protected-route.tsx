@@ -1,9 +1,17 @@
 import {useSelector} from "react-redux";
 import {Navigate, useLocation} from "react-router-dom";
 
+interface ProtectedProps {
+    onlyUnAuth?: boolean;
+    component: JSX.Element;
+}
 
-const Protected = ({onlyUnAuth = false, component}) => {
+type OnlyUnAuthProps = Omit<ProtectedProps, "onlyUnAuth">;
+
+const Protected = ({onlyUnAuth = false, component}: ProtectedProps) => {
+    //@ts-ignore
     const isAuthChecked = useSelector(store => store.userReducer.isAuthChecked);
+    //@ts-ignore
     const user = useSelector(store => store.userReducer.userData.email);
     const location = useLocation();
 
@@ -30,6 +38,6 @@ const Protected = ({onlyUnAuth = false, component}) => {
 }
 
 export const OnlyAuth = Protected;
-export const OnlyUnAuth = ({component}) => (
+export const OnlyUnAuth = ({component}: OnlyUnAuthProps) => (
     <Protected onlyUnAuth={true} component={component}/>
 );

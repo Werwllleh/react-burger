@@ -18,3 +18,19 @@ export interface IIngredientArrAndKey extends IIngredientArr {
     key: string;
     info: IIngredientArr;
 }
+
+export interface IFormValuesDefault {
+    name: string;
+    email: string;
+    password: string;
+}
+
+export interface ResponseError {
+    error: string;
+}
+
+export interface RefreshData {
+    success: boolean;
+    refreshToken: string;
+    accessToken: string;
+};

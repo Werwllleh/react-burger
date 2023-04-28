@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import styles from "./profile-form.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
@@ -9,6 +9,7 @@ const ProfileForm = () => {
 
     const dispatch = useDispatch();
     const [formChange, setFormChange] = useState(false)
+    //@ts-ignore
     const {name, email} = useSelector(state => state.userReducer.userData);
 
     const initialFormValues = {
@@ -27,9 +28,10 @@ const ProfileForm = () => {
         }
     }, [values, name, email])
 
-    const formHandler = (e) => {
+    const formHandler = (e: FormEvent) => {
         e.preventDefault();
         if (formChange === true) {
+            //@ts-ignore
             dispatch(fetchUpdateUserData(values));
             setFormChange(false);
         }

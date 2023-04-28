@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {FormEvent, useEffect} from 'react';
 import styles from "../logreg.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
@@ -19,14 +19,15 @@ const ResetPassword = () => {
     const {values, handleChange, setValues} = useForm(initialFormValues);
 
     useEffect(() => {
-        if (!localStorage.getItem('PasswordResetQuery') && localStorage.getItem('PasswordResetQuery') !== true) {
-            navigate('/login')
+        if (localStorage.getItem('PasswordResetQuery') !== 'true') {
+            navigate('/login');
         }
-    }, [navigate])
+    }, [navigate]);
 
-    const formHandler = (e) => {
+    const formHandler = (e: FormEvent) => {
         e.preventDefault();
         if (values.password.length > 3 && values.token.length > 30) {
+            //@ts-ignore
             dispatch(fetchNewPassword(values));
             setValues({
                 password: "",

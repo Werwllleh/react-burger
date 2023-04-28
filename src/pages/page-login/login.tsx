@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FormEvent} from 'react';
 import styles from '../logreg.module.css'
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useLocation, useNavigate} from "react-router-dom";
@@ -20,9 +20,10 @@ const Login = () => {
 
     const {values, handleChange, setValues} = useForm(initialFormValues);
 
+    //@ts-ignore
     const user = useSelector(state => state.userReducer.email)
 
-    const formHandler = (e) => {
+    const formHandler = (e:FormEvent) => {
         e.preventDefault();
         if (values.email && values.password) {
             //@ts-ignore

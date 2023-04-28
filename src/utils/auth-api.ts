@@ -2,9 +2,16 @@ import {apiRoutes} from "./consts";
 import {requestToApi} from "./burger-api";
 import {getUserInfo} from "../services/stores/action-creators";
 import {setAuthChecked} from "../services/stores/user-data";
+import {IFormValuesDefault, RefreshData} from "./types/types";
+import {RequestOptions} from "http";
 
-
-export const getRegisterData = async (values) => {
+type TFormEmailPass = Omit<IFormValuesDefault, "name">;
+type TFormEmail = Omit<IFormValuesDefault, "name, password">;
+type TFormPasswordToken = {
+    password: string;
+    token: string;
+};
+export const getRegisterData = async (values: IFormValuesDefault) => {
     return (
         await requestToApi(apiRoutes.REGISTER, {
             method: "POST",
@@ -17,15 +24,14 @@ export const getRegisterData = async (values) => {
                 password: values.password,
                 name: values.name
             })
-        }).then(data => {
+        }).then((data) => {
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
             return data
         })
     )
 }
-
-export const getUserLogin = async (userData) => {
+export const getUserLogin = async (userData: TFormEmailPass) => {
     return (
         await requestToApi(apiRoutes.LOGIN, {
             method: "POST",
@@ -44,8 +50,7 @@ export const getUserLogin = async (userData) => {
         })
     )
 }
-
-export const resetUserPassword = async (email) => {
+export const resetUserPassword = async (email: TFormEmail) => {
     return (
         await requestToApi(apiRoutes.PASSWORD_RESET, {
             method: "POST",
@@ -59,8 +64,7 @@ export const resetUserPassword = async (email) => {
         }).then(data => localStorage.setItem('PasswordResetQuery', 'true'))
     )
 }
-
-export const sendNewPassword = async (values) => {
+export const sendNewPassword = async (values: TFormPasswordToken) => {
     return (
         await requestToApi(apiRoutes.PASSWORD_CHANGE, {
             method: "POST",
@@ -75,7 +79,6 @@ export const sendNewPassword = async (values) => {
         }).then(data => localStorage.removeItem('PasswordResetQuery'))
     )
 }
-
 export const userLogoutSystem = async () => {
     return (
         await requestToApi(apiRoutes.LOGOUT, {
@@ -95,8 +98,7 @@ export const userLogoutSystem = async () => {
         })
     )
 }
-
-export const userUpdateSystem = async (values) => {
+export const userUpdateSystem = async (values: IFormValuesDefault) => {
     return (
         await requestToApi(apiRoutes.USER_INFO, {
             method: "PATCH",
@@ -112,7 +114,6 @@ export const userUpdateSystem = async (values) => {
         })
     )
 }
-
 export const refreshToken = () => {
     return (
         requestToApi(apiRoutes.TOKEN_REFRESH, {
@@ -126,13 +127,12 @@ export const refreshToken = () => {
         })
     )
 };
-
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (url: string, options: RequestOptions & { headers: { authorization: string } }): Promise<Response> => {
     try {
         return await requestToApi(url, options);
-    } catch (err) {
+    } catch (err: any) {
         if (err.message === "jwt expired") {
-            const refreshData = await refreshToken();
+            const refreshData: RefreshData = await refreshToken();
             if (!refreshData.success) {
                 return Promise.reject(refreshData);
             }
@@ -147,10 +147,10 @@ export const fetchWithRefresh = async (url, options) => {
 };
 
 export const checkUserAuth = () => {
-    return (dispatch) => {
+    return (dispatch: any):void => {
         if (localStorage.getItem("accessToken") && localStorage.getItem("accessToken") !== "undefined") {
             dispatch(getUserInfo())
-                .catch(error => {
+                .catch((error: any) => {
                     localStorage.removeItem("accessToken");
                     localStorage.removeItem("refreshToken");
                 })
