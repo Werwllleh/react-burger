@@ -1,18 +1,19 @@
-import React, {FC, PropsWithChildren, useEffect} from 'react';
+import React, {ReactNode, useEffect} from 'react';
 import styles from './modal.module.css';
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {createPortal} from "react-dom";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 import {ESC_KEYCODE} from "../../utils/consts";
 
-const modal: Element | DocumentFragment = document.getElementById("react-modals");
+const modal = document.getElementById("react-modals");
 
-interface ModalProps extends PropsWithChildren {
+interface ModalProps {
     onClose: () => void;
     title?: string;
+    children: ReactNode;
 }
 
-const Modal:FC<ModalProps> = ({onClose, title, children}) => {
+const Modal = ({onClose, title, children}: ModalProps): JSX.Element => {
 
     useEffect(() => {
         const onKeydown = (e: KeyboardEvent) => {
@@ -41,7 +42,7 @@ const Modal:FC<ModalProps> = ({onClose, title, children}) => {
             </div>
             <ModalOverlay onClose={onClose}/>
         </>,
-        modal
+        modal!
     );
 };
 

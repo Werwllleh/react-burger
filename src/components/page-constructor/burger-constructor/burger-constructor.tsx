@@ -13,7 +13,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {IIngredientArrAndKey} from "../../../utils/types/types";
 
 
-const BurgerConstructor = () => {
+const BurgerConstructor = (): JSX.Element => {
 
   const [isOpen, setIsOpen] = useState(false);
 

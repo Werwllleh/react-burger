@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './error.module.css';
 
-const Error = () => {
+const Error = (): JSX.Element => {
     return (
         <div className={styles.body}>
             <div className={'text text_type_main-large'}>

@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchUpdateUserData} from "../../../services/stores/action-creators";
 import {useForm} from "../../../utils/hooks/useForm";
 
-const ProfileForm = () => {
+const ProfileForm = (): JSX.Element => {
 
     const dispatch = useDispatch();
     const [formChange, setFormChange] = useState(false)

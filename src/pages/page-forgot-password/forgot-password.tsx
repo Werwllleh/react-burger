@@ -7,7 +7,7 @@ import {fetchResetPassword} from "../../services/stores/action-creators";
 import {useForm} from "../../utils/hooks/useForm";
 
 
-const ForgotPassword = () => {
+const ForgotPassword = (): JSX.Element => {
 
     const dispatch = useDispatch();
     const location = useLocation();

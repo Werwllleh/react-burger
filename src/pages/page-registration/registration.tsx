@@ -7,7 +7,7 @@ import {fetchUserData} from "../../services/stores/action-creators";
 import {useForm} from "../../utils/hooks/useForm";
 
 
-const Registration = () => {
+const Registration = (): JSX.Element => {
     const dispatch = useDispatch();
 
     const initialFormValues = {

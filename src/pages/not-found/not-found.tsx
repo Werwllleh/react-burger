@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './not-found.module.css'
 
-const NotFound = () => {
+const NotFound = (): JSX.Element => {
     return (
         <div className={styles.body}>
             <div className={styles.block}>

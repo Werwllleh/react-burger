@@ -18,7 +18,7 @@ import {route} from "../../utils/consts";
 import {removeOrderData} from "../../services/stores/order";
 
 
-function App() {
+function App(): JSX.Element {
 
     const dispatch = useDispatch();
     const location = useLocation();

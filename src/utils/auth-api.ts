@@ -2,8 +2,7 @@ import {apiRoutes} from "./consts";
 import {requestToApi} from "./burger-api";
 import {getUserInfo} from "../services/stores/action-creators";
 import {setAuthChecked} from "../services/stores/user-data";
-import {IFormValuesDefault, RefreshData} from "./types/types";
-import {RequestOptions} from "http";
+import {IFormValuesDefault, IResponseSuccess, ITokensResponse} from "./types/types";
 
 type TFormEmailPass = Omit<IFormValuesDefault, "name">;
 type TFormEmail = Omit<IFormValuesDefault, "name, password">;
@@ -11,9 +10,10 @@ type TFormPasswordToken = {
     password: string;
     token: string;
 };
-export const getRegisterData = async (values: IFormValuesDefault) => {
+
+export const getRegisterData = async (values: IFormValuesDefault): Promise<ITokensResponse> => {
     return (
-        await requestToApi(apiRoutes.REGISTER, {
+        await requestToApi<ITokensResponse>(apiRoutes.REGISTER, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -31,9 +31,9 @@ export const getRegisterData = async (values: IFormValuesDefault) => {
         })
     )
 }
-export const getUserLogin = async (userData: TFormEmailPass) => {
+export const getUserLogin = async (userData: TFormEmailPass): Promise<ITokensResponse> => {
     return (
-        await requestToApi(apiRoutes.LOGIN, {
+        await requestToApi<ITokensResponse>(apiRoutes.LOGIN, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -43,7 +43,7 @@ export const getUserLogin = async (userData: TFormEmailPass) => {
                 email: userData.email,
                 password: userData.password,
             })
-        }).then(data => {
+        }).then((data) => {
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
             return data
@@ -81,7 +81,7 @@ export const sendNewPassword = async (values: TFormPasswordToken) => {
 }
 export const userLogoutSystem = async () => {
     return (
-        await requestToApi(apiRoutes.LOGOUT, {
+        await requestToApi<IResponseSuccess>(apiRoutes.LOGOUT, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -104,7 +104,7 @@ export const userUpdateSystem = async (values: IFormValuesDefault) => {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json',
-                authorization: localStorage.getItem("accessToken"),
+                authorization: localStorage.getItem("accessToken") ?? '',
             },
             body: JSON.stringify({
                 email: values.email,
@@ -114,7 +114,7 @@ export const userUpdateSystem = async (values: IFormValuesDefault) => {
         })
     )
 }
-export const refreshToken = () => {
+export const refreshToken = (): Promise <Record<string, string>> => {
     return (
         requestToApi(apiRoutes.TOKEN_REFRESH, {
             method: "POST",
@@ -127,19 +127,20 @@ export const refreshToken = () => {
         })
     )
 };
-export const fetchWithRefresh = async (url: string, options: RequestOptions & { headers: { authorization: string } }): Promise<Response> => {
+export const fetchWithRefresh = async (url: string, options: RequestInit) => {
     try {
-        return await requestToApi(url, options);
-    } catch (err: any) {
-        if (err.message === "jwt expired") {
-            const refreshData: RefreshData = await refreshToken();
+        return await requestToApi<Record <string, string> & IResponseSuccess>(url, options);
+    } catch (err: unknown) {
+        if ((err as Error).message === "jwt expired") {
+            const refreshData = await refreshToken();
             if (!refreshData.success) {
                 return Promise.reject(refreshData);
             }
             localStorage.setItem("refreshToken", refreshData.refreshToken);
             localStorage.setItem("accessToken", refreshData.accessToken);
-            options.headers.authorization = refreshData.accessToken;
-            return await requestToApi(url, options);
+            const headers = new Headers(options.headers);
+            headers.set("authorization", refreshData.accessToken);
+            return await requestToApi(url, {...options, headers});
         } else {
             return Promise.reject(err);
         }

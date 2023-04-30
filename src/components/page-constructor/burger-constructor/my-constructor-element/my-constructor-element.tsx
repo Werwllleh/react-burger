@@ -11,7 +11,7 @@ import DraggableConstructorCard from "../draggable-constructor-card/draggable-co
 import {IIngredientArrAndKey} from "../../../../utils/types/types";
 
 
-const MyConstructorElement = () => {
+const MyConstructorElement = (): JSX.Element => {
 
     const dispatch = useDispatch();
     //@ts-ignore

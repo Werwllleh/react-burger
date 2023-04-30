@@ -1,9 +1,9 @@
-import React, {FC, DragEvent, useRef} from 'react';
+import React, {useRef} from 'react';
 import styles from "./draggable-constructor-card.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch} from "react-redux";
 import {removeFromConstructor, updateConstructorIngredients} from "../../../../services/stores/constructor-ingredients";
-import {useDrag, useDrop} from "react-dnd";
+import {useDrag, useDrop, XYCoord} from "react-dnd";
 import {ItemTypes} from "../../../../utils/consts";
 import {IIngredientArrAndKey} from "../../../../utils/types/types";
 
@@ -12,7 +12,7 @@ interface DraggableConstructorCardProps {
     item: IIngredientArrAndKey;
 }
 
-const DraggableConstructorCard: FC<DraggableConstructorCardProps> = ({index, item}) => {
+const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps): JSX.Element => {
 
     const ref = useRef<HTMLDivElement | null>(null)
     const dispatch = useDispatch();
@@ -30,8 +30,7 @@ const DraggableConstructorCard: FC<DraggableConstructorCardProps> = ({index, ite
 
     const [, dropRef] = useDrop({
         accept: ItemTypes.CONSTRUCTOR_CONTAINER,
-        hover(item, monitor) {
-            console.log(item)
+        hover(item: {index: number}, monitor) {
             if (!ref.current) {
                 return
             }
@@ -44,7 +43,10 @@ const DraggableConstructorCard: FC<DraggableConstructorCardProps> = ({index, ite
             const hoverBoundingRect = ref.current?.getBoundingClientRect()
             const hoverMiddleY =
                 (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-            const clientOffset = monitor.getClientOffset()
+            const clientOffset: XYCoord | null = monitor.getClientOffset();
+            if (clientOffset === null) {
+                return;
+            }
             const hoverClientY = clientOffset.y - hoverBoundingRect.top
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return
@@ -60,11 +62,11 @@ const DraggableConstructorCard: FC<DraggableConstructorCardProps> = ({index, ite
         },
     })
 
-    const dragDropRef = dragRef(dropRef(ref))
+    dragRef(dropRef(ref))
     const opacity = isDragging ? 0.2 : 1
 
     return (
-        <div ref={dragDropRef} className={styles.item} style={{opacity}}>
+        <div ref={ref} className={styles.item} style={{opacity}}>
             <div className={styles.icon}>
                 <DragIcon type="primary"/>
             </div>

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import styles from './card.module.css'
 import DraggableCard from "../draggable-card/draggable-card";
 import {IIngredientArr} from "../../../../utils/types/types";
@@ -7,7 +7,7 @@ interface CardProps {
     data: IIngredientArr[];
 }
 
-const Card: FC<CardProps> = ({data}) => {
+const Card = ({data}: CardProps): JSX.Element => {
 
     return (
         <div className={styles.body}>

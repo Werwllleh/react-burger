@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 import {fetchNewPassword} from "../../services/stores/action-creators";
 import {useForm} from "../../utils/hooks/useForm";
 
-const ResetPassword = () => {
+const ResetPassword = (): JSX.Element => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();

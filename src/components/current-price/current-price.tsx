@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './current-price.module.css'
 
@@ -7,7 +7,7 @@ interface CurrentPriceProps {
     size: string
 }
 
-const CurrentPrice: FC<CurrentPriceProps> = ({sum, size}) => {
+const CurrentPrice = ({sum, size}: CurrentPriceProps): JSX.Element => {
 
     return (
         <div className={styles.body}>

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import Card from "../card/card";
 import {IIngredientArr} from "../../../../utils/types/types";
 
@@ -7,7 +7,7 @@ interface CategoryProps {
     data: IIngredientArr[];
 }
 
-const Category:FC<CategoryProps> = ({name, data}) => {
+const Category = ({name, data}:CategoryProps): JSX.Element => {
     return (
         <div className={`mt-10`}>
             <h2 className={'text text_type_main-medium mb-6'}>{name}</h2>

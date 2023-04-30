@@ -6,7 +6,7 @@ import ProfileForm from "./profile-form/profile-form";
 import ProfileOrders from "./profile-orders/profile-orders";
 
 
-const Profile = () => {
+const Profile = (): JSX.Element => {
 
     const {pathname} = useLocation()
 

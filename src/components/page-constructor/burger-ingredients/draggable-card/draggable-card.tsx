@@ -1,4 +1,4 @@
-import React, {FC, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import styles from "./draggable-card.module.css";
 import CurrentPrice from "../../../current-price/current-price";
 import {Counter} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -12,7 +12,7 @@ interface DraggableCardProps {
     info: IIngredientArr;
 }
 
-const DraggableCard:FC<DraggableCardProps> = ({info}) => {
+const DraggableCard = ({info}:DraggableCardProps): JSX.Element => {
 
     const location = useLocation();
     const ingredientId = info['_id'];

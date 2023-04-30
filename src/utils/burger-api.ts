@@ -1,14 +1,14 @@
 import {apiRoutes, URL} from "./consts";
-import {ResponseError} from "./types/types";
+import {IResponseError} from "./types/types";
 
 /**============API UNIQUE REQUESTS============**/
 
 export const checkResponse = <T>(res: Response): Promise<T> => {
-  return res.ok ? res.json() as Promise<T> : res.json().then((err: ResponseError) => Promise.reject(err));
+  return res.ok ? res.json() as Promise<T> : res.json().then((err: IResponseError) => Promise.reject(err));
 };
 
-export const requestToApi = (endpoint: string, options) => {
-  return fetch(URL + endpoint, options).then(checkResponse);
+export const requestToApi = <T>(endpoint: string, options?: RequestInit): Promise<T> => {
+  return fetch(URL + endpoint, options).then(checkResponse<T>);
 }
 
 

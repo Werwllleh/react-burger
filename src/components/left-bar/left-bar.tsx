@@ -1,11 +1,11 @@
-import React, {FC, MouseEvent} from 'react';
+import React, {MouseEvent} from 'react';
 import {NavLink, useLocation} from "react-router-dom";
 import styles from './left-bar.module.css';
 import {fetchLogOut} from "../../services/stores/action-creators";
 import {useDispatch} from "react-redux";
 import {clearConstructorIngredients} from "../../services/stores/constructor-ingredients";
 
-const LeftBar:FC = () => {
+const LeftBar = (): JSX.Element => {
 
     const dispatch = useDispatch();
     const currentLink = useLocation();

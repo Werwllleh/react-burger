@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProfileOrders = () => {
+const ProfileOrders = (): JSX.Element => {
     return (
         <div>
             Здесь будут заказы

@@ -25,12 +25,15 @@ export interface IFormValuesDefault {
     password: string;
 }
 
-export interface ResponseError {
+export interface ITokensResponse {
+    accessToken: string;
+    refreshToken: string;
+}
+
+export interface IResponseError {
     error: string;
 }
 
-export interface RefreshData {
-    success: boolean;
-    refreshToken: string;
-    accessToken: string;
-};
+export interface IResponseSuccess {
+    success : boolean;
+}

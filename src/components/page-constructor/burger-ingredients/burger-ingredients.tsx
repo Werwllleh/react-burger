@@ -1,4 +1,4 @@
-import React, {FC, useMemo, useRef, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import styles from './burger-ingredients.module.css';
 import Tabs from "./tabs/tabs";
 import Category from "./category/category";
@@ -8,7 +8,7 @@ import Loader from "../../loader/loader";
 import {IIngredientArr} from "../../../utils/types/types";
 
 
-const BurgerIngredients: FC = () => {
+const BurgerIngredients = (): JSX.Element => {
 
     //@ts-ignore
     const {isLoading, ingredients} = useSelector(state => state.ingredientsReducer)
@@ -38,12 +38,13 @@ const BurgerIngredients: FC = () => {
     const [activeTab, setActiveTab] = useState(BUN)
 
     const handleScroll = (e: React.UIEvent<HTMLElement>): void => {
+        e.preventDefault();
         const scrollTop = e.currentTarget.scrollTop;
-        if (bunRect?.height > scrollTop) {
+        if (bunRect && bunRect.height > scrollTop) {
             setActiveTab(BUN)
-        } else if (saucesRect?.height > scrollTop) {
+        } else if (saucesRect && saucesRect.height > scrollTop) {
             setActiveTab(SAUCE)
-        } else if (mainsRect?.height > scrollTop) {
+        } else if (mainsRect && mainsRect.height > scrollTop) {
             setActiveTab(FILLINGS)
         }
     }
@@ -53,9 +54,9 @@ const BurgerIngredients: FC = () => {
             <>
                 <Tabs activeTab={activeTab}/>
                 <div onScroll={handleScroll} className={styles.catList}>
-                    <div ref={bunRef}><Category name={'Булки'} data={buns}/></div>
-                    <div ref={saucesRef}><Category name={'Соусы'} data={sauces}/></div>
-                    <div ref={mainsRef}><Category name={'Начинки'} data={mains}/></div>
+                    <div ref={bunRef} id={BUN}><Category name={'Булки'} data={buns}/></div>
+                    <div ref={saucesRef} id={SAUCE}><Category name={'Соусы'} data={sauces}/></div>
+                    <div ref={mainsRef} id={FILLINGS}><Category name={'Начинки'} data={mains}/></div>
                 </div>
             </>
         ) : (

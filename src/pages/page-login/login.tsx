@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "../../utils/hooks/useForm";
 
 
-const Login = () => {
+const Login = (): JSX.Element => {
 
     const dispatch = useDispatch();
     const location = useLocation();
