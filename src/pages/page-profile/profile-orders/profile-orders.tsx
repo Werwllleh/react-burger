@@ -1,9 +1,10 @@
 import React from 'react';
+import OrderList from "../../../components/order-list/order-list";
 
 const ProfileOrders = (): JSX.Element => {
     return (
         <div>
-            Здесь будут заказы
+            <OrderList/>
         </div>
     );
 };
