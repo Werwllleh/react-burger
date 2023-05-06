@@ -6,6 +6,9 @@ const OrderList = () => {
     return (
         <div className={styles.body}>
             <OrderListCard/>
+            <OrderListCard/>
+            <OrderListCard/>
+            <OrderListCard/>
         </div>
     );
 };

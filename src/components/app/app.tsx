@@ -16,6 +16,8 @@ import {OnlyAuth, OnlyUnAuth} from "../../pages/protected-route";
 import {checkUserAuth} from "../../utils/auth-api";
 import {route} from "../../utils/consts";
 import {removeOrderData} from "../../services/stores/order";
+import styles from './app.module.css';
+import Feed from "../../pages/page-feed/feed";
 
 
 function App(): JSX.Element {
@@ -41,32 +43,36 @@ function App(): JSX.Element {
 
     return (
         <>
-            <AppHeader/>
-            <Routes location={background || location}>
-                <Route index element={<PageConstructor/>}/>
-                <Route path={route.CURRENT_INGREDIENTS} element={<IngredientDetails/>}/>
-                <Route path={route.LOGIN} element={<OnlyUnAuth component={<Login/>}/>}/>
-                <Route path={route.REGISTER} element={<OnlyUnAuth component={<Registration/>}/>}/>
-                <Route path={route.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
-                <Route path={route.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
-                <Route path={route.PROFILE} element={<OnlyAuth component={<Profile/>}/>}>
-                    <Route path={route.MY_ORDERS} element={<Profile/>}/>
-                </Route>
-                <Route path={route.NF_404} element={<NotFound/>}/>
-            </Routes>
-
-            {background && (
-                <Routes>
-                    <Route
-                        path={route.CURRENT_INGREDIENTS}
-                        element={
-                            <Modal title="Детали ингредиента" onClose={closeModal}>
-                                <IngredientDetails/>
-                            </Modal>
-                        }
-                    />
+            <div className={styles.App}>
+                <AppHeader/>
+                <Routes location={background || location}>
+                    <Route index element={<PageConstructor/>}/>
+                    <Route path={route.FEED} element={<Feed/>}/>
+                    <Route path={route.CURRENT_INGREDIENTS} element={<IngredientDetails/>}/>
+                    <Route path={route.LOGIN} element={<OnlyUnAuth component={<Login/>}/>}/>
+                    <Route path={route.REGISTER} element={<OnlyUnAuth component={<Registration/>}/>}/>
+                    <Route path={route.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
+                    <Route path={route.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
+                    <Route path={route.PROFILE} element={<OnlyAuth component={<Profile/>}/>}>
+                        <Route path={route.MY_ORDERS} element={<Profile/>}/>
+                    </Route>
+                    <Route path={route.NF_404} element={<NotFound/>}/>
                 </Routes>
-            )}
+
+                {background && (
+                    <Routes>
+                        <Route
+                            path={route.CURRENT_INGREDIENTS}
+                            element={
+                                <Modal title="Детали ингредиента" onClose={closeModal}>
+                                    <IngredientDetails/>
+                                </Modal>
+                            }
+                        />
+                    </Routes>
+                )}
+            </div>
+
         </>
     );
 }

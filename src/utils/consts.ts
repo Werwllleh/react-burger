@@ -7,7 +7,6 @@ export const ESC_KEYCODE = 27;
 export const ItemTypes = {
     CONSTRUCTOR_LIST: 'constructorList',
     CONSTRUCTOR_CONTAINER: 'constructorContainer'
-
 }
 
 export const apiRoutes = {
@@ -30,6 +29,7 @@ export const route = {
     RESET_PASSWORD: '/reset-password',
     PROFILE: '/profile',
     MY_ORDERS: '/profile/orders',
+    FEED: '/feed',
     LOGOUT: '/logout',
     CURRENT_INGREDIENTS: '/ingredients/:ingredientId',
 }

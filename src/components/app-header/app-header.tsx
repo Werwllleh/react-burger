@@ -20,7 +20,7 @@ const AppHeader = (): JSX.Element => {
                             </>
                         )}
                     </NavLink>
-                    <NavLink to={'/lenta'} className={styles.link}>
+                    <NavLink to={'/feed'} className={styles.link}>
                         {({isActive}) => (
                             <>
                                 <div className={styles.icon}><ListIcon type={isActive ? 'primary' : 'secondary'}/></div>

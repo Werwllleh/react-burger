@@ -1,5 +1,9 @@
 .body {
     margin: 10% 0;
     display: flex;
+    gap: 60px;
 }
 
+.content {
+    flex: 0 1 90%;
+}

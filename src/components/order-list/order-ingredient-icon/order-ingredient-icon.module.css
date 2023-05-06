@@ -10,6 +10,15 @@
     height: 64px;
     width: 64px;
     display: block;
+    background: #1C1C21;
+}
+.body::after {
+    position: absolute;
+    border-radius: 50%;
+    content: '';
+    height: 64px;
+    width: 64px;
+    display: block;
     border: 2px solid transparent;
     background: linear-gradient(45deg,#801AB2,#4C4CFF) border-box;
     -webkit-mask: linear-gradient(#801AB2 0 0) padding-box, linear-gradient(#4C4CFF 0 0);
