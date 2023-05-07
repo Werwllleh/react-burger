@@ -1,13 +1,26 @@
+.link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.link:not(:last-child) {
+    margin: 0 0 16px 0;
+}
+
 .body {
+    display: block;
     border-radius: 40px;
     padding: 24px;
     background: #1C1C21;
     width: 100%;
     min-width: 580px;
+    cursor: pointer;
+    transition: .4s;
 }
 
-.body:not(:last-child) {
-    margin: 0 0 16px 0;
+.body:hover {
+    background: #32323a;
 }
 
 .content {

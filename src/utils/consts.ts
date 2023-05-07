@@ -29,7 +29,9 @@ export const route = {
     RESET_PASSWORD: '/reset-password',
     PROFILE: '/profile',
     MY_ORDERS: '/profile/orders',
+    MY_ORDER_ID: '/profile/orders/:orderId',
     FEED: '/feed',
+    CURRENT_ORDER: '/feed/:feedId',
     LOGOUT: '/logout',
     CURRENT_INGREDIENTS: '/ingredients/:ingredientId',
 }

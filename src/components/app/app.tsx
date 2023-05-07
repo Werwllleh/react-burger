@@ -18,6 +18,8 @@ import {route} from "../../utils/consts";
 import {removeOrderData} from "../../services/stores/order";
 import styles from './app.module.css';
 import Feed from "../../pages/page-feed/feed";
+import PageFeedDetail from "../../pages/page-feed-detail/page-feed-detail";
+import AboutOrder from "../modals-inner/about-order/about-order";
 
 
 function App(): JSX.Element {
@@ -26,6 +28,7 @@ function App(): JSX.Element {
     const location = useLocation();
     const navigate = useNavigate();
     const background = location.state && location.state.background;
+
 
     useEffect(() => {
         //@ts-ignore
@@ -48,6 +51,7 @@ function App(): JSX.Element {
                 <Routes location={background || location}>
                     <Route index element={<PageConstructor/>}/>
                     <Route path={route.FEED} element={<Feed/>}/>
+                    <Route path={route.CURRENT_ORDER} element={<PageFeedDetail/>}/>
                     <Route path={route.CURRENT_INGREDIENTS} element={<IngredientDetails/>}/>
                     <Route path={route.LOGIN} element={<OnlyUnAuth component={<Login/>}/>}/>
                     <Route path={route.REGISTER} element={<OnlyUnAuth component={<Registration/>}/>}/>
@@ -55,6 +59,7 @@ function App(): JSX.Element {
                     <Route path={route.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
                     <Route path={route.PROFILE} element={<OnlyAuth component={<Profile/>}/>}>
                         <Route path={route.MY_ORDERS} element={<Profile/>}/>
+                        <Route path={route.MY_ORDER_ID} element={<PageFeedDetail/>}/>
                     </Route>
                     <Route path={route.NF_404} element={<NotFound/>}/>
                 </Routes>
@@ -69,6 +74,11 @@ function App(): JSX.Element {
                                 </Modal>
                             }
                         />
+                        <Route path={route.CURRENT_ORDER} element={
+                            <Modal onClose={closeModal}>
+                                <AboutOrder/>
+                            </Modal>
+                        }/>
                     </Routes>
                 )}
             </div>

@@ -1,4 +1,4 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
+import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import {getOrderNum, getProductData} from "../../utils/burger-api";
 import {
     fetchWithRefresh,
@@ -26,49 +26,31 @@ export const fetchOrderNum = createAsyncThunk(
 export const fetchUserData = createAsyncThunk(
     'user/register',
     getRegisterData
-    /*async (values) => {
-        return await (values);
-    }*/
 );
 
 export const fetchUserLogin = createAsyncThunk(
     'user/login',
     getUserLogin
-    /*async (userData) => {
-        return await getUserLogin(userData);
-    }*/
 );
 
 export const fetchResetPassword = createAsyncThunk(
     'user/reset/password',
     resetUserPassword
-    /*async (email) => {
-        return await resetUserPassword(email);
-    }*/
 );
 
 export const fetchNewPassword = createAsyncThunk(
     'user/save/new/password',
     sendNewPassword
-    /*async (values) => {
-        return await sendNewPassword(values);
-    }*/
 );
 
 export const fetchLogOut = createAsyncThunk(
     'user/logout',
     userLogoutSystem
-    /*async (_) => {
-        return await userLogoutSystem();
-    }*/
 );
 
 export const fetchUpdateUserData = createAsyncThunk(
     'user/update/date',
     userUpdateSystem
-    /*async (values) => {
-        return await userUpdateSystem(values)
-    }*/
 );
 
 export const getUserInfo = createAsyncThunk(
@@ -83,3 +65,5 @@ export const getUserInfo = createAsyncThunk(
         });
     }
 );
+
+// export const connect = createAction<string, "ORDERS_CONNECT">("ORDERS_CONNECT");
