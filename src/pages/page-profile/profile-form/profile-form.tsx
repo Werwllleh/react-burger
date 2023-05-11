@@ -1,18 +1,19 @@
 import React, {FormEvent, useEffect, useState} from 'react';
 import styles from "./profile-form.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchUpdateUserData} from "../../../services/stores/action-creators";
 import {useForm} from "../../../utils/hooks/useForm";
+import {useAppDispatch, useAppSelector} from "../../../utils/hooks/redux-hooks";
+import {IFormValuesDefault} from "../../../utils/types/types";
 
 const ProfileForm = (): JSX.Element => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [formChange, setFormChange] = useState(false)
-    //@ts-ignore
-    const {name, email} = useSelector(state => state.userReducer.userData);
 
-    const initialFormValues = {
+    const {name, email} = useAppSelector(state => state.userInfo.userData);
+
+    const initialFormValues: IFormValuesDefault = {
         name: name,
         email: email,
         password: ""
@@ -31,7 +32,6 @@ const ProfileForm = (): JSX.Element => {
     const formHandler = (e: FormEvent) => {
         e.preventDefault();
         if (formChange === true) {
-            //@ts-ignore
             dispatch(fetchUpdateUserData(values));
             setFormChange(false);
         }

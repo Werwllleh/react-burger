@@ -1,7 +1,14 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {fetchIngredients} from "./action-creators";
+import {IIngredientArr} from "../../utils/types/types";
 
-const initialState = {
+interface IIngredientsState {
+    ingredients: IIngredientArr[];
+    isLoading: boolean;
+    error: string | null;
+}
+
+const initialState: IIngredientsState = {
     ingredients: [],
     isLoading: false,
     error: null
@@ -16,13 +23,13 @@ const ingredientsSlice = createSlice({
             .addCase(fetchIngredients.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(fetchIngredients.fulfilled, (state, action) => {
+            .addCase(fetchIngredients.fulfilled, (state, action: PayloadAction<IIngredientArr[]>) => {
                 state.isLoading = false;
-                state.error = '';
+                state.error = null;
                 state.ingredients = action.payload;
             })
             .addCase(fetchIngredients.rejected, (state, action) => {
-                state.error = action.payload.message;
+                state.error = action.payload?.message ?? 'An error occurred while fetching ingredients.';
                 state.isLoading = false;
             });
     },

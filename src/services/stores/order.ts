@@ -1,7 +1,14 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {fetchOrderNum} from "./action-creators";
+import {IOrderSuccessFields} from "../../utils/types/types";
 
-const initialState = {
+interface IOrderState {
+    orderData: IOrderSuccessFields | null,
+    loading: boolean,
+    error: string | null,
+}
+
+const initialState: IOrderState = {
     orderData: null,
     loading: false,
     error: null,

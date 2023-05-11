@@ -1,9 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {v4 as uuidv4} from 'uuid';
 import {BUN} from "../../utils/consts";
+import {IIngredientArrAndKey} from "../../utils/types/types";
 
 
-const initialState = {
+interface IConstructorState {
+    bun: IIngredientArrAndKey[] | null;
+    ingredients: IIngredientArrAndKey[];
+}
+
+const initialState: IConstructorState = {
     bun: null,
     ingredients: []
 }

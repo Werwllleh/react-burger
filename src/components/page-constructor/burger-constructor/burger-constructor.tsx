@@ -11,6 +11,7 @@ import {fetchOrderNum} from "../../../services/stores/action-creators";
 import {removeOrderData} from "../../../services/stores/order";
 import {useLocation, useNavigate} from "react-router-dom";
 import {IIngredientArrAndKey} from "../../../utils/types/types";
+import {useAppSelector} from "../../../utils/hooks/redux-hooks";
 
 
 const BurgerConstructor = (): JSX.Element => {
@@ -21,10 +22,10 @@ const BurgerConstructor = (): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  //@ts-ignore
-  const {bun, ingredients} = useSelector(state => state.constructorReducer);
-  //@ts-ignore
-  const user = useSelector(state => state.userReducer.userData.email)
+
+  const {bun, ingredients} = useAppSelector(state => state.constructorData)
+
+  const user = useAppSelector(state => state.userInfo.userData)
 
   const ingredientsPrice = useMemo(() => {
     return ingredients.reduce((accumulator: number, currentValue: IIngredientArrAndKey) => {
@@ -43,7 +44,7 @@ const BurgerConstructor = (): JSX.Element => {
   const orderArr = ingredients.length > 0 && bun ? ingredients.concat(bun) : false;
 
   const toggleModal = () => {
-    if (user !== null && user !== '' && user !== undefined) {
+    if (user !== null && user !== undefined) {
       let sendArr = orderArr.reduce((acc: string[], item: IIngredientArrAndKey) => {
         if (item.info.type === BUN) {
           acc.push(item.info._id, item.info._id);

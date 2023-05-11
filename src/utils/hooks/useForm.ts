@@ -1,6 +1,6 @@
 import {ChangeEvent, useState} from "react";
 
-interface FormValues {
+export interface FormValues {
     [key: string]: string;
 }
 

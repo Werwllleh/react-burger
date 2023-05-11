@@ -35,5 +35,11 @@ export interface IResponseError {
 }
 
 export interface IResponseSuccess {
-    success : boolean;
+    success: boolean;
+}
+
+export interface IOrderSuccessFields {
+    success: boolean;
+    name: string;
+    number: number;
 }

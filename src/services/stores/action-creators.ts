@@ -9,11 +9,14 @@ import {
     userLogoutSystem, userUpdateSystem
 } from "../../utils/auth-api";
 import {apiRoutes} from "../../utils/consts";
+import {IIngredientArr, IResponseSuccess} from "../../utils/types/types";
+
+type TIngredientsFetch = { data: IIngredientArr[] } & IResponseSuccess;
 
 export const fetchIngredients = createAsyncThunk(
     'ingredients/fetchData',
-    async (_) => {
-        const data = await getProductData();
+    async () => {
+        const data = await getProductData() as TIngredientsFetch;
         return data.data;
     }
 );
@@ -56,14 +59,15 @@ export const fetchUpdateUserData = createAsyncThunk(
 export const getUserInfo = createAsyncThunk(
     'user/get_info',
     async (_) => {
+        const accessToken = localStorage.getItem("accessToken") as string;
         return await fetchWithRefresh(apiRoutes.USER_INFO, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
-                authorization: localStorage.getItem("accessToken"),
+                authorization: accessToken,
             },
         });
     }
 );
 
-// export const connect = createAction<string, "ORDERS_CONNECT">("ORDERS_CONNECT");
+export const connect = createAction<string, "ORDERS_CONNECT">("ORDERS_CONNECT");

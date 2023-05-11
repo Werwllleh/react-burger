@@ -5,6 +5,7 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import {fetchUserLogin} from "../../services/stores/action-creators";
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "../../utils/hooks/useForm";
+import {useAppSelector} from "../../utils/hooks/redux-hooks";
 
 
 const Login = (): JSX.Element => {
@@ -20,8 +21,7 @@ const Login = (): JSX.Element => {
 
     const {values, handleChange, setValues} = useForm(initialFormValues);
 
-    //@ts-ignore
-    const user = useSelector(state => state.userReducer.email)
+    const user = useAppSelector(state => state.userInfo.userData.email)
 
     const formHandler = (e:FormEvent) => {
         e.preventDefault();

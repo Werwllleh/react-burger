@@ -3,6 +3,7 @@ import {requestToApi} from "./burger-api";
 import {getUserInfo} from "../services/stores/action-creators";
 import {setAuthChecked} from "../services/stores/user-data";
 import {IFormValuesDefault, IResponseSuccess, ITokensResponse} from "./types/types";
+import {FormValues} from "./hooks/useForm";
 
 type TFormEmailPass = Omit<IFormValuesDefault, "name">;
 type TFormEmail = Omit<IFormValuesDefault, "name, password">;
@@ -98,7 +99,7 @@ export const userLogoutSystem = async () => {
         })
     )
 }
-export const userUpdateSystem = async (values: IFormValuesDefault) => {
+export const userUpdateSystem = async (values: FormValues) => {
     return (
         await requestToApi(apiRoutes.USER_INFO, {
             method: "PATCH",

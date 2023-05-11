@@ -2,20 +2,19 @@ import React from 'react';
 import { ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './my-constructor-element.module.css';
 import {ItemTypes} from "../../../../utils/consts";
-import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import {addToConstructor} from "../../../../services/stores/constructor-ingredients";
 import bun_plug from '../../../../images/bun-plug.png'
 import main_plug from '../../../../images/main-plug.png'
 import DraggableConstructorCard from "../draggable-constructor-card/draggable-constructor-card";
 import {IIngredientArrAndKey} from "../../../../utils/types/types";
+import {useAppDispatch, useAppSelector} from "../../../../utils/hooks/redux-hooks";
 
 
 const MyConstructorElement = (): JSX.Element => {
 
-    const dispatch = useDispatch();
-    //@ts-ignore
-    const {bun, ingredients} = useSelector(state => state.constructorReducer);
+    const dispatch = useAppDispatch();
+    const {bun, ingredients} = useAppSelector(state => state.constructorData)
 
     const [{canDrop, isOver}, dropTarget] = useDrop({
         accept: ItemTypes.CONSTRUCTOR_LIST,

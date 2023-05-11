@@ -1,19 +1,19 @@
 import {configureStore} from "@reduxjs/toolkit";
-import thunkMiddleware from 'redux-thunk';
 import constructorReducer from './stores/constructor-ingredients';
 import ingredientsReducer from './stores/ingredients-data';
 import orderReducer from './stores/order';
 import userReducer from './stores/user-data';
 
 
-export const setupStore = () => {
-    return configureStore({
+export const setupStore = configureStore({
         reducer: {
-            ingredientsReducer,
-            constructorReducer,
-            orderReducer,
-            userReducer
-        },
-        middleware: [thunkMiddleware]
+            ingredientsData: ingredientsReducer,
+            constructorData: constructorReducer,
+            orderInfo: orderReducer,
+            userInfo: userReducer
+        }
     })
-}
+
+
+export type RootState = ReturnType<typeof setupStore.getState>
+export type AppDispatch = typeof setupStore.dispatch

@@ -1,13 +1,12 @@
 import React from 'react';
 import {ReactComponent as IconSuccessSvg} from '../../../images/icon-success.svg'
 import styles from './order-details.module.css';
-import {useSelector} from "react-redux";
 import Loader from "../../loader/loader";
+import {useAppSelector} from "../../../utils/hooks/redux-hooks";
 
 const OrderDetails = () => {
 
-    //@ts-ignore
-    const data = useSelector(state => state.orderReducer.orderData)
+    const data = useAppSelector(state => state.orderInfo.orderData)
 
     return (
         data?.success === true ? (
