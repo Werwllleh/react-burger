@@ -8,7 +8,6 @@ import Registration from "../../pages/page-registration/registration";
 import ForgotPassword from "../../pages/page-forgot-password/forgot-password";
 import ResetPassword from "../../pages/page-reset-password/reset-password";
 import Profile from "../../pages/page-profile/profile";
-import {useDispatch} from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../modals-inner/ingredient-details/ingredient-details";
 import {fetchIngredients} from "../../services/stores/action-creators";
@@ -20,25 +19,23 @@ import styles from './app.module.css';
 import Feed from "../../pages/page-feed/feed";
 import PageFeedDetail from "../../pages/page-feed-detail/page-feed-detail";
 import AboutOrder from "../modals-inner/about-order/about-order";
+import {useAppDispatch} from "../../utils/hooks/redux-hooks";
 
 
 function App(): JSX.Element {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation();
     const navigate = useNavigate();
     const background = location.state && location.state.background;
 
 
     useEffect(() => {
-        //@ts-ignore
         dispatch(fetchIngredients());
-        //@ts-ignore
         dispatch(checkUserAuth());
     }, [dispatch]);
 
     const closeModal = () => {
-        //@ts-ignore
         dispatch(removeOrderData())
         navigate(-1);
     }

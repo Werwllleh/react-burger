@@ -5,20 +5,19 @@ import CurrentPrice from "../../current-price/current-price";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../modal/modal";
 import OrderDetails from "../../modals-inner/order-details/order-details";
-import {BUN} from "../../../utils/consts";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchOrderNum} from "../../../services/stores/action-creators";
 import {removeOrderData} from "../../../services/stores/order";
 import {useLocation, useNavigate} from "react-router-dom";
 import {IIngredientArrAndKey} from "../../../utils/types/types";
-import {useAppSelector} from "../../../utils/hooks/redux-hooks";
+import {useAppDispatch, useAppSelector} from "../../../utils/hooks/redux-hooks";
+import {BUN} from "../../../utils/consts";
 
 
 const BurgerConstructor = (): JSX.Element => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -34,14 +33,14 @@ const BurgerConstructor = (): JSX.Element => {
   }, [ingredients]);
 
   const bunsPrice = useMemo(() => {
-    return bun?.info.price * 2 || 0;
+    return bun?.info.price && bun.info.price * 2 || 0;
   }, [bun]);
 
   const price = useMemo(() => {
     return ingredientsPrice + bunsPrice
   }, [bunsPrice, ingredientsPrice])
 
-  const orderArr = ingredients.length > 0 && bun ? ingredients.concat(bun) : false;
+  const orderArr: IIngredientArrAndKey[] | false = ingredients.length > 0 && bun ? ingredients.concat(bun) : false;
 
   const toggleModal = () => {
     if (user !== null && user !== undefined) {
@@ -53,7 +52,6 @@ const BurgerConstructor = (): JSX.Element => {
         }
         return acc;
       }, []);
-      //@ts-ignore
       dispatch(fetchOrderNum(sendArr));
       setIsOpen(!isOpen)
     } else {
@@ -71,10 +69,11 @@ const BurgerConstructor = (): JSX.Element => {
       <MyConstructorElement/>
       <div className={styles.ordering}>
         <CurrentPrice size={'medium'} sum={price}/>
-        <Button onClick={orderArr ? toggleModal : undefined} extraClass={styles.btn} htmlType="button"
-                type="primary" size="large">
-          Оформить заказ
-        </Button>
+        {orderArr && (
+            <Button onClick={toggleModal} extraClass={styles.btn} htmlType="button" type="primary" size="large">
+              Оформить заказ
+            </Button>
+        )}
       </div>
       {isOpen ? (
         <Modal onClose={closeModal}>

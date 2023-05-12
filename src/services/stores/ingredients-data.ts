@@ -5,7 +5,7 @@ import {IIngredientArr} from "../../utils/types/types";
 interface IIngredientsState {
     ingredients: IIngredientArr[];
     isLoading: boolean;
-    error: string | null;
+    error: string | null | undefined;
 }
 
 const initialState: IIngredientsState = {
@@ -29,7 +29,7 @@ const ingredientsSlice = createSlice({
                 state.ingredients = action.payload;
             })
             .addCase(fetchIngredients.rejected, (state, action) => {
-                state.error = action.payload?.message ?? 'An error occurred while fetching ingredients.';
+                state.error = action.error.message;
                 state.isLoading = false;
             });
     },

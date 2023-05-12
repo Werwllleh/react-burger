@@ -5,7 +5,7 @@ import {IOrderSuccessFields} from "../../utils/types/types";
 interface IOrderState {
     orderData: IOrderSuccessFields | null,
     loading: boolean,
-    error: string | null,
+    error: string | null | undefined,
 }
 
 const initialState: IOrderState = {
@@ -29,13 +29,13 @@ const orderSlice = createSlice({
             state.loading = true;
             state.error = null;
         });
-        builder.addCase(fetchOrderNum.fulfilled, (state, action) => {
+        builder.addCase(fetchOrderNum.fulfilled, (state, action:PayloadAction<IOrderSuccessFields>) => {
             state.orderData = action.payload;
             state.loading = false;
         });
         builder.addCase(fetchOrderNum.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.error.message;
         });
     },
 })

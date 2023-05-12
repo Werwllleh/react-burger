@@ -4,7 +4,7 @@ import styles from './order-details.module.css';
 import Loader from "../../loader/loader";
 import {useAppSelector} from "../../../utils/hooks/redux-hooks";
 
-const OrderDetails = () => {
+const OrderDetails = ():JSX.Element => {
 
     const data = useAppSelector(state => state.orderInfo.orderData)
 
@@ -12,7 +12,7 @@ const OrderDetails = () => {
         data?.success === true ? (
             <div className={styles.body}>
                 <div className={`${styles.order_num} text text_type_digits-large`}>
-                    {data?.order?.number}
+                    {data?.order.number}
                 </div>
                 <div className={`${styles.order_text} text text_type_main-medium`}>
                     идентификатор заказа

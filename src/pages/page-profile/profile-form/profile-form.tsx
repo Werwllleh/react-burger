@@ -2,7 +2,7 @@ import React, {FormEvent, useEffect, useState} from 'react';
 import styles from "./profile-form.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {fetchUpdateUserData} from "../../../services/stores/action-creators";
-import {useForm} from "../../../utils/hooks/useForm";
+import {FormValues, useForm} from "../../../utils/hooks/useForm";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks/redux-hooks";
 import {IFormValuesDefault} from "../../../utils/types/types";
 
@@ -13,7 +13,7 @@ const ProfileForm = (): JSX.Element => {
 
     const {name, email} = useAppSelector(state => state.userInfo.userData);
 
-    const initialFormValues: IFormValuesDefault = {
+    const initialFormValues = {
         name: name,
         email: email,
         password: ""
@@ -22,7 +22,7 @@ const ProfileForm = (): JSX.Element => {
     const {values, handleChange, setValues} = useForm(initialFormValues);
 
     useEffect(() => {
-        if (values.name !== name || values.email !== email || (values.password !== '' && values.password.length  >= 8)) {
+        if (values.name !== name || values.email !== email || (values.password && values.password !== '' && values.password.length  >= 8)) {
             setFormChange(true);
         } else {
             setFormChange(false);
@@ -31,7 +31,7 @@ const ProfileForm = (): JSX.Element => {
 
     const formHandler = (e: FormEvent) => {
         e.preventDefault();
-        if (formChange === true) {
+        if (formChange) {
             dispatch(fetchUpdateUserData(values));
             setFormChange(false);
         }

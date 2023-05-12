@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
     fetchLogOut,
     fetchNewPassword,
@@ -9,7 +9,17 @@ import {
 } from "./action-creators";
 
 
-const initialState = {
+interface IUserState {
+    userData: {
+        name: string | null;
+        email: string | null;
+    };
+    loading: boolean;
+    error: string | null | undefined;
+    isAuthChecked: boolean;
+}
+
+const initialState: IUserState = {
     userData: {
         name: null,
         email: null,
@@ -23,12 +33,11 @@ const userSlice = createSlice({
     name: "user_registration",
     initialState,
     reducers: {
-        setAuthChecked: (state, action) => {
+        setAuthChecked: (state, action: PayloadAction<boolean>) => {
             state.isAuthChecked = action.payload;
         },
     },
     extraReducers: (builder) => {
-
         builder
             .addCase(getUserInfo.pending, (state) => {
                 state.loading = true;
@@ -134,7 +143,7 @@ const userSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchLogOut.fulfilled, (state, action) => {
+            .addCase(fetchLogOut.fulfilled, (state) => {
                 state.userData = {
                     name: '',
                     email: '',
@@ -148,5 +157,5 @@ const userSlice = createSlice({
     },
 });
 
-export const { setAuthChecked} = userSlice.actions;
+export const {setAuthChecked} = userSlice.actions;
 export default userSlice.reducer;

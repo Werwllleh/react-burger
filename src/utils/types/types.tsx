@@ -1,3 +1,4 @@
+export type TIngredientsFetch = { data: IIngredientArr[] } & IResponseSuccess;
 
 export interface IIngredientArr {
     _id: string,
@@ -20,9 +21,9 @@ export interface IIngredientArrAndKey extends IIngredientArr {
 }
 
 export interface IFormValuesDefault {
-    name: string;
-    email: string;
-    password: string;
+    name: string | null;
+    email: string | null;
+    password: string | null;
 }
 
 export interface ITokensResponse {
@@ -37,9 +38,21 @@ export interface IResponseError {
 export interface IResponseSuccess {
     success: boolean;
 }
+export interface IResponseMessage {
+    message: string;
+}
 
 export interface IOrderSuccessFields {
     success: boolean;
     name: string;
-    number: number;
+    order: {
+        number: number;
+    };
+}
+export interface IUserDataPayload {
+    user: {
+        name: string | null;
+        email: string | null;
+    };
+    success: boolean;
 }

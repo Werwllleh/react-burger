@@ -1,5 +1,5 @@
 import {apiRoutes, URL} from "./consts";
-import {IResponseError} from "./types/types";
+import {IOrderSuccessFields, IResponseError, TIngredientsFetch} from "./types/types";
 
 /**============API UNIQUE REQUESTS============**/
 
@@ -14,13 +14,13 @@ export const requestToApi = <T>(endpoint: string, options?: RequestInit): Promis
 
 /**============FOR BURGER REQUESTS============**/
 
-export const getProductData = async () => {
+export const getProductData = async ():Promise<TIngredientsFetch> => {
   return await requestToApi(apiRoutes.GET_INGREDIENTS)
 }
 
 export const getOrderNum = async (orderArr: string[]) => {
   return (
-    await requestToApi(apiRoutes.GET_ORDER_NUM, {
+    await requestToApi<IOrderSuccessFields>(apiRoutes.GET_ORDER_NUM, {
       method: "post",
       headers: {
         'Accept': 'application/json',
