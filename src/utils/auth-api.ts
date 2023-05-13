@@ -2,15 +2,19 @@ import {apiRoutes} from "./consts";
 import {requestToApi} from "./burger-api";
 import {getUserInfo} from "../services/stores/action-creators";
 import {setAuthChecked} from "../services/stores/user-data";
-import {IFormValuesDefault, IResponseMessage, IResponseSuccess, ITokensResponse, IUserDataPayload} from "./types/types";
+import {
+    IFormValuesDefault,
+    IResponseMessage,
+    IResponseSuccess,
+    ITokensResponse,
+    IUserDataPayload,
+    TFormPasswordToken
+} from "./types/types";
 import {FormValues} from "./hooks/useForm";
 import {AppDispatch} from "../services/store";
 
 type TFormEmailPass = Omit<IFormValuesDefault, "name">;
-type TFormPasswordToken = {
-    password: string;
-    token: string;
-};
+
 
 export const getRegisterData = async (values: IFormValuesDefault) => {
     return (
@@ -130,7 +134,7 @@ export const refreshToken = () => {
 };
 export const fetchWithRefresh = async (url: string, options: RequestInit) => {
     try {
-        return await requestToApi<Record <string, string> & IResponseSuccess>(url, options);
+        return await requestToApi(url, options);
     } catch (err: unknown) {
         if ((err as Error).message === "jwt expired") {
             const refreshData = await refreshToken();

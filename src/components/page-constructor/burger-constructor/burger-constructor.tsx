@@ -33,14 +33,14 @@ const BurgerConstructor = (): JSX.Element => {
   }, [ingredients]);
 
   const bunsPrice = useMemo(() => {
-    return bun?.info.price && bun.info.price * 2 || 0;
+    return (bun && bun.info.price * 2) || 0;
   }, [bun]);
 
   const price = useMemo(() => {
     return ingredientsPrice + bunsPrice
   }, [bunsPrice, ingredientsPrice])
 
-  const orderArr: IIngredientArrAndKey[] | false = ingredients.length > 0 && bun ? ingredients.concat(bun) : false;
+  const orderArr: IIngredientArrAndKey[] = ingredients.length > 0 && bun ? ingredients.concat(bun) : [];
 
   const toggleModal = () => {
     if (user !== null && user !== undefined) {

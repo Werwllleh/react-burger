@@ -39,7 +39,7 @@ const ForgotPassword = (): JSX.Element => {
                     <div className={styles.input}>
                         <EmailInput
                             onChange={handleChange}
-                            value={values.email}
+                            value={values.email as string}
                             name={'email'}
                             isIcon={false}
                         />

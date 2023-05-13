@@ -1,7 +1,7 @@
 import {ChangeEvent, useState} from "react";
 
 export interface FormValues {
-    [key: string]: string | null;
+    [key: string]: string;
 }
 
 type UseFormReturnType = {

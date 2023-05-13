@@ -3,14 +3,13 @@ import styles from '../logreg.module.css'
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {fetchUserLogin} from "../../services/stores/action-creators";
-import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "../../utils/hooks/useForm";
-import {useAppSelector} from "../../utils/hooks/redux-hooks";
+import {useAppDispatch, useAppSelector} from "../../utils/hooks/redux-hooks";
 
 
 const Login = (): JSX.Element => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -26,7 +25,6 @@ const Login = (): JSX.Element => {
     const formHandler = (e:FormEvent) => {
         e.preventDefault();
         if (values.email && values.password) {
-            //@ts-ignore
             dispatch(fetchUserLogin(values));
             setValues({
                 email: "",

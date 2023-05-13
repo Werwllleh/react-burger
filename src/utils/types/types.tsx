@@ -15,6 +15,10 @@ export interface IIngredientArr {
     calories: number,
 }
 
+export interface IIngredientInfo {
+    info: IIngredientArr
+}
+
 export interface IIngredientArrAndKey extends IIngredientArr {
     key: string;
     info: IIngredientArr;
@@ -56,3 +60,8 @@ export interface IUserDataPayload {
     };
     success: boolean;
 }
+
+export type TFormPasswordToken = {
+    password: string;
+    token: string;
+};

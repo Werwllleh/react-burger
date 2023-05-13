@@ -6,10 +6,12 @@ import {
     getUserLogin,
     resetUserPassword,
     sendNewPassword,
-    userLogoutSystem, userUpdateSystem
+    userLogoutSystem,
+    userUpdateSystem
 } from "../../utils/auth-api";
 import {apiRoutes} from "../../utils/consts";
 import {IUserDataPayload} from "../../utils/types/types";
+
 
 export const fetchIngredients = createAsyncThunk(
     'ingredients/fetchData',
@@ -64,8 +66,9 @@ export const getUserInfo = createAsyncThunk(
                 "Content-Type": "application/json;charset=utf-8",
                 authorization: accessToken,
             },
-        });
+        }) as Promise<IUserDataPayload>;
     }
 );
+
 
 export const connect = createAction<string, "ORDERS_CONNECT">("ORDERS_CONNECT");

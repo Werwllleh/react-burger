@@ -2,7 +2,8 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
     fetchLogOut,
     fetchNewPassword,
-    fetchResetPassword, fetchUpdateUserData,
+    fetchResetPassword,
+    fetchUpdateUserData,
     fetchUserData,
     fetchUserLogin,
     getUserInfo
@@ -134,7 +135,6 @@ const userSlice = createSlice({
             })
             .addCase(fetchUserLogin.rejected, (state, action) => {
                 state.loading = false;
-                state.successLogin = false;
                 state.error = action.error.message;
             });
 
