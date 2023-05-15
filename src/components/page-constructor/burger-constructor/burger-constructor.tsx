@@ -43,7 +43,7 @@ const BurgerConstructor = (): JSX.Element => {
   const orderArr: IIngredientArrAndKey[] = ingredients.length > 0 && bun ? ingredients.concat(bun) : [];
 
   const toggleModal = () => {
-    if (user !== null && user !== undefined) {
+    if (user.name !== null && user.name !== undefined && user.name !== "") {
       let sendArr = orderArr.reduce((acc: string[], item: IIngredientArrAndKey) => {
         if (item.info.type === BUN) {
           acc.push(item.info._id, item.info._id);

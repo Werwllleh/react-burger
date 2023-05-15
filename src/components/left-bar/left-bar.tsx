@@ -2,12 +2,12 @@ import React, {MouseEvent} from 'react';
 import {NavLink, useLocation} from "react-router-dom";
 import styles from './left-bar.module.css';
 import {fetchLogOut} from "../../services/stores/action-creators";
-import {useDispatch} from "react-redux";
 import {clearConstructorIngredients} from "../../services/stores/constructor-ingredients";
+import {useAppDispatch} from '../../utils/hooks/redux-hooks';
 
 const LeftBar = (): JSX.Element => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const currentLink = useLocation();
 
     let note;
@@ -25,9 +25,7 @@ const LeftBar = (): JSX.Element => {
 
     const logOut = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        //@ts-ignore
         dispatch(fetchLogOut());
-        //@ts-ignore
         dispatch(clearConstructorIngredients());
     }
 
