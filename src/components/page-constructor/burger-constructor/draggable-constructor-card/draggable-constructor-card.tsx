@@ -5,15 +5,16 @@ import {useDispatch} from "react-redux";
 import {removeFromConstructor, updateConstructorIngredients} from "../../../../services/stores/constructor-ingredients";
 import {useDrag, useDrop, XYCoord} from "react-dnd";
 import {ItemTypes} from "../../../../utils/consts";
-import {IIngredientArrAndKey} from "../../../../utils/types/types";
+import {IConstructorIngredient} from "../../../../utils/types/types";
 
 interface DraggableConstructorCardProps {
     index: number;
-    item: IIngredientArrAndKey;
+    item: IConstructorIngredient;
 }
 
 const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps): JSX.Element => {
 
+    console.log(item)
     const ref = useRef<HTMLDivElement | null>(null)
     const dispatch = useDispatch();
     const removeIngredient = (id: string) => {

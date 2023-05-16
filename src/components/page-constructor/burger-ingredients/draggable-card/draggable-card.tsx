@@ -4,16 +4,15 @@ import CurrentPrice from "../../../current-price/current-price";
 import {Counter} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag} from "react-dnd";
 import {ItemTypes} from "../../../../utils/consts";
-import {useSelector} from "react-redux";
 import {Link, useLocation} from "react-router-dom";
-import {IIngredientArr, IIngredientArrAndKey} from "../../../../utils/types/types";
+import {IIngredient} from "../../../../utils/types/types";
 import {useAppSelector} from "../../../../utils/hooks/redux-hooks";
 
 interface DraggableCardProps {
-    info: IIngredientArr;
+    info: IIngredient;
 }
 
-const DraggableCard = ({info}:DraggableCardProps): JSX.Element => {
+const DraggableCard = ({info}: DraggableCardProps): JSX.Element => {
 
     const location = useLocation();
     const ingredientId = info['_id'];
@@ -21,14 +20,14 @@ const DraggableCard = ({info}:DraggableCardProps): JSX.Element => {
     const {bun, ingredients} = useAppSelector(state => state.constructorData)
 
     const countedItems = useMemo(() => {
-        const usedAllIngredients = ingredients.map((item: IIngredientArrAndKey) => item.info._id).concat(bun?.info._id || []);
-        return usedAllIngredients.reduce((usedIngs: {[key: string]: number}, item:string) => {
+        const usedAllIngredients = ingredients.map((item) => item.info._id).concat(bun?.info._id || []);
+        return usedAllIngredients.reduce((usedIngs: { [key: string]: number }, item: string) => {
             const currCount = usedIngs[item] || 0;
             return Object.assign({}, usedIngs, {[item]: currCount + 1});
         }, {});
     }, [bun, ingredients]);
 
-    const count = (key:string) => {
+    const count = (key: string) => {
         return countedItems[key];
     };
 

@@ -1,9 +1,9 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {fetchIngredients} from "./action-creators";
-import {IIngredientArr} from "../../utils/types/types";
+import {IIngredient} from "../../utils/types/types";
 
 interface IIngredientsState {
-    ingredients: IIngredientArr[];
+    ingredients: IIngredient[];
     isLoading: boolean;
     error: string | null | undefined;
 }
@@ -23,7 +23,7 @@ const ingredientsSlice = createSlice({
             .addCase(fetchIngredients.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(fetchIngredients.fulfilled, (state, action: PayloadAction<IIngredientArr[]>) => {
+            .addCase(fetchIngredients.fulfilled, (state, action: PayloadAction<IIngredient[]>) => {
                 state.isLoading = false;
                 state.error = null;
                 state.ingredients = action.payload;

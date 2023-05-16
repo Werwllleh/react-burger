@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
+import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './my-constructor-element.module.css';
 import {ItemTypes} from "../../../../utils/consts";
 import {useDrop} from "react-dnd";
@@ -7,9 +7,8 @@ import {addToConstructor} from "../../../../services/stores/constructor-ingredie
 import bun_plug from '../../../../images/bun-plug.png'
 import main_plug from '../../../../images/main-plug.png'
 import DraggableConstructorCard from "../draggable-constructor-card/draggable-constructor-card";
-import {IIngredientArrAndKey} from "../../../../utils/types/types";
+import {IConstructorIngredient} from "../../../../utils/types/types";
 import {useAppDispatch, useAppSelector} from "../../../../utils/hooks/redux-hooks";
-
 
 const MyConstructorElement = (): JSX.Element => {
 
@@ -18,7 +17,7 @@ const MyConstructorElement = (): JSX.Element => {
 
     const [{canDrop, isOver}, dropTarget] = useDrop({
         accept: ItemTypes.CONSTRUCTOR_LIST,
-        drop(info) {
+        drop(info: IConstructorIngredient):void {
             dispatch(addToConstructor(info))
         },
         collect: (monitor) => ({
@@ -51,7 +50,7 @@ const MyConstructorElement = (): JSX.Element => {
             )}
             <div className={styles.list}>
                 {ingredients.length > 0 ? (
-                    ingredients.map((item:IIngredientArrAndKey, index: number) => {
+                    ingredients.map((item:IConstructorIngredient, index: number) => {
                         return (
                             <div key={item.key}>
                                 <DraggableConstructorCard item={item} index={index}/>

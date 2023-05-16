@@ -1,6 +1,6 @@
-export type TIngredientsFetch = { data: IIngredientArr[] } & IResponseSuccess;
+export type TIngredientsFetch = { data: IIngredient[] } & IResponseSuccess;
 
-export interface IIngredientArr {
+export interface IIngredient {
     _id: string,
     __v: number,
     type: string,
@@ -15,13 +15,9 @@ export interface IIngredientArr {
     calories: number,
 }
 
-export interface IIngredientInfo {
-    info: IIngredientArr
-}
-
-export interface IIngredientArrAndKey extends IIngredientArr {
+export interface IConstructorIngredient{
     key: string;
-    info: IIngredientArr;
+    info: IIngredient;
 }
 
 export interface IFormValuesDefault {
