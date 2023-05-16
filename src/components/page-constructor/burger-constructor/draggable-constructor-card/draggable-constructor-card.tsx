@@ -7,13 +7,13 @@ import {useDrag, useDrop, XYCoord} from "react-dnd";
 import {ItemTypes} from "../../../../utils/consts";
 import {IConstructorIngredient} from "../../../../utils/types/types";
 
+
 interface DraggableConstructorCardProps {
     index: number;
     item: IConstructorIngredient;
 }
 
 const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps): JSX.Element => {
-
     console.log(item)
     const ref = useRef<HTMLDivElement | null>(null)
     const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps):
 
     const [{isDragging}, dragRef] = useDrag({
         type: ItemTypes.CONSTRUCTOR_CONTAINER,
-        item: {index},
+        item: index,
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         })
@@ -31,7 +31,7 @@ const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps):
 
     const [, dropRef] = useDrop({
         accept: ItemTypes.CONSTRUCTOR_CONTAINER,
-        hover(item: {index: number}, monitor) {
+        hover(item: { index: number }, monitor) {
             if (!ref.current) {
                 return
             }
@@ -72,9 +72,9 @@ const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps):
                 <DragIcon type="primary"/>
             </div>
             <ConstructorElement
-                text={item.info.name}
-                price={item.info.price}
-                thumbnail={item.info.image}
+                text={item.ingredient.name}
+                price={item.ingredient.price}
+                thumbnail={item.ingredient.image}
                 handleClose={() => removeIngredient(item.key)}
             />
         </div>

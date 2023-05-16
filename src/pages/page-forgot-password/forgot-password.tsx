@@ -13,7 +13,7 @@ const ForgotPassword = (): JSX.Element => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const initialFormValues = {
+    const initialFormValues: {email: string} = {
         email: ""
     };
 
@@ -39,7 +39,7 @@ const ForgotPassword = (): JSX.Element => {
                     <div className={styles.input}>
                         <EmailInput
                             onChange={handleChange}
-                            value={values.email as string}
+                            value={values.email}
                             name={'email'}
                             isIcon={false}
                         />

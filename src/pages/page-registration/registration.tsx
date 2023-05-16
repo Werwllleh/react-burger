@@ -10,7 +10,13 @@ import {useAppDispatch} from "../../utils/hooks/redux-hooks";
 const Registration = (): JSX.Element => {
     const dispatch = useAppDispatch();
 
-    const initialFormValues = {
+    interface IRegFormTypes {
+        name: string;
+        email: string;
+        password: string;
+    }
+
+    const initialFormValues: IRegFormTypes = {
         name: "",
         email: "",
         password: ""
@@ -42,14 +48,14 @@ const Registration = (): JSX.Element => {
                             type={'text'}
                             placeholder={'Имя'}
                             onChange={handleChange}
-                            value={values.name as string}
+                            value={values.name}
                             name={'name'}
                         />
                     </div>
                     <div className={styles.input}>
                         <EmailInput
                             onChange={handleChange}
-                            value={values.email as string}
+                            value={values.email}
                             name={'email'}
                             isIcon={false}
                         />
@@ -57,7 +63,7 @@ const Registration = (): JSX.Element => {
                     <div className={styles.input}>
                         <PasswordInput
                             onChange={handleChange}
-                            value={values.password as string}
+                            value={values.password}
                             name={'password'}
                         />
                     </div>

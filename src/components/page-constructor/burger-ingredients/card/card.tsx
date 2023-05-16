@@ -12,7 +12,7 @@ const Card = ({data}: CardProps): JSX.Element => {
     return (
         <div className={styles.body}>
             {data.map((item) =>
-                <DraggableCard key={item._id} info={item}/>
+                <DraggableCard key={item._id} ingredient={item}/>
             )}
         </div>
     );

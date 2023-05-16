@@ -7,7 +7,7 @@ import {addToConstructor} from "../../../../services/stores/constructor-ingredie
 import bun_plug from '../../../../images/bun-plug.png'
 import main_plug from '../../../../images/main-plug.png'
 import DraggableConstructorCard from "../draggable-constructor-card/draggable-constructor-card";
-import {IConstructorIngredient} from "../../../../utils/types/types";
+import {IConstructorIngredient, IIngredient} from "../../../../utils/types/types";
 import {useAppDispatch, useAppSelector} from "../../../../utils/hooks/redux-hooks";
 
 const MyConstructorElement = (): JSX.Element => {
@@ -17,8 +17,8 @@ const MyConstructorElement = (): JSX.Element => {
 
     const [{canDrop, isOver}, dropTarget] = useDrop({
         accept: ItemTypes.CONSTRUCTOR_LIST,
-        drop(info: IConstructorIngredient):void {
-            dispatch(addToConstructor(info))
+        drop(ingredient: IIngredient): void {
+            dispatch(addToConstructor(ingredient))
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
@@ -35,9 +35,9 @@ const MyConstructorElement = (): JSX.Element => {
                 <ConstructorElement
                     type="top"
                     isLocked={true}
-                    text={bun.info.name + ' (верх)'}
-                    price={bun.info.price}
-                    thumbnail={bun.info.image}
+                    text={bun.ingredient.name + ' (верх)'}
+                    price={bun.ingredient.price}
+                    thumbnail={bun.ingredient.image}
                 />
             ) : (
                 <ConstructorElement
@@ -72,9 +72,9 @@ const MyConstructorElement = (): JSX.Element => {
                 <ConstructorElement
                     type="bottom"
                     isLocked={true}
-                    text={bun.info.name + ' (низ)'}
-                    price={bun.info.price}
-                    thumbnail={bun.info.image}
+                    text={bun.ingredient.name + ' (низ)'}
+                    price={bun.ingredient.price}
+                    thumbnail={bun.ingredient.image}
                 />
             ) : (
                 <ConstructorElement

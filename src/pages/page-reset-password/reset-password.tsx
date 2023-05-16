@@ -5,15 +5,19 @@ import {Link, useNavigate} from "react-router-dom";
 import {fetchNewPassword} from "../../services/stores/action-creators";
 import {useForm} from "../../utils/hooks/useForm";
 import {useAppDispatch} from "../../utils/hooks/redux-hooks";
-import {TFormPasswordToken} from '../../utils/types/types';
+
 
 const ResetPassword = (): JSX.Element => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
+    interface IResetPassFormTypes {
+        password: string;
+        token: string;
+    }
 
-    const initialFormValues: TFormPasswordToken = {
+    const initialFormValues: IResetPassFormTypes = {
         password: "",
         token: ""
     };
@@ -47,7 +51,7 @@ const ResetPassword = (): JSX.Element => {
                     <div className={styles.input}>
                         <PasswordInput
                             onChange={handleChange}
-                            value={values.password as string}
+                            value={values.password}
                             name={'password'}
                         />
                     </div>
@@ -56,7 +60,7 @@ const ResetPassword = (): JSX.Element => {
                             type={'text'}
                             placeholder={'Введите код из письма'}
                             onChange={handleChange}
-                            value={values.token as string}
+                            value={values.token}
                             name={'token'}
                         />
                     </div>

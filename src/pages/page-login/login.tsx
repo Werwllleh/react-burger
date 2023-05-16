@@ -6,14 +6,18 @@ import {fetchUserLogin} from "../../services/stores/action-creators";
 import {useForm} from "../../utils/hooks/useForm";
 import {useAppDispatch, useAppSelector} from "../../utils/hooks/redux-hooks";
 
-
 const Login = (): JSX.Element => {
 
     const dispatch = useAppDispatch();
     const location = useLocation();
     const navigate = useNavigate();
 
-    const initialFormValues = {
+    interface ILoginFormTypes {
+        email: string;
+        password: string;
+    }
+
+    const initialFormValues: ILoginFormTypes = {
         email: "",
         password: ""
     };

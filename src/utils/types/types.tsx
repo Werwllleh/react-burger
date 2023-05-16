@@ -15,10 +15,18 @@ export interface IIngredient {
     calories: number,
 }
 
-export interface IConstructorIngredient{
+/*export interface IConstructorIngredient{
     key: string;
     info: IIngredient;
+}*/
+
+export interface IConstructorIngredient extends IIngredient{
+    key: string;
 }
+
+/*export interface IConstructorIngredient extends IIngredient {
+    key: string;
+}*/
 
 export interface IFormValuesDefault {
     name: string | null;

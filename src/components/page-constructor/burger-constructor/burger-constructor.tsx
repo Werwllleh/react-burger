@@ -10,6 +10,7 @@ import {removeOrderData} from "../../../services/stores/order";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks/redux-hooks";
 import {BUN} from "../../../utils/consts";
+import {IConstructorIngredient} from "../../../utils/types/types";
 
 
 const BurgerConstructor = (): JSX.Element => {
@@ -26,28 +27,28 @@ const BurgerConstructor = (): JSX.Element => {
   const user = useAppSelector(state => state.userInfo.userData)
 
   const ingredientsPrice = useMemo(() => {
-    return ingredients.reduce((accumulator: number, currentValue) => {
-      return accumulator + (currentValue.info.price || 0);
+    return ingredients.reduce((accumulator: number, currentValue: IConstructorIngredient) => {
+      return accumulator + (currentValue.ingredient.price || 0);
     }, 0);
   }, [ingredients]);
 
-  const bunsPrice = useMemo(() => {
-    return (bun && bun.info.price * 2) || 0;
+  const bunsPrice: number = useMemo(() => {
+    return (bun && bun.ingredient.price * 2) || 0;
   }, [bun]);
 
-  const price = useMemo(() => {
+  const price: number = useMemo(() => {
     return ingredientsPrice + bunsPrice
   }, [bunsPrice, ingredientsPrice])
 
-  const orderArr = ingredients.length > 0 && bun ? ingredients.concat(bun) : [];
+  const orderArr: IConstructorIngredient[] = ingredients.length > 0 && bun ? ingredients.concat(bun) : [];
 
   const toggleModal = () => {
     if (user.name !== null && user.name !== undefined && user.name !== "") {
-      let sendArr = orderArr.reduce((acc: string[], item) => {
-        if (item.info.type === BUN) {
-          acc.push(item.info._id, item.info._id);
+      let sendArr = orderArr.reduce((acc: string[], item: IConstructorIngredient) => {
+        if (item.type === BUN) {
+          acc.push(item._id, item._id);
         } else {
-          acc.push(item.info._id);
+          acc.push(item._id);
         }
         return acc;
       }, []);

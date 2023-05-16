@@ -12,7 +12,13 @@ const ProfileForm = (): JSX.Element => {
 
     const {name, email} = useAppSelector(state => state.userInfo.userData);
 
-    const initialFormValues = {
+    interface IProfileFormTypes {
+        name: string | null;
+        email: string | null;
+        password: string;
+    }
+
+    const initialFormValues: IProfileFormTypes = {
         name: name,
         email: email,
         password: ""
@@ -52,7 +58,7 @@ const ProfileForm = (): JSX.Element => {
                         type={'text'}
                         placeholder={'Имя'}
                         onChange={handleChange}
-                        value={values.name as string}
+                        value={values.name}
                         name={'name'}
                         icon="EditIcon"
                     />
@@ -60,7 +66,7 @@ const ProfileForm = (): JSX.Element => {
                 <div className={styles.input}>
                     <EmailInput
                         onChange={handleChange}
-                        value={values.email as string}
+                        value={values.email}
                         name={'email'}
                         placeholder="Логин"
                         isIcon={true}
@@ -69,7 +75,7 @@ const ProfileForm = (): JSX.Element => {
                 <div className={styles.input}>
                     <PasswordInput
                         onChange={handleChange}
-                        value={values.password as string}
+                        value={values.password}
                         name={'password'}
                         icon="EditIcon"
                     />
