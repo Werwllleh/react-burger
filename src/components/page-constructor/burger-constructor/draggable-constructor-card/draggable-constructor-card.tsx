@@ -14,7 +14,7 @@ interface DraggableConstructorCardProps {
 }
 
 const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps): JSX.Element => {
-    console.log(item)
+
     const ref = useRef<HTMLDivElement | null>(null)
     const dispatch = useDispatch();
     const removeIngredient = (id: string) => {
@@ -72,9 +72,9 @@ const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps):
                 <DragIcon type="primary"/>
             </div>
             <ConstructorElement
-                text={item.ingredient.name}
-                price={item.ingredient.price}
-                thumbnail={item.ingredient.image}
+                text={item.name}
+                price={item.price}
+                thumbnail={item.image}
                 handleClose={() => removeIngredient(item.key)}
             />
         </div>

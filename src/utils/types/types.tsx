@@ -24,10 +24,6 @@ export interface IConstructorIngredient extends IIngredient{
     key: string;
 }
 
-/*export interface IConstructorIngredient extends IIngredient {
-    key: string;
-}*/
-
 export interface IFormValuesDefault {
     name: string | null;
     email: string | null;

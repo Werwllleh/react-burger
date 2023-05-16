@@ -28,12 +28,12 @@ const BurgerConstructor = (): JSX.Element => {
 
   const ingredientsPrice = useMemo(() => {
     return ingredients.reduce((accumulator: number, currentValue: IConstructorIngredient) => {
-      return accumulator + (currentValue.ingredient.price || 0);
+      return accumulator + (currentValue.price || 0);
     }, 0);
   }, [ingredients]);
 
   const bunsPrice: number = useMemo(() => {
-    return (bun && bun.ingredient.price * 2) || 0;
+    return (bun && bun.price * 2) || 0;
   }, [bun]);
 
   const price: number = useMemo(() => {

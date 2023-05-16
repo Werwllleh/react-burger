@@ -3,7 +3,6 @@ import {v4 as uuidv4} from 'uuid';
 import {BUN} from "../../utils/consts";
 import {IConstructorIngredient, IIngredient} from "../../utils/types/types";
 
-
 interface IConstructorState {
     bun: IConstructorIngredient | null;
     ingredients: IConstructorIngredient[];
@@ -20,7 +19,7 @@ const burgerConstructorSlice = createSlice({
     reducers: {
         addToConstructor: {
             reducer: (state, action: PayloadAction<IConstructorIngredient>) => {
-                if (action.payload.ingredient.type !== BUN) {
+                if (action.payload.type !== BUN) {
                     state.ingredients.push(action.payload)
                 } else {
                     state.bun = action.payload
@@ -28,7 +27,7 @@ const burgerConstructorSlice = createSlice({
             },
             prepare: (ingredient: IIngredient)=> {
                 const key = uuidv4();
-                return {payload: {key, ingredient}}
+                return {payload: { key, ...ingredient}}
             },
         },
         clearConstructorIngredients(state) {

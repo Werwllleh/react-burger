@@ -8,6 +8,7 @@ import {Link, useLocation} from "react-router-dom";
 import {IIngredient} from "../../../../utils/types/types";
 import {useAppSelector} from "../../../../utils/hooks/redux-hooks";
 
+
 interface DraggableCardProps {
     ingredient: IIngredient;
 }
@@ -20,7 +21,7 @@ const DraggableCard = ({ingredient}: DraggableCardProps): JSX.Element => {
     const {bun, ingredients} = useAppSelector(state => state.constructorData)
 
     const countedItems = useMemo(() => {
-        const usedAllIngredients = ingredients.map((item) => item.ingredient._id).concat(bun?.ingredient._id || []);
+        const usedAllIngredients = ingredients.map((item) => item._id).concat(bun?._id || []);
         return usedAllIngredients.reduce((usedIngs: { [key: string]: number }, item: string) => {
             const currCount = usedIngs[item] || 0;
             return Object.assign({}, usedIngs, {[item]: currCount + 1});

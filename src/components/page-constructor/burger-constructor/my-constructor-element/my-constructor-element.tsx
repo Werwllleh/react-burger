@@ -35,9 +35,9 @@ const MyConstructorElement = (): JSX.Element => {
                 <ConstructorElement
                     type="top"
                     isLocked={true}
-                    text={bun.ingredient.name + ' (верх)'}
-                    price={bun.ingredient.price}
-                    thumbnail={bun.ingredient.image}
+                    text={bun.name + ' (верх)'}
+                    price={bun.price}
+                    thumbnail={bun.image}
                 />
             ) : (
                 <ConstructorElement
@@ -72,9 +72,9 @@ const MyConstructorElement = (): JSX.Element => {
                 <ConstructorElement
                     type="bottom"
                     isLocked={true}
-                    text={bun.ingredient.name + ' (низ)'}
-                    price={bun.ingredient.price}
-                    thumbnail={bun.ingredient.image}
+                    text={bun.name + ' (низ)'}
+                    price={bun.price}
+                    thumbnail={bun.image}
                 />
             ) : (
                 <ConstructorElement
