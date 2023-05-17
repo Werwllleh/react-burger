@@ -1,20 +1,15 @@
 import React from 'react';
 import styles from './order-list.module.css';
 import OrderListCard from "./order-list-card/order-list-card";
+import {IWSOrdersResponse} from "../../utils/types/types";
 
-const OrderList = (): JSX.Element => {
-
-    const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all");
-
-    console.log(ws.readyState)
-
+const OrderList = ({feedsData}: { feedsData: IWSOrdersResponse | null }): JSX.Element => {
 
     return (
         <div className={styles.body}>
-            <OrderListCard/>
-            <OrderListCard/>
-            <OrderListCard/>
-            <OrderListCard/>
+            {feedsData?.orders.map((feedCard) => (
+                <OrderListCard key={feedCard.number} cardData={feedCard}/>
+            ))}
         </div>
     );
 };

@@ -154,7 +154,7 @@ export const checkUserAuth = () => {
     return (dispatch: AppDispatch) => {
         if (localStorage.getItem("accessToken") && localStorage.getItem("accessToken") !== "undefined") {
             dispatch(getUserInfo())
-                .catch((error) => {
+                .catch((error: Error) => {
                     localStorage.removeItem("accessToken");
                     localStorage.removeItem("refreshToken");
                 })

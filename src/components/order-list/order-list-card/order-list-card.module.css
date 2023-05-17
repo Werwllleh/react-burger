@@ -49,6 +49,11 @@
 
 .ingredients_icons {
     display: flex;
+    align-items: center;
+}
+
+.ingredients_icons_count {
+    margin: 0 0 0 10px;
 }
 
 .ingredients_icons div:first-child {

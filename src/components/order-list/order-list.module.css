@@ -2,6 +2,8 @@
     /*height: calc( 100vh - 150px );*/
     /*overflow-y: auto;*/
     padding: 0 8px 0 0;
+    max-height: 770px;
+    overflow-y: auto;
 }
 
 .body::-webkit-scrollbar {

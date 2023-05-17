@@ -35,3 +35,8 @@ export const route = {
     LOGOUT: '/logout',
     CURRENT_INGREDIENTS: '/ingredients/:ingredientId',
 }
+
+export const ws_routes = {
+    GET_GENERAL_ORDERS: 'wss://norma.nomoreparties.space/orders/all',
+}
+

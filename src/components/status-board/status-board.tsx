@@ -1,7 +1,23 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import styles from './status-board.module.css';
+import {IWSOrdersResponse} from "../../utils/types/types";
 
-const StatusBoard = () => {
+
+const StatusBoard = ({feedsData}: { feedsData: IWSOrdersResponse | null }): JSX.Element => {
+
+    const doneOrders: number[] = [];
+    const atWorkOrders: number[] = [];
+
+    useMemo(() => {
+        feedsData?.orders.filter(order => {
+            if (order.status === 'done') {
+                doneOrders.push(order.number)
+            } else {
+                atWorkOrders.push(order.number)
+            }
+        })
+    }, [feedsData])
+
     return (
         <div className={styles.body}>
             <div className={styles.status_columns}>
@@ -10,10 +26,9 @@ const StatusBoard = () => {
                         <p className={'text text_type_main-medium'}>Готовы:</p>
                     </div>
                     <div className={`${styles.column_numbers} ${styles.text_color}`}>
-                        <p className={'text text_type_main-medium'}>034533</p>
-                        <p className={'text text_type_main-medium'}>034533</p>
-                        <p className={'text text_type_main-medium'}>034533</p>
-                        <p className={'text text_type_main-medium'}>034533</p>
+                        {doneOrders.slice(0, 20).map(number => (
+                            <p key={number} className={'text text_type_main-medium'}>{number}</p>
+                        ))}
                     </div>
                 </div>
                 <div className={styles.column}>
@@ -21,10 +36,9 @@ const StatusBoard = () => {
                         <p className={'text text_type_main-medium'}>В работе:</p>
                     </div>
                     <div className={styles.column_numbers}>
-                        <p className={'text text_type_main-medium'}>034533</p>
-                        <p className={'text text_type_main-medium'}>034533</p>
-                        <p className={'text text_type_main-medium'}>034533</p>
-                        <p className={'text text_type_main-medium'}>034533</p>
+                        {atWorkOrders.slice(0, 20).map(number => (
+                            <p key={number} className={'text text_type_main-medium'}>{number}</p>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -33,7 +47,7 @@ const StatusBoard = () => {
                     <p className={'text text_type_main-medium'}>Выполнено за все время:</p>
                 </div>
                 <div className={styles.total}>
-                    <p className="text text_type_digits-large">28752</p>
+                    <p className="text text_type_digits-large">{feedsData?.total}</p>
                 </div>
             </div>
             <div className={styles.text_block}>
@@ -41,7 +55,7 @@ const StatusBoard = () => {
                     <p className={'text text_type_main-medium'}>Выполнено за сегодня:</p>
                 </div>
                 <div className={styles.total}>
-                    <p className="text text_type_digits-large">138</p>
+                    <p className="text text_type_digits-large">{feedsData?.totalToday}</p>
                 </div>
             </div>
         </div>

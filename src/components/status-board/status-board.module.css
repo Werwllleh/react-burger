@@ -20,9 +20,14 @@
 }
 
 .column_numbers {
-
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    column-gap: 10px;
 }
 
 .text_color {
     color: #00CCCC;
+
 }

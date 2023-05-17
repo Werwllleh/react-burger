@@ -21,7 +21,7 @@ const DraggableCard = ({ingredient}: DraggableCardProps): JSX.Element => {
     const {bun, ingredients} = useAppSelector(state => state.constructorData)
 
     const countedItems = useMemo(() => {
-        const usedAllIngredients = ingredients.map((item) => item._id).concat(bun?._id || []);
+        const usedAllIngredients = ingredients.map((item: IIngredient) => item._id).concat(bun?._id || []);
         return usedAllIngredients.reduce((usedIngs: { [key: string]: number }, item: string) => {
             const currCount = usedIngs[item] || 0;
             return Object.assign({}, usedIngs, {[item]: currCount + 1});
