@@ -50,7 +50,7 @@ const Login = (): JSX.Element => {
                     <div className={styles.input}>
                         <EmailInput
                             onChange={handleChange}
-                            value={values.email}
+                            value={values.email ?? ''}
                             name={'email'}
                             isIcon={false}
                         />
@@ -58,7 +58,7 @@ const Login = (): JSX.Element => {
                     <div className={styles.input}>
                         <PasswordInput
                             onChange={handleChange}
-                            value={values.password}
+                            value={values.password ?? ''}
                             name={'password'}
                         />
                     </div>

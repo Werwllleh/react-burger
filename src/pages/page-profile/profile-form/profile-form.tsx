@@ -58,7 +58,7 @@ const ProfileForm = (): JSX.Element => {
                         type={'text'}
                         placeholder={'Имя'}
                         onChange={handleChange}
-                        value={values.name}
+                        value={values.name ?? ''}
                         name={'name'}
                         icon="EditIcon"
                     />
@@ -66,7 +66,7 @@ const ProfileForm = (): JSX.Element => {
                 <div className={styles.input}>
                     <EmailInput
                         onChange={handleChange}
-                        value={values.email}
+                        value={values.email ?? ''}
                         name={'email'}
                         placeholder="Логин"
                         isIcon={true}
@@ -75,7 +75,7 @@ const ProfileForm = (): JSX.Element => {
                 <div className={styles.input}>
                     <PasswordInput
                         onChange={handleChange}
-                        value={values.password}
+                        value={values.password ?? ''}
                         name={'password'}
                         icon="EditIcon"
                     />

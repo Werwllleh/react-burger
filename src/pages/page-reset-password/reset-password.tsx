@@ -51,7 +51,7 @@ const ResetPassword = (): JSX.Element => {
                     <div className={styles.input}>
                         <PasswordInput
                             onChange={handleChange}
-                            value={values.password}
+                            value={values.password ?? ''}
                             name={'password'}
                         />
                     </div>
@@ -60,7 +60,7 @@ const ResetPassword = (): JSX.Element => {
                             type={'text'}
                             placeholder={'Введите код из письма'}
                             onChange={handleChange}
-                            value={values.token}
+                            value={values.token ?? ''}
                             name={'token'}
                         />
                     </div>

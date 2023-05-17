@@ -48,14 +48,14 @@ const Registration = (): JSX.Element => {
                             type={'text'}
                             placeholder={'Имя'}
                             onChange={handleChange}
-                            value={values.name}
+                            value={values.name ?? ''}
                             name={'name'}
                         />
                     </div>
                     <div className={styles.input}>
                         <EmailInput
                             onChange={handleChange}
-                            value={values.email}
+                            value={values.email ?? ''}
                             name={'email'}
                             isIcon={false}
                         />
@@ -63,7 +63,7 @@ const Registration = (): JSX.Element => {
                     <div className={styles.input}>
                         <PasswordInput
                             onChange={handleChange}
-                            value={values.password}
+                            value={values.password ?? ''}
                             name={'password'}
                         />
                     </div>

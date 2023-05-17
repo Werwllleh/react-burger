@@ -1,22 +1,16 @@
 import {ChangeEvent, useState} from "react";
 
-export interface FormValues {
-    [key: string]: string;
-}
-
-type UseFormReturnType = {
-    values: FormValues;
+type UseFormReturnType<T> = {
+    values: T;
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    setValues: (values: FormValues) => void;
+    setValues: (values: T) => void;
 };
+export function useForm<T>(inputValues: T): UseFormReturnType<T> {
+    const [values, setValues] = useState<T>(inputValues);
 
-export function useForm(inputValues: FormValues): UseFormReturnType {
-    const [values, setValues] = useState<FormValues>(inputValues);
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-        const { value, name } = e.target;
-        setValues({ ...values, [name]: value });
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const {value, name} = e.target;
+        setValues({...values, [name]: value});
     };
-
-    return { values, handleChange, setValues };
+    return {values, handleChange, setValues};
 }
