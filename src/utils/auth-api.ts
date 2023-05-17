@@ -10,11 +10,9 @@ import {
     IUserDataPayload,
     TFormPasswordToken
 } from "./types/types";
-import {FormValues} from "./hooks/useForm";
 import {AppDispatch} from "../services/store";
 
 type TFormEmailPass = Omit<IFormValuesDefault, "name">;
-
 
 export const getRegisterData = async (values: IFormValuesDefault) => {
     return (
@@ -103,7 +101,7 @@ export const userLogoutSystem = async () => {
         })
     )
 }
-export const userUpdateSystem = async (values: FormValues) => {
+export const userUpdateSystem = async (values: IFormValuesDefault) => {
     return (
         await requestToApi<IUserDataPayload>(apiRoutes.USER_INFO, {
             method: "PATCH",
