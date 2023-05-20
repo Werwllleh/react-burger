@@ -1,11 +1,11 @@
 import React, {useRef} from 'react';
 import styles from "./draggable-constructor-card.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch} from "react-redux";
 import {removeFromConstructor, updateConstructorIngredients} from "../../../../services/stores/constructor-ingredients";
 import {useDrag, useDrop, XYCoord} from "react-dnd";
 import {ItemTypes} from "../../../../utils/consts";
 import {IConstructorIngredient} from "../../../../utils/types/types";
+import {useAppDispatch} from "../../../../utils/hooks/redux-hooks";
 
 
 interface DraggableConstructorCardProps {
@@ -16,7 +16,7 @@ interface DraggableConstructorCardProps {
 const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps): JSX.Element => {
 
     const ref = useRef<HTMLDivElement | null>(null)
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const removeIngredient = (id: string) => {
         dispatch(removeFromConstructor({id}))
     }

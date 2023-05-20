@@ -3,7 +3,7 @@ import styles from './feed.module.css';
 import OrderList from "../../components/order-list/order-list";
 import StatusBoard from "../../components/status-board/status-board";
 import {useAppDispatch, useAppSelector} from "../../utils/hooks/redux-hooks";
-import {connect} from "../../services/stores/action-creators";
+import {connect, disconnect} from "../../services/stores/action-creators";
 import {ws_routes} from "../../utils/consts";
 
 
@@ -14,7 +14,10 @@ const Feed = () => {
 
     useEffect(() => {
         dispatch(connect(ws_routes.GET_GENERAL_ORDERS));
-    }, [])
+        return () => {
+            dispatch(disconnect());
+        };
+    }, [dispatch])
 
     return (
         <div className={'container'}>

@@ -2,6 +2,7 @@
 import type {Middleware, MiddlewareAPI} from 'redux';
 import {AppDispatch, RootState} from '../store';
 import {ActionCreatorWithoutPayload, ActionCreatorWithPayload} from "@reduxjs/toolkit";
+import {getUserInfo} from "../stores/action-creators";
 
 export type TWsActionTypes = {
     wsConnect: ActionCreatorWithPayload<string>;
@@ -40,7 +41,11 @@ export const socketMiddleware = (wsActions: TWsActionTypes): Middleware => {
                     const { data } = event;
                     const parsedData = JSON.parse(data);
 
-                    dispatch(onMessage(parsedData));
+                    if (parsedData.message === 'Invalid or missing token') {
+                        dispatch(getUserInfo())
+                    } else {
+                        dispatch(onMessage(parsedData));
+                    }
                 };
 
                 socket.onclose = event => {
