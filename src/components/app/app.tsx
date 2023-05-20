@@ -20,6 +20,7 @@ import Feed from "../../pages/page-feed/feed";
 import PageFeedDetail from "../../pages/page-feed-detail/page-feed-detail";
 import AboutOrder from "../modals-inner/about-order/about-order";
 import {useAppDispatch} from "../../utils/hooks/redux-hooks";
+import AboutOrderProfile from "../modals-inner/about-order-profile/about-order-profile";
 
 
 function App(): JSX.Element {
@@ -27,8 +28,8 @@ function App(): JSX.Element {
     const dispatch = useAppDispatch();
     const location = useLocation();
     const navigate = useNavigate();
-    const background = location.state && location.state.background;
 
+    const background = location.state && location.state.background;
 
     useEffect(() => {
         dispatch(fetchIngredients());
@@ -39,7 +40,6 @@ function App(): JSX.Element {
         dispatch(removeOrderData())
         navigate(-1);
     }
-
 
     return (
         <>
@@ -56,24 +56,26 @@ function App(): JSX.Element {
                     <Route path={route.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
                     <Route path={route.PROFILE} element={<OnlyAuth component={<Profile/>}/>}>
                         <Route path={route.MY_ORDERS} element={<Profile/>}/>
-                        <Route path={route.MY_ORDER_ID} element={<PageFeedDetail/>}/>
+                        <Route path={route.MY_ORDER_NUM} element={<AboutOrderProfile/>}/>
                     </Route>
                     <Route path={route.NF_404} element={<NotFound/>}/>
                 </Routes>
 
                 {background && (
                     <Routes>
-                        <Route
-                            path={route.CURRENT_INGREDIENTS}
-                            element={
-                                <Modal title="Детали ингредиента" onClose={closeModal}>
-                                    <IngredientDetails/>
-                                </Modal>
-                            }
-                        />
+                        <Route path={route.CURRENT_INGREDIENTS} element={
+                            <Modal title="Детали ингредиента" onClose={closeModal}>
+                                <IngredientDetails/>
+                            </Modal>
+                        }/>
                         <Route path={route.CURRENT_ORDER} element={
                             <Modal onClose={closeModal}>
                                 <AboutOrder/>
+                            </Modal>
+                        }/>
+                        <Route path={route.MY_ORDER_NUM} element={
+                            <Modal onClose={closeModal}>
+                                <AboutOrderProfile/>
                             </Modal>
                         }/>
                     </Routes>

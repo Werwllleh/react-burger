@@ -11,7 +11,6 @@ const IngredientDetails = () => {
     const currentId = location.pathname.split('/ingredients/')[1];
 
     const ingredients = useAppSelector(state => state.ingredientsData.ingredients)
-
     const data = ingredients.filter((item: IIngredient) => item._id === currentId)[0];
 
     return (

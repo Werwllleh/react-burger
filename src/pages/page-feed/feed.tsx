@@ -6,13 +6,14 @@ import {useAppDispatch, useAppSelector} from "../../utils/hooks/redux-hooks";
 import {connect} from "../../services/stores/action-creators";
 import {ws_routes} from "../../utils/consts";
 
+
 const Feed = () => {
 
     const dispatch = useAppDispatch();
-    const generalOrdersData = useAppSelector(state => state.generalOrders.usersOrders)
+    const generalOrdersData = useAppSelector(state => state.generalOrders.usersOrders);
 
     useEffect(() => {
-        dispatch(connect(ws_routes.GET_GENERAL_ORDERS))
+        dispatch(connect(ws_routes.GET_GENERAL_ORDERS));
     }, [])
 
     return (

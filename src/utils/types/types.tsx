@@ -45,6 +45,21 @@ export interface IOrderSuccessFields {
         number: number;
     };
 }
+
+export interface IOrderDetail {
+    success: boolean;
+    orders: [{
+        createdAt: string,
+        ingredients: string[],
+        name: string,
+        number: number,
+        owner: string,
+        status: string,
+        updatedAt: string,
+        __v: number,
+        _id: string,
+    }]
+}
 export interface IUserDataPayload {
     user: {
         name: string | null;

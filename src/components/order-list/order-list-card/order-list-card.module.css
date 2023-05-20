@@ -64,3 +64,14 @@
     margin: 0 0 0 -15px;
 }
 
+.status_done {
+    color: #4C4CFF;
+}
+
+.status_pending {
+    color: #00CCCC;
+}
+
+.status_created {
+    color: #FFFFFF;
+}

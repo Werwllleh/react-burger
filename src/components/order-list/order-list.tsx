@@ -5,9 +5,19 @@ import {IWSOrdersResponse} from "../../utils/types/types";
 
 const OrderList = ({feedsData}: { feedsData: IWSOrdersResponse | null }): JSX.Element => {
 
+    let sortedData;
+
+    if (feedsData?.orders !== undefined) {
+        sortedData = [...feedsData?.orders].sort((a, b) => {
+            const dateA = Date.parse(a.createdAt);
+            const dateB = Date.parse(b.createdAt);
+            return dateB - dateA;
+        });
+    }
+
     return (
         <div className={styles.body}>
-            {feedsData?.orders.map((feedCard) => (
+            {sortedData?.map((feedCard) => (
                 <OrderListCard key={feedCard.number} cardData={feedCard}/>
             ))}
         </div>

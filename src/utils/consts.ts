@@ -29,7 +29,7 @@ export const route = {
     RESET_PASSWORD: '/reset-password',
     PROFILE: '/profile',
     MY_ORDERS: '/profile/orders',
-    MY_ORDER_ID: '/profile/orders/:orderId',
+    MY_ORDER_NUM: '/profile/orders/:orderNum',
     FEED: '/feed',
     CURRENT_ORDER: '/feed/:feedId',
     LOGOUT: '/logout',
@@ -38,5 +38,6 @@ export const route = {
 
 export const ws_routes = {
     GET_GENERAL_ORDERS: 'wss://norma.nomoreparties.space/orders/all',
+    GET_CURRENT_USER_ORDERS: 'wss://norma.nomoreparties.space/orders',
 }
 

@@ -10,7 +10,7 @@ export type TWsActionTypes = {
     wsConnecting: ActionCreatorWithoutPayload;
     onOpen: ActionCreatorWithoutPayload;
     onClose: ActionCreatorWithoutPayload;
-    onError: ActionCreatorWithoutPayload;
+    onError: ActionCreatorWithPayload<string>;
     onMessage: ActionCreatorWithPayload<any>;
 }
 
@@ -33,7 +33,7 @@ export const socketMiddleware = (wsActions: TWsActionTypes): Middleware => {
                 };
 
                 socket.onerror = event => {
-                    dispatch(onError());
+                    dispatch(onError('An error has occurred'));
                 };
 
                 socket.onmessage = event => {

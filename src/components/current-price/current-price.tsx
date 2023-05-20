@@ -3,7 +3,7 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './current-price.module.css'
 
 interface CurrentPriceProps {
-    sum: number;
+    sum: number | undefined;
     size: string
 }
 

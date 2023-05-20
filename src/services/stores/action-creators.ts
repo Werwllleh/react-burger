@@ -1,5 +1,5 @@
 import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
-import {getOrderNum, getProductData} from "../../utils/burger-api";
+import {getOrderDetailData, getOrderNum, getProductData} from "../../utils/burger-api";
 import {
     fetchWithRefresh,
     getRegisterData,
@@ -24,6 +24,11 @@ export const fetchIngredients = createAsyncThunk(
 export const fetchOrderNum = createAsyncThunk(
     'order/fetchOrderNum',
     getOrderNum
+);
+
+export const fetchOrderDetailData = createAsyncThunk(
+    'order/fetchOrderDetailData',
+    getOrderDetailData
 );
 
 export const fetchUserData = createAsyncThunk(
@@ -79,4 +84,12 @@ export const wsClose = createAction("ORDERS_WS_CLOSE");
 export const wsMessage = createAction<IWSOrdersResponse, "ORDERS_WS_MESSAGE">("ORDERS_WS_MESSAGE");
 export const wsError = createAction<string, "ORDERS_WS_ERROR">("ORDERS_WS_ERROR");
 
-export type TOrdersActions = ReturnType<typeof connect> | ReturnType<typeof disconnect> | ReturnType<typeof wsConnecting> | ReturnType<typeof wsOpen> | ReturnType<typeof wsClose> | ReturnType<typeof wsMessage> | ReturnType<typeof connect> | ReturnType<typeof wsError>;
+// export type TOrdersActions = ReturnType<typeof connect> | ReturnType<typeof disconnect> | ReturnType<typeof wsConnecting> | ReturnType<typeof wsOpen> | ReturnType<typeof wsClose> | ReturnType<typeof wsMessage> | ReturnType<typeof connect> | ReturnType<typeof wsError>;
+
+export const user_order_connect = createAction<string, "USER_ORDERS_CONNECT">("USER_ORDERS_CONNECT");
+export const user_order_disconnect = createAction("USER_ORDERS_DISCONNECT");
+export const user_order_wsConnecting = createAction("USER_ORDERS_WS_CONNECTING");
+export const user_order_wsOpen = createAction("USER_ORDERS_WS_OPEN");
+export const user_order_wsClose = createAction("USER_ORDERS_WS_CLOSE");
+export const user_order_wsMessage = createAction<IWSOrdersResponse, "USER_ORDERS_WS_MESSAGE">("USER_ORDERS_WS_MESSAGE");
+export const user_order_wsError = createAction<string, "USER_ORDERS_WS_ERROR">("USER_ORDERS_WS_ERROR");

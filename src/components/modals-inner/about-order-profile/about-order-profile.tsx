@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo} from 'react';
-import styles from "./about-order.module.css";
+import styles from "./about-order-profile.module.css";
 import OrderIngredientIcon from "../../order-list/order-ingredient-icon/order-ingredient-icon";
 import CurrentPrice from "../../current-price/current-price";
 import {useLocation} from "react-router-dom";
@@ -9,7 +9,7 @@ import {IIngredient} from "../../../utils/types/types";
 import {FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {route} from "../../../utils/consts";
 
-const AboutOrder = (): JSX.Element => {
+const AboutOrderProfile = (): JSX.Element => {
 
     const dispatch = useAppDispatch();
     const {orderInfo} = useAppSelector(state => state.orderDetailInfo);
@@ -17,7 +17,7 @@ const AboutOrder = (): JSX.Element => {
 
     const location = useLocation();
 
-    const orderNumber = location.pathname.split(`${route.FEED}/`)[1];
+    const orderNumber = location.pathname.split(`${route.MY_ORDERS}/`)[1];
 
     useEffect(() => {
         dispatch(fetchOrderDetailData(orderNumber))
@@ -105,4 +105,4 @@ const AboutOrder = (): JSX.Element => {
     );
 };
 
-export default AboutOrder;
+export default AboutOrderProfile;
