@@ -56,7 +56,7 @@ function App(): JSX.Element {
                     <Route path={route.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
                     <Route path={route.PROFILE} element={<OnlyAuth component={<Profile/>}/>}>
                         <Route path={route.MY_ORDERS} element={<Profile/>}/>
-                        <Route path={route.MY_ORDER_NUM} element={<AboutOrderProfile/>}/>
+                        <Route path={route.MY_ORDER_NUM} element={<PageFeedDetail/>}/>
                     </Route>
                     <Route path={route.NF_404} element={<NotFound/>}/>
                 </Routes>
