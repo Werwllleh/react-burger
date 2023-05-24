@@ -2,27 +2,26 @@ import React, {useMemo, useRef, useState} from 'react';
 import styles from './burger-ingredients.module.css';
 import Tabs from "./tabs/tabs";
 import Category from "./category/category";
-import {useSelector} from "react-redux";
 import {BUN, FILLINGS, SAUCE} from "../../../utils/consts";
 import Loader from "../../loader/loader";
-import {IIngredientArr} from "../../../utils/types/types";
+import {IIngredient} from "../../../utils/types/types";
+import {useAppSelector} from "../../../utils/hooks/redux-hooks";
 
 
 const BurgerIngredients = (): JSX.Element => {
 
-    //@ts-ignore
-    const {isLoading, ingredients} = useSelector(state => state.ingredientsReducer)
+    const {isLoading, ingredients} = useAppSelector(state => state.ingredientsData)
 
     const buns = useMemo(() => {
-        return ingredients.filter((cat:IIngredientArr) => cat.type === BUN);
+        return ingredients.filter((cat:IIngredient) => cat.type === BUN);
     }, [ingredients]);
 
     const sauces = useMemo(() => {
-        return ingredients.filter((cat:IIngredientArr) => cat.type === SAUCE);
+        return ingredients.filter((cat:IIngredient) => cat.type === SAUCE);
     }, [ingredients]);
 
     const mains = useMemo(() => {
-        return ingredients.filter((cat:IIngredientArr) => cat.type === FILLINGS);
+        return ingredients.filter((cat:IIngredient) => cat.type === FILLINGS);
     }, [ingredients]);
 
     const bunRef = useRef<HTMLDivElement | null>(null);

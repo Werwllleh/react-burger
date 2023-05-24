@@ -8,14 +8,12 @@ import reportWebVitals from './reportWebVitals';
 import {setupStore} from "./services/store";
 
 
-const store = setupStore()
-
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <Provider store={store}>
+        <Provider store={setupStore}>
             <BrowserRouter>
                 <App/>
             </BrowserRouter>

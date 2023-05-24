@@ -2,15 +2,21 @@ import React, {FormEvent} from 'react';
 import styles from "../logreg.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {fetchUserData} from "../../services/stores/action-creators";
 import {useForm} from "../../utils/hooks/useForm";
+import {useAppDispatch} from "../../utils/hooks/redux-hooks";
 
 
 const Registration = (): JSX.Element => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const initialFormValues = {
+    interface IRegFormTypes {
+        name: string;
+        email: string;
+        password: string;
+    }
+
+    const initialFormValues: IRegFormTypes = {
         name: "",
         email: "",
         password: ""
@@ -20,8 +26,7 @@ const Registration = (): JSX.Element => {
 
     const formHandler = (e: FormEvent) => {
         e.preventDefault();
-        if (values.name.length >= 2 && values.email.length >= 2 && values.password.length >= 8) {
-            //@ts-ignore
+        if (values.name && values.name.length >= 2 && values.email && values.email.length >= 2 && values.password && values.password.length >= 8) {
             dispatch(fetchUserData(values))
             setValues({
                 name: "",
@@ -43,14 +48,14 @@ const Registration = (): JSX.Element => {
                             type={'text'}
                             placeholder={'Имя'}
                             onChange={handleChange}
-                            value={values.name}
+                            value={values.name ?? ''}
                             name={'name'}
                         />
                     </div>
                     <div className={styles.input}>
                         <EmailInput
                             onChange={handleChange}
-                            value={values.email}
+                            value={values.email ?? ''}
                             name={'email'}
                             isIcon={false}
                         />
@@ -58,7 +63,7 @@ const Registration = (): JSX.Element => {
                     <div className={styles.input}>
                         <PasswordInput
                             onChange={handleChange}
-                            value={values.password}
+                            value={values.password ?? ''}
                             name={'password'}
                         />
                     </div>

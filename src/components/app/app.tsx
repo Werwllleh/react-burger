@@ -8,7 +8,6 @@ import Registration from "../../pages/page-registration/registration";
 import ForgotPassword from "../../pages/page-forgot-password/forgot-password";
 import ResetPassword from "../../pages/page-reset-password/reset-password";
 import Profile from "../../pages/page-profile/profile";
-import {useDispatch} from "react-redux";
 import Modal from "../modal/modal";
 import IngredientDetails from "../modals-inner/ingredient-details/ingredient-details";
 import {fetchIngredients} from "../../services/stores/action-creators";
@@ -16,57 +15,73 @@ import {OnlyAuth, OnlyUnAuth} from "../../pages/protected-route";
 import {checkUserAuth} from "../../utils/auth-api";
 import {route} from "../../utils/consts";
 import {removeOrderData} from "../../services/stores/order";
+import styles from './app.module.css';
+import Feed from "../../pages/page-feed/feed";
+import PageFeedDetail from "../../pages/page-feed-detail/page-feed-detail";
+import AboutOrder from "../modals-inner/about-order/about-order";
+import {useAppDispatch} from "../../utils/hooks/redux-hooks";
+import AboutOrderProfile from "../modals-inner/about-order-profile/about-order-profile";
 
 
 function App(): JSX.Element {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation();
     const navigate = useNavigate();
+
     const background = location.state && location.state.background;
 
     useEffect(() => {
-        //@ts-ignore
         dispatch(fetchIngredients());
-        //@ts-ignore
         dispatch(checkUserAuth());
     }, [dispatch]);
 
     const closeModal = () => {
-        //@ts-ignore
         dispatch(removeOrderData())
         navigate(-1);
     }
 
-
     return (
         <>
-            <AppHeader/>
-            <Routes location={background || location}>
-                <Route index element={<PageConstructor/>}/>
-                <Route path={route.CURRENT_INGREDIENTS} element={<IngredientDetails/>}/>
-                <Route path={route.LOGIN} element={<OnlyUnAuth component={<Login/>}/>}/>
-                <Route path={route.REGISTER} element={<OnlyUnAuth component={<Registration/>}/>}/>
-                <Route path={route.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
-                <Route path={route.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
-                <Route path={route.PROFILE} element={<OnlyAuth component={<Profile/>}/>}>
-                    <Route path={route.MY_ORDERS} element={<Profile/>}/>
-                </Route>
-                <Route path={route.NF_404} element={<NotFound/>}/>
-            </Routes>
+            <div className={styles.App}>
+                <AppHeader/>
+                <Routes location={background || location}>
+                    <Route index element={<PageConstructor/>}/>
+                    <Route path={route.FEED} element={<Feed/>}/>
+                    <Route path={route.CURRENT_ORDER} element={<PageFeedDetail/>}/>
+                    <Route path={route.CURRENT_INGREDIENTS} element={<IngredientDetails/>}/>
+                    <Route path={route.LOGIN} element={<OnlyUnAuth component={<Login/>}/>}/>
+                    <Route path={route.REGISTER} element={<OnlyUnAuth component={<Registration/>}/>}/>
+                    <Route path={route.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
+                    <Route path={route.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
+                    <Route path={route.PROFILE} element={<OnlyAuth component={<Profile/>}/>}>
+                        <Route path={route.MY_ORDERS} element={<Profile/>}/>
+                        <Route path={route.MY_ORDER_NUM} element={<PageFeedDetail/>}/>
+                    </Route>
+                    <Route path={route.NF_404} element={<NotFound/>}/>
+                </Routes>
 
-            {background && (
-                <Routes>
-                    <Route
-                        path={route.CURRENT_INGREDIENTS}
-                        element={
+                {background && (
+                    <Routes>
+                        <Route path={route.CURRENT_INGREDIENTS} element={
                             <Modal title="Детали ингредиента" onClose={closeModal}>
                                 <IngredientDetails/>
                             </Modal>
-                        }
-                    />
-                </Routes>
-            )}
+                        }/>
+                        <Route path={route.CURRENT_ORDER} element={
+                            <Modal onClose={closeModal}>
+                                <AboutOrder/>
+                            </Modal>
+                        }/>
+                        <Route path={route.MY_ORDER_NUM} element={
+                            <Modal onClose={closeModal}>
+                                <AboutOrderProfile/>
+                            </Modal>
+                        }/>
+                    </Routes>
+                )}
+            </div>
+
         </>
     );
 }

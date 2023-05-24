@@ -1,0 +1,33 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.status_columns {
+    display: flex;
+    gap: 36px;
+}
+
+.column {
+    flex: 1 1 50%;
+    /*min-width: 206px;*/
+    /*width: 100%;*/
+}
+
+.column_title {
+    margin: 0 0 24px 0;
+}
+
+.column_numbers {
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    column-gap: 10px;
+}
+
+.text_color {
+    color: #00CCCC;
+
+}

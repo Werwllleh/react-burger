@@ -1,9 +1,14 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {v4 as uuidv4} from 'uuid';
 import {BUN} from "../../utils/consts";
+import {IConstructorIngredient, IIngredient} from "../../utils/types/types";
 
+interface IConstructorState {
+    bun: IConstructorIngredient | null;
+    ingredients: IConstructorIngredient[];
+}
 
-const initialState = {
+const initialState: IConstructorState = {
     bun: null,
     ingredients: []
 }
@@ -13,18 +18,17 @@ const burgerConstructorSlice = createSlice({
     initialState,
     reducers: {
         addToConstructor: {
-            reducer: (state, action) => {
-                if (action.payload.info.type !== BUN) {
+            reducer: (state, action: PayloadAction<IConstructorIngredient>) => {
+                if (action.payload.type !== BUN) {
                     state.ingredients.push(action.payload)
                 } else {
                     state.bun = action.payload
                 }
             },
-            prepare: ({info}) => ({
-                payload: {
-                    key: uuidv4(), info
-                }
-            }),
+            prepare: (ingredient: IIngredient)=> {
+                const key = uuidv4();
+                return {payload: { key, ...ingredient}}
+            },
         },
         clearConstructorIngredients(state) {
             state.bun = null;
@@ -41,4 +45,9 @@ const burgerConstructorSlice = createSlice({
 })
 
 export default burgerConstructorSlice.reducer;
-export const {addToConstructor, clearConstructorIngredients, updateConstructorIngredients, removeFromConstructor} = burgerConstructorSlice.actions
+export const {
+    addToConstructor,
+    clearConstructorIngredients,
+    updateConstructorIngredients,
+    removeFromConstructor
+} = burgerConstructorSlice.actions

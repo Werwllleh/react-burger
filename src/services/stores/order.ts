@@ -1,7 +1,14 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {fetchOrderNum} from "./action-creators";
+import {IOrderSuccessFields} from "../../utils/types/types";
 
-const initialState = {
+interface IOrderState {
+    orderData: IOrderSuccessFields | null,
+    loading: boolean,
+    error: string | null | undefined,
+}
+
+const initialState: IOrderState = {
     orderData: null,
     loading: false,
     error: null,
@@ -22,13 +29,13 @@ const orderSlice = createSlice({
             state.loading = true;
             state.error = null;
         });
-        builder.addCase(fetchOrderNum.fulfilled, (state, action) => {
+        builder.addCase(fetchOrderNum.fulfilled, (state, action:PayloadAction<IOrderSuccessFields>) => {
             state.orderData = action.payload;
             state.loading = false;
         });
         builder.addCase(fetchOrderNum.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.error.message;
         });
     },
 })

@@ -3,30 +3,32 @@ import styles from '../logreg.module.css'
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {fetchUserLogin} from "../../services/stores/action-creators";
-import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "../../utils/hooks/useForm";
-
+import {useAppDispatch, useAppSelector} from "../../utils/hooks/redux-hooks";
 
 const Login = (): JSX.Element => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation();
     const navigate = useNavigate();
 
-    const initialFormValues = {
+    interface ILoginFormTypes {
+        email: string;
+        password: string;
+    }
+
+    const initialFormValues: ILoginFormTypes = {
         email: "",
         password: ""
     };
 
     const {values, handleChange, setValues} = useForm(initialFormValues);
 
-    //@ts-ignore
-    const user = useSelector(state => state.userReducer.email)
+    const user = useAppSelector(state => state.userInfo.userData.email)
 
     const formHandler = (e:FormEvent) => {
         e.preventDefault();
         if (values.email && values.password) {
-            //@ts-ignore
             dispatch(fetchUserLogin(values));
             setValues({
                 email: "",
@@ -48,7 +50,7 @@ const Login = (): JSX.Element => {
                     <div className={styles.input}>
                         <EmailInput
                             onChange={handleChange}
-                            value={values.email}
+                            value={values.email ?? ''}
                             name={'email'}
                             isIcon={false}
                         />
@@ -56,7 +58,7 @@ const Login = (): JSX.Element => {
                     <div className={styles.input}>
                         <PasswordInput
                             onChange={handleChange}
-                            value={values.password}
+                            value={values.password ?? ''}
                             name={'password'}
                         />
                     </div>

@@ -1,18 +1,24 @@
 import React, {FormEvent, useEffect, useState} from 'react';
 import styles from "./profile-form.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchUpdateUserData} from "../../../services/stores/action-creators";
 import {useForm} from "../../../utils/hooks/useForm";
+import {useAppDispatch, useAppSelector} from "../../../utils/hooks/redux-hooks";
 
 const ProfileForm = (): JSX.Element => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [formChange, setFormChange] = useState(false)
-    //@ts-ignore
-    const {name, email} = useSelector(state => state.userReducer.userData);
 
-    const initialFormValues = {
+    const {name, email} = useAppSelector(state => state.userInfo.userData);
+
+    interface IProfileFormTypes {
+        name: string | null;
+        email: string | null;
+        password: string;
+    }
+
+    const initialFormValues: IProfileFormTypes = {
         name: name,
         email: email,
         password: ""
@@ -21,7 +27,7 @@ const ProfileForm = (): JSX.Element => {
     const {values, handleChange, setValues} = useForm(initialFormValues);
 
     useEffect(() => {
-        if (values.name !== name || values.email !== email || (values.password !== '' && values.password.length  >= 8)) {
+        if (values.name !== name || values.email !== email || (values.password && values.password !== '' && values.password.length  >= 8)) {
             setFormChange(true);
         } else {
             setFormChange(false);
@@ -30,8 +36,7 @@ const ProfileForm = (): JSX.Element => {
 
     const formHandler = (e: FormEvent) => {
         e.preventDefault();
-        if (formChange === true) {
-            //@ts-ignore
+        if (formChange) {
             dispatch(fetchUpdateUserData(values));
             setFormChange(false);
         }
@@ -53,7 +58,7 @@ const ProfileForm = (): JSX.Element => {
                         type={'text'}
                         placeholder={'Имя'}
                         onChange={handleChange}
-                        value={values.name}
+                        value={values.name ?? ''}
                         name={'name'}
                         icon="EditIcon"
                     />
@@ -61,7 +66,7 @@ const ProfileForm = (): JSX.Element => {
                 <div className={styles.input}>
                     <EmailInput
                         onChange={handleChange}
-                        value={values.email}
+                        value={values.email ?? ''}
                         name={'email'}
                         placeholder="Логин"
                         isIcon={true}
@@ -70,7 +75,7 @@ const ProfileForm = (): JSX.Element => {
                 <div className={styles.input}>
                     <PasswordInput
                         onChange={handleChange}
-                        value={values.password}
+                        value={values.password ?? ''}
                         name={'password'}
                         icon="EditIcon"
                     />

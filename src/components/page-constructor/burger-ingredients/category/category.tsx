@@ -1,10 +1,10 @@
 import React from 'react';
 import Card from "../card/card";
-import {IIngredientArr} from "../../../../utils/types/types";
+import {IIngredient} from "../../../../utils/types/types";
 
 interface CategoryProps {
     name: string;
-    data: IIngredientArr[];
+    data: IIngredient[];
 }
 
 const Category = ({name, data}:CategoryProps): JSX.Element => {

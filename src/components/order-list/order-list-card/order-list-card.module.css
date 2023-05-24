@@ -1,0 +1,77 @@
+.link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.link:not(:last-child) {
+    margin: 0 0 16px 0;
+}
+
+.body {
+    display: block;
+    border-radius: 40px;
+    padding: 24px;
+    background: #1C1C21;
+    width: 100%;
+    min-width: 580px;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.body:hover {
+    background: #32323a;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.head {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status {
+    margin: 8px 0 0 0;
+}
+
+.bottom {
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ingredients_icons {
+    display: flex;
+    align-items: center;
+}
+
+.ingredients_icons_count {
+    margin: 0 0 0 10px;
+}
+
+.ingredients_icons div:first-child {
+
+}
+
+.ingredients_icons div:not(:first-child) {
+    margin: 0 0 0 -15px;
+}
+
+.status_done {
+    color: #4C4CFF;
+}
+
+.status_pending {
+    color: #00CCCC;
+}
+
+.status_created {
+    color: #FFFFFF;
+}

@@ -1,28 +1,29 @@
 import React, {useRef} from 'react';
 import styles from "./draggable-constructor-card.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch} from "react-redux";
 import {removeFromConstructor, updateConstructorIngredients} from "../../../../services/stores/constructor-ingredients";
 import {useDrag, useDrop, XYCoord} from "react-dnd";
 import {ItemTypes} from "../../../../utils/consts";
-import {IIngredientArrAndKey} from "../../../../utils/types/types";
+import {IConstructorIngredient} from "../../../../utils/types/types";
+import {useAppDispatch} from "../../../../utils/hooks/redux-hooks";
+
 
 interface DraggableConstructorCardProps {
     index: number;
-    item: IIngredientArrAndKey;
+    item: IConstructorIngredient;
 }
 
 const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps): JSX.Element => {
 
     const ref = useRef<HTMLDivElement | null>(null)
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const removeIngredient = (id: string) => {
         dispatch(removeFromConstructor({id}))
     }
 
     const [{isDragging}, dragRef] = useDrag({
         type: ItemTypes.CONSTRUCTOR_CONTAINER,
-        item: {index},
+        item: index,
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         })
@@ -30,7 +31,7 @@ const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps):
 
     const [, dropRef] = useDrop({
         accept: ItemTypes.CONSTRUCTOR_CONTAINER,
-        hover(item: {index: number}, monitor) {
+        hover(item: { index: number }, monitor) {
             if (!ref.current) {
                 return
             }
@@ -71,9 +72,9 @@ const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps):
                 <DragIcon type="primary"/>
             </div>
             <ConstructorElement
-                text={item.info.name}
-                price={item.info.price}
-                thumbnail={item.info.image}
+                text={item.name}
+                price={item.price}
+                thumbnail={item.image}
                 handleClose={() => removeIngredient(item.key)}
             />
         </div>

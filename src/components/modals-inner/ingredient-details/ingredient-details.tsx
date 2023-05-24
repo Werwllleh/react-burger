@@ -1,17 +1,17 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
-import {useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
+import {useAppSelector} from "../../../utils/hooks/redux-hooks";
+import {IIngredient} from "../../../utils/types/types";
 
 
 const IngredientDetails = () => {
 
     const location = useLocation();
     const currentId = location.pathname.split('/ingredients/')[1];
-    //@ts-ignore
-    const ingredients = useSelector(state => state.ingredientsReducer.ingredients);
-    //@ts-ignore
-    const data = ingredients.filter(item => item._id === currentId)[0];
+
+    const ingredients = useAppSelector(state => state.ingredientsData.ingredients)
+    const data = ingredients.filter((item: IIngredient) => item._id === currentId)[0];
 
     return (
         <div className={styles.body}>

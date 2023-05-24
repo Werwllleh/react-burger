@@ -1,5 +1,5 @@
-import {useSelector} from "react-redux";
 import {Navigate, useLocation} from "react-router-dom";
+import {useAppSelector} from "../utils/hooks/redux-hooks";
 
 interface ProtectedProps {
     onlyUnAuth?: boolean;
@@ -9,10 +9,10 @@ interface ProtectedProps {
 type OnlyUnAuthProps = Omit<ProtectedProps, "onlyUnAuth">;
 
 const Protected = ({onlyUnAuth = false, component}: ProtectedProps) => {
-    //@ts-ignore
-    const isAuthChecked = useSelector(store => store.userReducer.isAuthChecked);
-    //@ts-ignore
-    const user = useSelector(store => store.userReducer.userData.email);
+
+    const isAuthChecked = useAppSelector(state => state.userInfo.isAuthChecked)
+    const user = useAppSelector(state => state.userInfo.userData.email)
+
     const location = useLocation();
 
     if (!isAuthChecked) {

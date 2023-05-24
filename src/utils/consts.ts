@@ -7,7 +7,6 @@ export const ESC_KEYCODE = 27;
 export const ItemTypes = {
     CONSTRUCTOR_LIST: 'constructorList',
     CONSTRUCTOR_CONTAINER: 'constructorContainer'
-
 }
 
 export const apiRoutes = {
@@ -30,6 +29,15 @@ export const route = {
     RESET_PASSWORD: '/reset-password',
     PROFILE: '/profile',
     MY_ORDERS: '/profile/orders',
+    MY_ORDER_NUM: '/profile/orders/:orderNum',
+    FEED: '/feed',
+    CURRENT_ORDER: '/feed/:feedId',
     LOGOUT: '/logout',
     CURRENT_INGREDIENTS: '/ingredients/:ingredientId',
 }
+
+export const ws_routes = {
+    GET_GENERAL_ORDERS: 'wss://norma.nomoreparties.space/orders/all',
+    GET_CURRENT_USER_ORDERS: 'wss://norma.nomoreparties.space/orders',
+}
+

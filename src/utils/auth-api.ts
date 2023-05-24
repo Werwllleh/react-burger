@@ -2,18 +2,21 @@ import {apiRoutes} from "./consts";
 import {requestToApi} from "./burger-api";
 import {getUserInfo} from "../services/stores/action-creators";
 import {setAuthChecked} from "../services/stores/user-data";
-import {IFormValuesDefault, IResponseSuccess, ITokensResponse} from "./types/types";
+import {
+    IFormValuesDefault,
+    IResponseMessage,
+    IResponseSuccess,
+    ITokensResponse,
+    IUserDataPayload,
+    TFormPasswordToken
+} from "./types/types";
+import {AppDispatch} from "../services/store";
 
 type TFormEmailPass = Omit<IFormValuesDefault, "name">;
-type TFormEmail = Omit<IFormValuesDefault, "name, password">;
-type TFormPasswordToken = {
-    password: string;
-    token: string;
-};
 
-export const getRegisterData = async (values: IFormValuesDefault): Promise<ITokensResponse> => {
+export const getRegisterData = async (values: IFormValuesDefault) => {
     return (
-        await requestToApi<ITokensResponse>(apiRoutes.REGISTER, {
+        await requestToApi<IUserDataPayload & ITokensResponse>(apiRoutes.REGISTER, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -31,9 +34,9 @@ export const getRegisterData = async (values: IFormValuesDefault): Promise<IToke
         })
     )
 }
-export const getUserLogin = async (userData: TFormEmailPass): Promise<ITokensResponse> => {
+export const getUserLogin = async (userData: TFormEmailPass) => {
     return (
-        await requestToApi<ITokensResponse>(apiRoutes.LOGIN, {
+        await requestToApi<IUserDataPayload & ITokensResponse>(apiRoutes.LOGIN, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -50,9 +53,9 @@ export const getUserLogin = async (userData: TFormEmailPass): Promise<ITokensRes
         })
     )
 }
-export const resetUserPassword = async (email: TFormEmail) => {
+export const resetUserPassword = async (email: string) => {
     return (
-        await requestToApi(apiRoutes.PASSWORD_RESET, {
+        await requestToApi<IResponseSuccess & IResponseMessage>(apiRoutes.PASSWORD_RESET, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -66,7 +69,7 @@ export const resetUserPassword = async (email: TFormEmail) => {
 }
 export const sendNewPassword = async (values: TFormPasswordToken) => {
     return (
-        await requestToApi(apiRoutes.PASSWORD_CHANGE, {
+        await requestToApi<IResponseSuccess & IResponseMessage>(apiRoutes.PASSWORD_CHANGE, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -81,7 +84,7 @@ export const sendNewPassword = async (values: TFormPasswordToken) => {
 }
 export const userLogoutSystem = async () => {
     return (
-        await requestToApi<IResponseSuccess>(apiRoutes.LOGOUT, {
+        await requestToApi<IResponseSuccess & IResponseMessage>(apiRoutes.LOGOUT, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -100,7 +103,7 @@ export const userLogoutSystem = async () => {
 }
 export const userUpdateSystem = async (values: IFormValuesDefault) => {
     return (
-        await requestToApi(apiRoutes.USER_INFO, {
+        await requestToApi<IUserDataPayload>(apiRoutes.USER_INFO, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json',
@@ -114,9 +117,9 @@ export const userUpdateSystem = async (values: IFormValuesDefault) => {
         })
     )
 }
-export const refreshToken = (): Promise <Record<string, string>> => {
+export const refreshToken = () => {
     return (
-        requestToApi(apiRoutes.TOKEN_REFRESH, {
+        requestToApi<IUserDataPayload & ITokensResponse>(apiRoutes.TOKEN_REFRESH, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
@@ -129,7 +132,7 @@ export const refreshToken = (): Promise <Record<string, string>> => {
 };
 export const fetchWithRefresh = async (url: string, options: RequestInit) => {
     try {
-        return await requestToApi<Record <string, string> & IResponseSuccess>(url, options);
+        return await requestToApi(url, options);
     } catch (err: unknown) {
         if ((err as Error).message === "jwt expired") {
             const refreshData = await refreshToken();
@@ -148,10 +151,10 @@ export const fetchWithRefresh = async (url: string, options: RequestInit) => {
 };
 
 export const checkUserAuth = () => {
-    return (dispatch: any):void => {
+    return (dispatch: AppDispatch) => {
         if (localStorage.getItem("accessToken") && localStorage.getItem("accessToken") !== "undefined") {
             dispatch(getUserInfo())
-                .catch((error: any) => {
+                .catch((error: Error) => {
                     localStorage.removeItem("accessToken");
                     localStorage.removeItem("refreshToken");
                 })
