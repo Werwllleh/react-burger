@@ -27,11 +27,9 @@ export const userOrdersReducer = createReducer(initialState, (builder) => {
         })
         .addCase(user_order_wsOpen, state => {
             state.status = WebsocketStatus.ONLINE;
-            state.connectingError = "";
         })
         .addCase(user_order_wsClose, state => {
             state.status = WebsocketStatus.OFFLINE;
-            state.connectingError = "";
         })
         .addCase(user_order_wsError, (state, action) => {
             state.connectingError = action.payload;

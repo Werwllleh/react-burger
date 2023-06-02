@@ -32,9 +32,11 @@ const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps):
     const [, dropRef] = useDrop({
         accept: ItemTypes.CONSTRUCTOR_CONTAINER,
         hover(item: { index: number }, monitor) {
+
             if (!ref.current) {
                 return
             }
+
             const dragIndex = item.index
             const hoverIndex = index
 
@@ -62,6 +64,7 @@ const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps):
 
         },
     })
+
 
     dragRef(dropRef(ref))
     const opacity = isDragging ? 0.2 : 1
