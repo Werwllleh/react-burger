@@ -30,10 +30,10 @@ const Modal = ({onClose, title, children}: ModalProps): JSX.Element => {
             <div className={styles.body}>
                 <div className={styles.body_inner}>
                     <div className={styles.header}>
-                        <div className={`${styles.title_text} text text_type_main-large`}>
+                        <div data-testid={'modal-title'} className={`${styles.title_text} text text_type_main-large`}>
                             {title ? title : null}
                         </div>
-                        <button onClick={onClose} className={styles.closeBtn}>
+                        <button data-testid={'close-modal-btn'} onClick={onClose} className={styles.closeBtn}>
                             <CloseIcon type="primary"/>
                         </button>
                     </div>

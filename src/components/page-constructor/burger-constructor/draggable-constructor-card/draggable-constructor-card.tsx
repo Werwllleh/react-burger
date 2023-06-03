@@ -23,7 +23,7 @@ const DraggableConstructorCard = ({index, item}: DraggableConstructorCardProps):
 
     const [{isDragging}, dragRef] = useDrag({
         type: ItemTypes.CONSTRUCTOR_CONTAINER,
-        item: index,
+        item: { index },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         })

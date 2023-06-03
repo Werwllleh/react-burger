@@ -11,7 +11,7 @@ const OrderDetails = ():JSX.Element => {
     return (
         data?.success === true ? (
             <div className={styles.body}>
-                <div className={`${styles.order_num} text text_type_digits-large`}>
+                <div data-testid={'order-number'} className={`${styles.order_num} text text_type_digits-large`}>
                     {data?.order.number}
                 </div>
                 <div className={`${styles.order_text} text text_type_main-medium`}>
