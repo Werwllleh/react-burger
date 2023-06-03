@@ -1,11 +1,11 @@
-import React, {FC} from 'react';
+import React from 'react';
 import styles from './modal-overlay.module.css'
 
 interface ModalOverlayProps {
     onClose: () => void;
 }
 
-const ModalOverlay: FC<ModalOverlayProps> = ({onClose}) => {
+const ModalOverlay = ({onClose}: ModalOverlayProps): JSX.Element => {
 
     return (
         <div onClick={() => onClose()} className={styles.modal_overlay}>

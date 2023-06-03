@@ -29,7 +29,7 @@ const MyConstructorElement = (): JSX.Element => {
     const isActive = canDrop && isOver
 
     return (
-        <div ref={dropTarget}
+        <div ref={dropTarget} data-testid={'drop-zone'}
              className={isActive ? styles.body + ' ' + styles.body_drop : canDrop ? styles.body + ' ' + styles.body_act : styles.body}>
             {bun ? (
                 <ConstructorElement

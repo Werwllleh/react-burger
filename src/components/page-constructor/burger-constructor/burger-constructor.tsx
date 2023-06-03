@@ -67,10 +67,10 @@ const BurgerConstructor = (): JSX.Element => {
   return (
     <>
       <MyConstructorElement/>
-      <div className={styles.ordering}>
+      <div data-testid={'order'} className={styles.ordering}>
         <CurrentPrice size={'medium'} sum={price}/>
         {orderArr && (
-            <Button onClick={toggleModal} extraClass={styles.btn} htmlType="button" type="primary" size="large">
+            <Button onClick={toggleModal} extraClass={`${styles.btn} btn-order`} htmlType="button" type="primary" size="large">
               Оформить заказ
             </Button>
         )}

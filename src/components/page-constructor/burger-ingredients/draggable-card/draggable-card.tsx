@@ -43,7 +43,7 @@ const DraggableCard = ({ingredient}: DraggableCardProps): JSX.Element => {
 
     return (
         <>
-            <Link key={ingredientId} to={`/ingredients/${ingredientId}`} state={{background: location}}
+            <Link data-testid={ingredient.name} key={ingredientId} to={`/ingredients/${ingredientId}`} state={{background: location}}
                   className={styles.link}>
                 <div ref={dragRef} style={{opacity}} className={styles.item}>
                     <img className={styles.image} src={ingredient.image} alt={ingredient.name}/>
@@ -53,8 +53,10 @@ const DraggableCard = ({ingredient}: DraggableCardProps): JSX.Element => {
                     <div className={`${styles.name} text text_type_main-default`}>
                         {ingredient.name}
                     </div>
-                    {count(ingredient._id) > 0 ?
-                        <Counter count={count(ingredient._id)} size="default" extraClass="counter"/> : null}
+                    <span data-testid={ingredient.name + ' count'}>
+                       {count(ingredient._id) > 0 ?
+                           <Counter count={count(ingredient._id)} size="default" extraClass="counter"/> : null}
+                    </span>
                 </div>
             </Link>
         </>

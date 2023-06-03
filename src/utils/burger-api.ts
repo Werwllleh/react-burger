@@ -1,14 +1,14 @@
 import {apiRoutes, URL} from "./consts";
-import {IOrderDetail, IOrderSuccessFields, IResponseError, TIngredientsFetch} from "./types/types";
+import {IOrderDetail, IOrderSuccessFields, TIngredientsFetch} from "./types/types";
 
 /**============API UNIQUE REQUESTS============**/
 
 export const checkResponse = <T>(res: Response): Promise<T> => {
-    return res.ok ? res.json() as Promise<T> : res.json().then((err: IResponseError) => Promise.reject(err));
+    return res.ok ? res.json() as Promise<T> : Promise.reject(`Ошибка ${res.status}`);
 };
 
 export const requestToApi = <T>(endpoint: string, options?: RequestInit): Promise<T> => {
-    return fetch(URL + endpoint, options).then(checkResponse<T>);
+    return fetch(URL + endpoint, options).then(checkResponse<T>)
 }
 
 

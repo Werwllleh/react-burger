@@ -13,7 +13,7 @@ const PageConstructor = (): JSX.Element => {
                 <div className="container">
                     <div className={styles.body}>
                         <div className={styles.column}>
-                            <h1 className='text text_type_main-large mb-5'>Соберите бургер</h1>
+                            <h1 data-testid={'constructor-page-title'} className='text text_type_main-large mb-5'>Соберите бургер</h1>
                             <BurgerIngredients />
                         </div>
                         <div className={styles.column}>

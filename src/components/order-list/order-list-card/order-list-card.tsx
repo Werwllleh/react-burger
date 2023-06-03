@@ -26,7 +26,7 @@ const OrderListCard = ({cardData}: { cardData: IFeedsIngredient }): JSX.Element 
         return cardPrice.reduce((accumulator: number, currentValue: number) => {
             return accumulator + (currentValue || 0);
         }, 0);
-    }, [cardData.ingredients, cardPrice]);
+    }, [cardPrice]);
 
 
     return (

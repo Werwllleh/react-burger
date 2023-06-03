@@ -9,14 +9,14 @@ const StatusBoard = ({feedsData}: { feedsData: IWSOrdersResponse | null }): JSX.
     const atWorkOrders: number[] = [];
 
     useMemo(() => {
-        feedsData?.orders.filter(order => {
+        return feedsData?.orders.filter((order) => {
             if (order.status === 'done') {
                 doneOrders.push(order.number)
             } else {
                 atWorkOrders.push(order.number)
             }
         })
-    }, [feedsData])
+    }, [feedsData, atWorkOrders, doneOrders])
 
     return (
         <div className={styles.body}>
