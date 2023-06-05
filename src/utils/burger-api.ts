@@ -4,7 +4,7 @@ import {IOrderDetail, IOrderSuccessFields, TIngredientsFetch} from "./types/type
 /**============API UNIQUE REQUESTS============**/
 
 export const checkResponse = <T>(res: Response): Promise<T> => {
-    return res.ok ? res.json() as Promise<T> : Promise.reject(`Ошибка ${res.status}`);
+    return res.ok ? res.json() as Promise<T> : res.json().then((err) => Promise.reject(err));
 };
 
 export const requestToApi = <T>(endpoint: string, options?: RequestInit): Promise<T> => {
